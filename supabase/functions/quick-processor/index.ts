@@ -1,0 +1,103 @@
+import { createClient } from "npm:@supabase/supabase-js@2";
+
+const supabase = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+);
+
+const WINDOW_MINUTES = 5;
+const BLOCK_MINUTES = 10;
+const HIGH_RISK_THRESHOLD = 3;
+
+Deno.serve(async (req) => {
+  const started = Date.now();
+  const forwarded = req.headers.get("x-forwarded-for");
+  const source = forwarded?.split(",")[0]?.trim() || "unknown";
+  const url = new URL(req.url);
+  const endpoint = url.pathname;
+  const method = req.method;
+  const userAgent = req.headers.get("user-agent") || "";
+
+  const { data: activeBlock } = await supabase
+    .from("security_blocks")
+    .select("reason, blocked_until")
+    .eq("source", source)
+    .eq("active", true)
+    .gt("blocked_until", new Date().toISOString())
+    .limit(1)
+    .maybeSingle();
+
+  if (activeBlock) {
+    await supabase.from("security_events").insert({
+      source,
+      endpoint,
+      method,
+      risk: "HIGH",
+      action: "BLOCKED",
+      request_count: 1,
+      details: { reason: activeBlock.reason },
+    });
+    return new Response(
+      JSON.stringify({ status: "blocked", agent: "Solvix Security", action: "BLOCKED" }),
+      { status: 429, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  let score = 0;
+  if (!["GET", "POST", "OPTIONS"].includes(method)) score += 20;
+  if (!userAgent) score += 10;
+
+  const suspiciousPaths = ["/admin", "/wp-admin", "/.env", "/phpmyadmin", "/config", "/backup"];
+  if (suspiciousPaths.some((p) => endpoint.toLowerCase().includes(p))) score += 50;
+
+  let risk = "LOW";
+  if (score >= 70) risk = "CRITICAL";
+  else if (score >= 40) risk = "HIGH";
+  else if (score >= 20) risk = "MEDIUM";
+
+  const since = new Date(Date.now() - WINDOW_MINUTES * 60 * 1000).toISOString();
+  const { count } = await supabase
+    .from("security_events")
+    .select("*", { count: "exact", head: true })
+    .eq("source", source)
+    .in("risk", ["HIGH", "CRITICAL"])
+    .gte("created_at", since);
+
+  const highRiskCount = count || 0;
+  let action = "ALLOW";
+
+  if (["HIGH", "CRITICAL"].includes(risk) && highRiskCount + 1 >= HIGH_RISK_THRESHOLD) {
+    const blockedUntil = new Date(Date.now() + BLOCK_MINUTES * 60 * 1000).toISOString();
+    const { error: blockError } = await supabase.from("security_blocks").insert({
+      source,
+      reason: "Repeated high-risk activity",
+      blocked_until: blockedUntil,
+      active: true,
+    });
+    action = blockError ? "ALERT_ONLY" : "TEMPORARY_BLOCK";
+  } else if (risk === "HIGH" || risk === "CRITICAL") {
+    action = "MONITOR";
+  }
+
+  await supabase.from("security_events").insert({
+    source,
+    endpoint,
+    method,
+    risk,
+    action,
+    request_count: highRiskCount + 1,
+    details: {
+      threat_score: score,
+      user_agent: userAgent,
+      response_time_ms: Date.now() - started,
+    },
+  });
+
+  return new Response(
+    JSON.stringify({ status: "healthy", agent: "Solvix Security", risk, threat_score: score, action }),
+    {
+      status: action === "TEMPORARY_BLOCK" ? 429 : 200,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+});
