@@ -6,6 +6,8 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
 
+const EARNINGS_CURRENCY = "UGX";
+
 Deno.serve(async () => {
   const started = Date.now();
 
@@ -21,20 +23,18 @@ Deno.serve(async () => {
     }
 
     const evaluated = (opportunities ?? []).map((opportunity) => {
-      const estimatedRevenue =
-        Number(
-          opportunity.estimated_revenue ??
-          opportunity.revenue ??
-          opportunity.amount ??
-          0,
-        );
+      const estimatedRevenue = Number(
+        opportunity.estimated_revenue ??
+        opportunity.revenue ??
+        opportunity.amount ??
+        0,
+      );
 
-      const estimatedCost =
-        Number(
-          opportunity.estimated_cost ??
-          opportunity.cost ??
-          0,
-        );
+      const estimatedCost = Number(
+        opportunity.estimated_cost ??
+        opportunity.cost ??
+        0,
+      );
 
       const estimatedProfit = estimatedRevenue - estimatedCost;
 
@@ -49,6 +49,7 @@ Deno.serve(async () => {
       return {
         id: opportunity.id,
         title: opportunity.title ?? "Untitled opportunity",
+        currency: EARNINGS_CURRENCY,
         estimated_revenue: estimatedRevenue,
         estimated_cost: estimatedCost,
         estimated_profit: estimatedProfit,
@@ -71,6 +72,7 @@ Deno.serve(async () => {
     const report = {
       agent: "Solvix Earning Agent",
       status: "SUCCESS",
+      currency: EARNINGS_CURRENCY,
       opportunities_evaluated: evaluated.length,
       qualified: qualified.length,
       rejected: rejected.length,
@@ -87,6 +89,7 @@ Deno.serve(async () => {
     const report = {
       agent: "Solvix Earning Agent",
       status: "ERROR",
+      currency: EARNINGS_CURRENCY,
       error: error instanceof Error ? error.message : String(error),
       execution_time_ms: Date.now() - started,
       timestamp: new Date().toISOString(),
