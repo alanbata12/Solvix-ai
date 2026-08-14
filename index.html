@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Solvix AI</title>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#070b12;color:#eef2f7}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#15233b 0,#070b12 45%);min-height:100vh}
+    main{max-width:1100px;margin:auto;padding:32px 20px 60px}.top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:28px}
+    h1{font-size:34px;margin:0}.sub{color:#9aa8ba;margin-top:6px}.pill{padding:8px 12px;border:1px solid #24405f;border-radius:999px;background:#0c1624;color:#79d99b;font-size:13px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.card{background:#0c121c;border:1px solid #1b2a3d;border-radius:16px;padding:20px;box-shadow:0 12px 30px #0004}
+    .label{color:#8c9caf;font-size:13px}.value{font-size:24px;font-weight:700;margin-top:8px}.ok{color:#78d99a}.muted{color:#9aa8ba;font-size:14px}.section{margin-top:24px}.agent{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #182434}.agent:last-child{border-bottom:0}
+    a{color:#8bc5ff;text-decoration:none}a:hover{text-decoration:underline}.footer{margin-top:28px;color:#718096;font-size:13px}
+  </style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div><h1>🧠 Solvix AI</h1><div class="sub">Autonomous operations and repair dashboard</div></div>
+    <div class="pill">● Production dashboard</div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="label">Vercel</div><div class="value ok">READY</div><div class="muted">Production deployment active</div></div>
+    <div class="card"><div class="label">Supabase</div><div class="value ok">CONNECTED</div><div class="muted">Core services configured</div></div>
+    <div class="card"><div class="label">Repair Agent</div><div class="value ok">ACTIVE</div><div class="muted">Protected repair endpoint</div></div>
+    <div class="card"><div class="label">Confirmed revenue</div><div class="value">UGX 0</div><div class="muted">Only verified revenue is shown</div></div>
+  </div>
+
+  <div class="card section">
+    <h2>Agents</h2>
+    <div class="agent"><span>Solvix Core</span><span class="ok">ONLINE</span></div>
+    <div class="agent"><span>Security</span><span class="ok">ONLINE</span></div>
+    <div class="agent"><span>IT</span><span class="ok">ONLINE</span></div>
+    <div class="agent"><span>Repair</span><span class="ok">ONLINE</span></div>
+    <div class="agent"><span>Opportunity / Earning</span><span class="muted">AWAITING VERIFIED OPPORTUNITIES</span></div>
+  </div>
+
+  <div class="card section">
+    <h2>Operations</h2>
+    <p class="muted">The dashboard is intentionally truthful: potential opportunities are not counted as earnings, and the repair agent only performs authorized repairs.</p>
+    <p><a href="https://github.com/alanbata12/Solvix-ai" target="_blank" rel="noreferrer">GitHub repository →</a></p>
+    <p><a href="https://solvix-ai.vercel.app" target="_blank" rel="noreferrer">Production URL →</a></p>
+  </div>
+
+  <div class="footer">Solvix • Last dashboard build: 2026-08-15 • Revenue is verified-only.</div>
+</main>
+</body>
+</html>
