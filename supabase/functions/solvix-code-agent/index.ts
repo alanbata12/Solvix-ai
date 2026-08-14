@@ -19,6 +19,26 @@ function authorized(req: Request) {
   return req.headers.get("Authorization") === `Bearer ${AGENT_KEY}`;
 }
 
+function githubPath(path: string) {
+  return path.split("/").map(encodeURIComponent).join("/");
+}
+
+function decodeBase64Utf8(value: string) {
+  const binary = atob(value.replace(/\n/g, ""));
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function encodeBase64Utf8(value: string) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+  }
+  return btoa(binary);
+}
+
 async function github(path: string, init: RequestInit = {}) {
   if (!GITHUB_TOKEN) throw new Error("GITHUB_TOKEN is not configured");
   const response = await fetch(`https://api.github.com${path}`, {
@@ -39,10 +59,13 @@ async function github(path: string, init: RequestInit = {}) {
 }
 
 async function readFile(path: string, ref: string) {
-  const data = await github(`/repos/${REPO}/contents/${path}?ref=${encodeURIComponent(ref)}`);
+  const data = await github(`/repos/${REPO}/contents/${githubPath(path)}?ref=${encodeURIComponent(ref)}`);
   if (data.type !== "file") throw new Error(`${path} is not a file`);
-  const content = atob(String(data.content).replace(/\n/g, ""));
-  return { path, sha: data.sha as string, content };
+  return {
+    path,
+    sha: data.sha as string,
+    content: decodeBase64Utf8(String(data.content)),
+  };
 }
 
 Deno.serve(async (req) => {
@@ -56,7 +79,9 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json();
     const error = String(body?.error ?? "").trim();
-    const paths = Array.isArray(body?.files) ? body.files.filter((p: unknown) => typeof p === "string") : [];
+    const paths = Array.isArray(body?.files)
+      ? body.files.filter((p: unknown) => typeof p === "string")
+      : [];
     const requestedMode = body?.mode === "diagnose" ? "diagnose" : "repair";
 
     if (!error) return json({ error: "error is required" }, 400);
@@ -65,7 +90,28 @@ Deno.serve(async (req) => {
     const files = [];
     for (const path of paths) files.push(await readFile(path, BASE_BRANCH));
 
-    const prompt = `You are Solvix Code Agent, a production software-repair agent inspired by modern coding agents.\n\nRepository: ${REPO}\nBase branch: ${BASE_BRANCH}\nMode: ${requestedMode}\n\nDeployment/build/runtime error:\n${error}\n\nFiles supplied for inspection:\n${files.map((f) => `--- ${f.path} ---\n${f.content}`).join("\n")}\n\nRules:\n- Diagnose the actual error; do not invent missing files or APIs.\n- Preserve existing behavior unless it is directly related to the failure.\n- Never add secrets, credentials, fake financial data, bypasses, or unauthorized security behavior.\n- Prefer the smallest safe fix.\n- If the supplied files are insufficient, return no changes and explain what is missing.\n- Return ONLY valid JSON with this shape: {"diagnosis":string,"confidence":number,"changes":[{"path":string,"content":string,"reason":string}],"verification":[string],"needs_more_context":boolean,"context_needed":[string]}.\n- confidence must be between 0 and 1.\n- In diagnose mode, changes must be an empty array.\n`;
+    const prompt = `You are Solvix Code Agent, a production software-repair agent inspired by modern coding agents.
+
+Repository: ${REPO}
+Base branch: ${BASE_BRANCH}
+Mode: ${requestedMode}
+
+Deployment/build/runtime error:
+${error}
+
+Files supplied for inspection:
+${files.map((f) => `--- ${f.path} ---\n${f.content}`).join("\n")}
+
+Rules:
+- Diagnose the actual error; do not invent missing files or APIs.
+- Preserve existing behavior unless it is directly related to the failure.
+- Never add secrets, credentials, fake financial data, bypasses, or unauthorized security behavior.
+- Prefer the smallest safe fix.
+- If the supplied files are insufficient, return no changes and explain what is missing.
+- Return ONLY valid JSON with this shape: {"diagnosis":string,"confidence":number,"changes":[{"path":string,"content":string,"reason":string}],"verification":[string],"needs_more_context":boolean,"context_needed":[string]}.
+- confidence must be between 0 and 1.
+- In diagnose mode, changes must be an empty array.
+`;
 
     const result = await generateText({
       model: gateway(MODEL),
@@ -73,7 +119,11 @@ Deno.serve(async (req) => {
       temperature: 0,
     });
 
-    const cleaned = result.text.trim().replace(/^```json\s*/i, "").replace(/```$/i, "").trim();
+    const cleaned = result.text
+      .trim()
+      .replace(/^```json\s*/i, "")
+      .replace(/```$/i, "")
+      .trim();
     const plan = JSON.parse(cleaned);
 
     if (!Array.isArray(plan.changes)) throw new Error("Agent returned invalid changes");
@@ -100,7 +150,7 @@ Deno.serve(async (req) => {
     }
 
     const branch = `repair/solvix-${Date.now()}`;
-    const base = await github(`/repos/${REPO}/git/ref/heads/${BASE_BRANCH}`);
+    const base = await github(`/repos/${REPO}/git/ref/heads/${encodeURIComponent(BASE_BRANCH)}`);
     await github(`/repos/${REPO}/git/refs`, {
       method: "POST",
       body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: base.object.sha }),
@@ -112,11 +162,11 @@ Deno.serve(async (req) => {
         throw new Error("Invalid change returned by agent");
       }
       const current = await readFile(change.path, BASE_BRANCH);
-      const updated = await github(`/repos/${REPO}/contents/${change.path}`, {
+      const updated = await github(`/repos/${REPO}/contents/${githubPath(change.path)}`, {
         method: "PUT",
         body: JSON.stringify({
           message: `fix: Solvix Code Agent repair ${change.path}`,
-          content: btoa(unescape(encodeURIComponent(change.content))),
+          content: encodeBase64Utf8(change.content),
           sha: current.sha,
           branch,
         }),
