@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Solvix AI</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#070b12;color:#eef2f7}
     *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#15233b 0,#070b12 45%);min-height:100vh}
@@ -12,12 +13,14 @@
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.card{background:#0c121c;border:1px solid #1b2a3d;border-radius:16px;padding:20px;box-shadow:0 12px 30px #0004}
     .label{color:#8c9caf;font-size:13px}.value{font-size:24px;font-weight:700;margin-top:8px}.ok{color:#78d99a}.muted{color:#9aa8ba;font-size:14px}.section{margin-top:24px}.agent{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #182434}.agent:last-child{border-bottom:0}
     a{color:#8bc5ff;text-decoration:none}a:hover{text-decoration:underline}.footer{margin-top:28px;color:#718096;font-size:13px}
+    input,button{width:100%;padding:12px;border-radius:10px;border:1px solid #26384f;background:#08101b;color:#eef2f7;margin-top:8px}button{cursor:pointer;background:#123d2a;border-color:#276744;font-weight:700}button.secondary{background:#101b2a;border-color:#29415e}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.status{margin-top:12px;padding:10px;border-radius:10px;background:#08101b;color:#9aa8ba}.status.ok{color:#78d99a}.status.err{color:#ff9b9b}.deposit-list{margin-top:16px}.deposit{padding:12px 0;border-bottom:1px solid #182434;display:flex;justify-content:space-between;gap:12px}.badge{padding:4px 8px;border-radius:999px;background:#30250e;color:#f0c56b;font-size:12px}.badge.verified{background:#123d2a;color:#78d99a}.badge.rejected{background:#3b1616;color:#ff9b9b}
+    @media(max-width:600px){.row{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
 <body>
 <main>
   <div class="top">
-    <div><h1>🧠 Solvix AI</h1><div class="sub">Autonomous operations and repair dashboard</div></div>
+    <div><h1>🧠 Solvix AI</h1><div class="sub">Autonomous operations, earning and funding dashboard</div></div>
     <div class="pill">● Production dashboard</div>
   </div>
 
@@ -26,6 +29,36 @@
     <div class="card"><div class="label">Supabase</div><div class="value ok">CONNECTED</div><div class="muted">Core services configured</div></div>
     <div class="card"><div class="label">Repair Agent</div><div class="value ok">ACTIVE</div><div class="muted">Protected repair endpoint</div></div>
     <div class="card"><div class="label">Confirmed revenue</div><div class="value">UGX 0</div><div class="muted">Only verified revenue is shown</div></div>
+  </div>
+
+  <div class="card section">
+    <h2>🏦 Bank Deposit</h2>
+    <p class="muted">Submit a bank transfer for verification. Solvix credits the deposit only after it is verified; submitting a reference does not itself create funds.</p>
+    <div id="authBox">
+      <div class="row">
+        <div><label>Email</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+        <div><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Password"></div>
+      </div>
+      <div class="row">
+        <button id="signIn">Sign in</button>
+        <button id="signUp" class="secondary">Create account</button>
+      </div>
+      <div id="authStatus" class="status">Sign in to submit and view deposits.</div>
+    </div>
+
+    <div id="depositBox" style="display:none">
+      <div class="row">
+        <div><label>Amount</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="100000"></div>
+        <div><label>Currency</label><input id="currency" value="UGX" maxlength="3"></div>
+      </div>
+      <div><label>Bank transaction/reference</label><input id="reference" placeholder="Bank transaction reference"></div>
+      <div><label>Sender name (optional)</label><input id="sender" placeholder="Name on bank transfer"></div>
+      <div><label>Note (optional)</label><input id="note" placeholder="Anything the verifier should know"></div>
+      <button id="submitDeposit">Submit deposit for verification</button>
+      <button id="signOut" class="secondary">Sign out</button>
+      <div id="depositStatus" class="status"></div>
+      <div id="deposits" class="deposit-list"></div>
+    </div>
   </div>
 
   <div class="card section">
@@ -39,12 +72,56 @@
 
   <div class="card section">
     <h2>Operations</h2>
-    <p class="muted">The dashboard is intentionally truthful: potential opportunities are not counted as earnings, and the repair agent only performs authorized repairs.</p>
+    <p class="muted">Potential opportunities are not counted as earnings. Bank deposits remain pending until independently verified.</p>
     <p><a href="https://github.com/alanbata12/Solvix-ai" target="_blank" rel="noreferrer">GitHub repository →</a></p>
     <p><a href="https://solvix-ai.vercel.app" target="_blank" rel="noreferrer">Production URL →</a></p>
   </div>
 
-  <div class="footer">Solvix • Last dashboard build: 2026-08-15 • Revenue is verified-only.</div>
+  <div class="footer">Solvix • Verified-only financial records.</div>
 </main>
+<script>
+const SUPABASE_URL = 'https://jvmicoqonhuuyedvpmcn.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_dWUUCW1scH7Wt0VOS7xaTg_cM038MO6';
+const { createClient } = window.supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+const authBox = document.getElementById('authBox');
+const depositBox = document.getElementById('depositBox');
+const authStatus = document.getElementById('authStatus');
+const depositStatus = document.getElementById('depositStatus');
+const deposits = document.getElementById('deposits');
+
+function setStatus(el, text, ok=false){ el.textContent=text; el.className='status'+(ok?' ok':' err'); }
+
+async function refreshDeposits(){
+  const { data, error } = await sb.functions.invoke('bank-deposit', { method:'GET' });
+  if(error){ setStatus(depositStatus, error.message); return; }
+  deposits.innerHTML = '<h3>Deposit history</h3>' + ((data?.data||[]).map(d => `<div class="deposit"><span>${d.currency} ${Number(d.amount).toLocaleString()}<br><small>${d.bank_reference}</small></span><span class="badge ${d.status}">${d.status}</span></div>`).join('') || '<div class="muted">No deposits submitted yet.</div>');
+}
+
+function renderSession(session){
+  if(session){ authBox.style.display='none'; depositBox.style.display='block'; refreshDeposits(); }
+  else { authBox.style.display='block'; depositBox.style.display='none'; }
+}
+
+document.getElementById('signIn').onclick = async () => {
+  const { error } = await sb.auth.signInWithPassword({ email:email.value.trim(), password:password.value });
+  if(error) setStatus(authStatus,error.message); else setStatus(authStatus,'Signed in.',true);
+};
+document.getElementById('signUp').onclick = async () => {
+  const { error } = await sb.auth.signUp({ email:email.value.trim(), password:password.value });
+  if(error) setStatus(authStatus,error.message); else setStatus(authStatus,'Account created. Check your email if confirmation is enabled.',true);
+};
+document.getElementById('signOut').onclick = async () => { await sb.auth.signOut(); };
+document.getElementById('submitDeposit').onclick = async () => {
+  setStatus(depositStatus,'Submitting…');
+  const { data, error } = await sb.functions.invoke('bank-deposit', { body:{ amount:Number(amount.value), currency:currency.value.trim().toUpperCase(), bank_reference:reference.value.trim(), sender_name:sender.value.trim(), note:note.value.trim() } });
+  if(error){ setStatus(depositStatus,error.message); return; }
+  setStatus(depositStatus,data?.message||'Submitted for verification.',true);
+  amount.value=''; reference.value=''; sender.value=''; note.value=''; refreshDeposits();
+};
+
+sb.auth.onAuthStateChange((_event, session) => renderSession(session));
+sb.auth.getSession().then(({data}) => renderSession(data.session));
+</script>
 </body>
 </html>
