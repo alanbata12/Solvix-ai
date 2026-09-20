@@ -6,7 +6,7 @@
 <title>Solvix — Earn with tasks and forex</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0/dist/umd/supabase.min.js"></script>
 <style>
   :root{
     --bg:#0F1912; --panel:#16241A; --line:#28382C;
@@ -56,9 +56,9 @@
     <p class="sub" id="auth-sub">Log in to your Solvix account.</p>
     <form id="auth-form">
       <label>Email</label><input type="email" id="email" required autocomplete="email">
-      <label>Password</label><input type="password" id="password" required autocomplete="current-password" minlength="6">
+      <label>Password</label><div style="display:flex;gap:8px;align-items:center"><input type="password" id="password" required autocomplete="current-password" minlength="6" style="flex:1"><button type="button" id="togglePw" class="signout" style="white-space:nowrap">Show</button></div>
       <div id="confirm-password-row" class="hidden"><label>Confirm password</label><input type="password" id="confirm-password" autocomplete="new-password" minlength="6"></div>
-      <button class="btn" type="submit" id="auth-submit">Log in</button>
+      <button class="btn" type="submit" id="auth-submit">Log in</button><button class="btn" type="button" id="passkey-signin" style="margin-top:10px;background:transparent;color:var(--gold);border:1px solid var(--gold)">Sign in with passkey</button>
     </form>
     <div class="switch"><span id="switch-text">No account yet?</span> <a id="switch-link">Sign up</a></div>
     <div class="switch" id="forgot-row"><a id="forgot-link">Forgot password?</a></div>
@@ -81,7 +81,7 @@
 </div>
 <div id="dashboard" class="dash hidden">
   <div class="wrap">
-    <div class="dash-head"><div><h1>Your dashboard</h1><p id="dash-email"></p></div><button class="signout" id="signout">Sign out</button></div>
+    <div class="dash-head"><div><h1>Your dashboard</h1><p id="dash-email"></p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="signout" id="add-passkey">Add passkey</button><button class="signout" id="signout">Sign out</button></div></div>
     <div class="cards">
       <div class="card"><div class="label">Current plan</div><div class="value" id="plan-price">—</div><div class="plan-name" id="plan-name">—</div></div>
       <div class="card"><div class="label">AI credits</div><div class="value" id="ai-credits">—</div></div>
@@ -98,9 +98,14 @@
 <script>
 const SUPABASE_URL="https://jvmicoqonhuuyedvpmcn.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_dWUUCW1scH7Wt0VOS7xaTg_cM038MO6";
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{experimental:{passkey:true}}});
 let mode="login";
 const authScreen=document.getElementById("auth-screen"),dashboard=document.getElementById("dashboard"),form=document.getElementById("auth-form"),msgEl=document.getElementById("auth-msg"),submitBtn=document.getElementById("auth-submit");
+document.getElementById("togglePw").addEventListener("click",()=>{const p=document.getElementById("password");const show=p.type==="password";p.type=show?"text":"password";document.getElementById("togglePw").textContent=show?"Hide":"Show";});
+async function passkeySignIn(){try{const{error}=await sb.auth.signInWithPasskey();if(error)throw error;await loadDashboard();}catch(err){showMsg(err.message||"Passkey sign-in failed.","err");}}
+async function addPasskey(){try{const{error}=await sb.auth.registerPasskey();if(error)throw error;alert("Passkey added successfully.");}catch(err){alert(err.message||"Could not add passkey.");}}
+document.getElementById("passkey-signin").addEventListener("click",passkeySignIn);
+document.getElementById("add-passkey").addEventListener("click",addPasskey);
 function clearFields(){document.getElementById("email").value="";document.getElementById("password").value="";document.getElementById("confirm-password").value="";}
 document.getElementById("switch-link").addEventListener("click",()=>{mode=mode==="login"?"signup":"login";document.getElementById("auth-title").textContent=mode==="login"?"Welcome back":"Create your account";document.getElementById("auth-sub").textContent=mode==="login"?"Log in to your Solvix account.":"Start free, upgrade any time.";submitBtn.textContent=mode==="login"?"Log in":"Sign up";document.getElementById("switch-text").textContent=mode==="login"?"No account yet?":"Already have an account?";document.getElementById("switch-link").textContent=mode==="login"?"Sign up":"Log in";document.getElementById("confirm-password-row").classList.toggle("hidden",mode!=="signup");document.getElementById("confirm-password").required=mode==="signup";clearFields();msgEl.innerHTML="";});
 function showMsg(text,kind){msgEl.innerHTML=`<div class="msg ${kind}">${text}</div>`;}
