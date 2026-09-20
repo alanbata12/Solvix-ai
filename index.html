@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solvix — Earn with tasks and forex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+  :root{
+    --bg:#0F1912; --panel:#16241A; --line:#28382C;
+    --gold:#E8B54A; --ink:#F3F6F1; --ink-dim:#AEC0AC; --mint:#6FCF97; --danger:#E8746A;
+  }
+  *{box-sizing:border-box; margin:0}
+  body{background:var(--bg); color:var(--ink); font-family:'Inter',system-ui,sans-serif; min-height:100vh}
+  h1,h2,.brand{font-family:'Space Grotesk',system-ui,sans-serif}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+  header{padding:22px 0; border-bottom:1px solid var(--line)}
+  nav{display:flex; justify-content:space-between; align-items:center}
+  .brand{font-size:19px; font-weight:600}
+  .brand span{color:var(--gold)}
+  .hidden{display:none !important}
+
+  /* auth card */
+  .auth-screen{min-height:calc(100vh - 70px); display:flex; align-items:center; justify-content:center; padding:40px 20px}
+  .auth-card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:32px; width:100%; max-width:380px}
+  .auth-card h1{font-size:22px; margin-bottom:6px}
+  .auth-card p.sub{color:var(--ink-dim); font-size:14px; margin-bottom:22px}
+  label{display:block; font-size:13px; color:var(--ink-dim); margin-bottom:6px; margin-top:14px}
+  input{width:100%; background:#0F1912; border:1px solid var(--line); color:var(--ink); padding:11px 12px; border-radius:8px; font-size:14.5px}
+  input:focus{outline:none; border-color:var(--gold)}
+  .btn{width:100%; background:var(--gold); color:#20180A; border:none; padding:12px; border-radius:9px; font-weight:600; font-size:15px; margin-top:20px; cursor:pointer}
+  .btn:disabled{opacity:.6; cursor:default}
+  .switch{text-align:center; margin-top:16px; font-size:13.5px; color:var(--ink-dim)}
+  .switch a{color:var(--gold); text-decoration:none; cursor:pointer}
+  .msg{font-size:13px; margin-top:14px; padding:10px 12px; border-radius:8px}
+  .msg.err{background:rgba(232,116,106,.12); color:var(--danger)}
+  .msg.ok{background:rgba(111,207,151,.12); color:var(--mint)}
+
+  /* dashboard */
+  .dash{padding:40px 0}
+  .dash-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:12px}
+  .dash-head h1{font-size:26px}
+  .dash-head p{color:var(--ink-dim); font-size:14px; margin-top:4px}
+  .signout{border:1px solid var(--line); color:var(--ink); background:none; padding:9px 16px; border-radius:8px; font-size:13.5px; cursor:pointer}
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px}
+  .card .label{color:var(--ink-dim); font-size:13px}
+  .card .value{font-family:'Space Grotesk'; font-size:26px; font-weight:600; margin-top:6px}
+  .plan-name{display:inline-block; background:rgba(232,181,74,.14); color:var(--gold); padding:3px 10px; border-radius:100px; font-size:12.5px; font-weight:600; margin-top:8px}
+  @media (max-width:700px){ .cards{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap"><nav><div class="brand">Solvix<span>.</span></div></nav></div>
+  </header>
+
+  <!-- AUTH -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <h1 id="auth-title">Welcome back</h1>
+      <p class="sub" id="auth-sub">Log in to your Solvix account.</p>
+
+      <form id="auth-form">
+        <label>Email</label>
+        <input type="email" id="email" required autocomplete="email">
+        <label>Password</label>
+        <input type="password" id="password" required autocomplete="current-password" minlength="6">
+        <div id="confirm-password-row" class="hidden">
+          <label>Confirm password</label>
+          <input type="password" id="confirm-password" autocomplete="new-password" minlength="6">
+        </div>
+        <button class="btn" type="submit" id="auth-submit">Log in</button>
+      </form>
+
+      <div class="switch">
+        <span id="switch-text">No account yet?</span>
+        <a id="switch-link">Sign up</a>
+      </div>
+      <div class="switch" id="forgot-row">
+        <a id="forgot-link">Forgot password?</a>
+      </div>
+
+      <div id="auth-msg"></div>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD -->
+  <div id="forgot-screen" class="auth-screen hidden">
+    <div class="auth-card">
+      <h1>Reset your password</h1>
+      <p class="sub">We'll email you a link to reset it.</p>
+      <form id="forgot-form">
+        <label>Email</label>
+        <input type="email" id="forgot-email" required autocomplete="email">
+        <button class="btn" type="submit" id="forgot-submit">Send reset link</button>
+      </form>
+      <div class="switch"><a id="back-to-login">Back to login</a></div>
+      <div id="forgot-msg"></div>
+    </div>
+  </div>
+
+  <!-- SET NEW PASSWORD (landed on via the emailed reset link) -->
+  <div id="reset-screen" class="auth-screen hidden">
+    <div class="auth-card">
+      <h1>Set a new password</h1>
+      <p class="sub">Choose a new password for your account.</p>
+      <form id="reset-form">
+        <label>New password</label>
+        <input type="password" id="new-password" required minlength="6" autocomplete="new-password">
+        <button class="btn" type="submit" id="reset-submit">Update password</button>
+      </form>
+      <div id="reset-msg"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dash hidden">
+    <div class="wrap">
+      <div class="dash-head">
+        <div>
+          <h1>Your dashboard</h1>
+          <p id="dash-email"></p>
+        </div>
+        <button class="signout" id="signout">Sign out</button>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="label">Current plan</div>
+          <div class="value" id="plan-price">—</div>
+          <div class="plan-name" id="plan-name">—</div>
+        </div>
+        <div class="card">
+          <div class="label">AI credits</div>
+          <div class="value" id="ai-credits">—</div>
+        </div>
+        <div class="card">
+          <div class="label">Cloud credits</div>
+          <div class="value" id="cloud-credits">—</div>
+        </div>
+      </div>
+
+      <div style="margin-top:40px">
+        <h2 style="font-size:19px; margin-bottom:14px">Choose a plan to access</h2>
+        <p style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">Pay only when you pick what you want to use. You won't be charged again while a plan is still active.</p>
+        <div id="plan-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px"></div>
+        <div id="plan-msg" style="margin-top:14px"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Fill these in with your own project's values (already set for Solvix).
+  const SUPABASE_URL = "https://jvmicoqonhuuyedvpmcn.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2bWljb3Fvbmh1dXllZHZwbWNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYyMjcxOTAsImV4cCI6MjEwMTgwMzE5MH0.1yjphd6fyNfIJR5RyiDxdkqYvXyr-3BgavgPzWIQSlY";
+
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  let mode = "login"; // or "signup"
+
+  const authScreen = document.getElementById("auth-screen");
+  const dashboard = document.getElementById("dashboard");
+  const form = document.getElementById("auth-form");
+  const msgEl = document.getElementById("auth-msg");
+  const submitBtn = document.getElementById("auth-submit");
+
+  function clearFields() {
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("confirm-password").value = "";
+  }
+
+  document.getElementById("switch-link").addEventListener("click", () => {
+    mode = mode === "login" ? "signup" : "login";
+    document.getElementById("auth-title").textContent = mode === "login" ? "Welcome back" : "Create your account";
+    document.getElementById("auth-sub").textContent = mode === "login" ? "Log in to your Solvix account." : "Start free, upgrade any time.";
+    submitBtn.textContent = mode === "login" ? "Log in" : "Sign up";
+    document.getElementById("switch-text").textContent = mode === "login" ? "No account yet?" : "Already have an account?";
+    document.getElementById("switch-link").textContent = mode === "login" ? "Sign up" : "Log in";
+    document.getElementById("confirm-password-row").classList.toggle("hidden", mode !== "signup");
+    document.getElementById("confirm-password").required = mode === "signup";
+    clearFields();
+    msgEl.innerHTML = "";
+  });
+
+  function showMsg(text, kind) {
+    msgEl.innerHTML = `<div class="msg ${kind}">${text}</div>`;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (mode === "signup" && password !== confirmPassword) {
+      showMsg("Passwords don't match.", "err");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    msgEl.innerHTML = "";
+
+    try {
+      if (mode === "signup") {
+        const { error } = await sb.auth.signUp({ email, password });
+        if (error) throw error;
+        showMsg("Check your email for the confirmation link \u2014 use the most recent one if you have more than one. Then come back and log in.", "ok");
+        clearFields();
+      } else {
+        const { error } = await sb.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        await loadDashboard();
+      }
+    } catch (err) {
+      showMsg(err.message || "Something went wrong.", "err");
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  // ---- forgot password ----
+  const forgotScreen = document.getElementById("forgot-screen");
+  const resetScreen = document.getElementById("reset-screen");
+
+  document.getElementById("forgot-link").addEventListener("click", () => {
+    authScreen.classList.add("hidden");
+    forgotScreen.classList.remove("hidden");
+  });
+  document.getElementById("back-to-login").addEventListener("click", () => {
+    forgotScreen.classList.add("hidden");
+    authScreen.classList.remove("hidden");
+  });
+
+  document.getElementById("forgot-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("forgot-email").value.trim();
+    const btn = document.getElementById("forgot-submit");
+    const msg = document.getElementById("forgot-msg");
+    btn.disabled = true;
+    msg.innerHTML = "";
+    try {
+      const { error } = await sb.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + window.location.pathname,
+      });
+      if (error) throw error;
+      msg.innerHTML = `<div class="msg ok">Check your email for a reset link.</div>`;
+    } catch (err) {
+      msg.innerHTML = `<div class="msg err">${err.message || "Something went wrong."}</div>`;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById("reset-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const password = document.getElementById("new-password").value;
+    const btn = document.getElementById("reset-submit");
+    const msg = document.getElementById("reset-msg");
+    btn.disabled = true;
+    msg.innerHTML = "";
+    try {
+      const { error } = await sb.auth.updateUser({ password });
+      if (error) throw error;
+      msg.innerHTML = `<div class="msg ok">Password updated. Redirecting\u2026</div>`;
+      setTimeout(() => { window.location.href = window.location.pathname; }, 1200);
+    } catch (err) {
+      msg.innerHTML = `<div class="msg err">${err.message || "Something went wrong."}</div>`;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // Supabase redirects back here with #access_token=...&type=recovery in the URL hash
+  // when the user clicks the emailed reset link. Detect that and show the reset form.
+  if (window.location.hash.includes("type=recovery")) {
+    authScreen.classList.add("hidden");
+    forgotScreen.classList.add("hidden");
+    resetScreen.classList.remove("hidden");
+  }
+
+  document.getElementById("signout").addEventListener("click", async () => {
+    await sb.auth.signOut();
+    dashboard.classList.add("hidden");
+    authScreen.classList.remove("hidden");
+  });
+
+  async function loadDashboard() {
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) return;
+
+    authScreen.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    document.getElementById("dash-email").textContent = user.email;
+
+    const { data: profile } = await sb
+      .from("profiles")
+      .select("plan_slug")
+      .eq("id", user.id)
+      .single();
+
+    const planSlug = profile?.plan_slug || "free";
+
+    const { data: plan } = await sb
+      .from("solvix_plans")
+      .select("*")
+      .eq("slug", planSlug)
+      .single();
+
+    if (plan) {
+      document.getElementById("plan-name").textContent = plan.name;
+      document.getElementById("plan-price").textContent = `$${Number(plan.monthly_usd).toFixed(0)}/mo`;
+      document.getElementById("ai-credits").textContent = Number(plan.ai_credits).toLocaleString();
+      document.getElementById("cloud-credits").textContent = Number(plan.cloud_credits).toLocaleString();
+    }
+
+    await loadPlanGrid(planSlug);
+  }
+
+  async function loadPlanGrid(currentPlanSlug) {
+    const { data: plans } = await sb.from("solvix_plans").select("*").eq("active", true).order("monthly_usd");
+    const grid = document.getElementById("plan-grid");
+    grid.innerHTML = "";
+    (plans || []).forEach((p) => {
+      const isCurrent = p.slug === currentPlanSlug;
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="label">${p.name}</div>
+        <div class="value" style="font-size:20px">${Number(p.monthly_usd) === 0 ? "Free" : "UGX " + Number(p.monthly_ugx).toLocaleString()}</div>
+        <button class="btn" style="margin-top:14px; ${isCurrent ? "opacity:.5" : ""}" ${isCurrent ? "disabled" : ""} data-plan="${p.slug}">
+          ${isCurrent ? "Current plan" : "Choose this plan"}
+        </button>
+      `;
+      grid.appendChild(card);
+    });
+
+    grid.querySelectorAll("button[data-plan]").forEach((btn) => {
+      btn.addEventListener("click", () => startCheckout(btn.dataset.plan, btn));
+    });
+  }
+
+  async function startCheckout(planSlug, btn) {
+    const msgEl = document.getElementById("plan-msg");
+    msgEl.innerHTML = "";
+    btn.disabled = true;
+    btn.textContent = "Starting checkout…";
+
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      const resp = await fetch(`${SUPABASE_URL}/functions/v1/flutterwave-initiate-payment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ plan_slug: planSlug }),
+      });
+      const result = await resp.json();
+
+      if (!resp.ok) {
+        if (result.error === "already_active") {
+          msgEl.innerHTML = `<div class="msg ok">${result.message}</div>`;
+        } else {
+          msgEl.innerHTML = `<div class="msg err">${result.message || result.error || "Could not start checkout."}</div>`;
+        }
+        btn.disabled = false;
+        btn.textContent = "Choose this plan";
+        return;
+      }
+
+      window.location.href = result.checkout_url;
+    } catch (err) {
+      msgEl.innerHTML = `<div class="msg err">${err.message}</div>`;
+      btn.disabled = false;
+      btn.textContent = "Choose this plan";
+    }
+  }
+
+  // on load, check if already signed in
+  (async () => {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session) await loadDashboard();
+  })();
+</script>
+</body>
+</html>
