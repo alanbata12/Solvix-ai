@@ -55,7 +55,12 @@
   .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
   .hero-pill{padding:11px 15px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.025);font-size:12.5px;color:var(--ink-dim)}
   .hero-orb{min-height:250px;border-radius:28px;border:1px solid var(--line);background:radial-gradient(circle at 70% 25%,rgba(232,181,74,.24),transparent 30%),radial-gradient(circle at 30% 70%,rgba(111,207,151,.17),transparent 34%),linear-gradient(145deg,#17271c,#101812);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-  .orb{width:130px;height:130px;border-radius:50%;border:1px solid rgba(232,181,74,.55);box-shadow:0 0 70px rgba(232,181,74,.16),inset 0 0 35px rgba(111,207,151,.12);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-size:30px;font-weight:700;color:var(--gold)}
+  .logo-showcase{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+  .hero-brand-mark{width:92px;height:92px;filter:drop-shadow(0 0 28px rgba(232,181,74,.12))}
+  .logo-word{font-family:'Space Grotesk';font-size:24px;font-weight:700;letter-spacing:.18em;margin-top:12px;background:linear-gradient(90deg,#fff,var(--gold),var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo-sub{font-size:11px;color:var(--ink-dim);margin-top:5px}
+  .logo-status{display:inline-flex;align-items:center;gap:6px;margin-top:13px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:#87998a;font-size:10.5px}
+  .logo-status span{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px rgba(111,207,151,.6)}
   .section-intro{padding:20px 0 12px}.section-intro h2{font-size:27px;letter-spacing:-.025em}.section-intro p{color:var(--ink-dim);line-height:1.65;font-size:14px;margin-top:7px;max-width:780px}
   .partners{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0 25px}
   .partner{border:1px solid var(--line);background:rgba(255,255,255,.025);padding:9px 12px;border-radius:10px;font-size:12px;color:var(--ink-dim)}
@@ -80,7 +85,7 @@
   .contact-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
   .contact-chip{border:1px solid var(--line);border-radius:999px;padding:8px 11px;color:var(--ink-dim);font-size:12px;background:rgba(255,255,255,.02)}
   .contact-chip b{color:var(--ink)}
-  .team-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .team-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
   .team-card{position:relative;overflow:hidden;text-align:left;cursor:pointer;background:linear-gradient(145deg,#17271c,#111a14);border:1px solid var(--line);border-radius:16px;padding:0;color:var(--ink);transition:transform .2s,border-color .2s,box-shadow .2s}
   .team-card:hover{transform:translateY(-4px);border-color:rgba(232,181,74,.55);box-shadow:0 18px 45px rgba(0,0,0,.24)}
   .portrait{height:210px;display:flex;align-items:flex-end;justify-content:center;background:radial-gradient(circle at 50% 25%,rgba(232,181,74,.16),transparent 35%),linear-gradient(180deg,#1c3021,#0f1711);overflow:hidden}
@@ -102,8 +107,12 @@
   .ai-chat input{margin:0}
   .ai-chat button{border:0;border-radius:9px;background:var(--gold);color:#20180A;font-weight:700;padding:0 16px;cursor:pointer}
   .ai-answer{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--ink-dim);font-size:13px;line-height:1.6}
+  .ai-quick{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+  .ai-q{border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--ink-dim);border-radius:999px;padding:7px 9px;font-size:11px;cursor:pointer}
+  .ai-q:hover{border-color:rgba(232,181,74,.5);color:var(--ink)}
+  .ai-response-title{display:block;color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
   .footer{border-top:1px solid var(--line);margin-top:46px;padding:25px 0 35px;color:#87998a;font-size:12px;text-align:center}
-  @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:1050px){.team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}} @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media(max-width:620px){.info-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}.portrait{height:240px}}
 
 </style>
@@ -155,7 +164,19 @@
           <div class="hero-pill">📊 Transparent tracking</div>
         </div>
       </div>
-      <div class="hero-orb"><div class="orb">S.</div></div>
+      <div class="hero-orb">
+    <div class="logo-showcase">
+      <svg class="hero-brand-mark" viewBox="0 0 80 80" aria-label="Solvix logo" role="img">
+        <defs><linearGradient id="heroSg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#E8B54A"/><stop offset="1" stop-color="#6FCF97"/></linearGradient></defs>
+        <rect x="4" y="4" width="72" height="72" rx="21" fill="#132018" stroke="#344639"/>
+        <path d="M22 28c8-8 24-8 36 0M22 40c8-8 24-8 36 0M22 52c8-8 24-8 36 0" fill="none" stroke="url(#heroSg)" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="58" cy="28" r="4" fill="#E8B54A"/>
+      </svg>
+      <div class="logo-word">SOLVIX</div>
+      <div class="logo-sub">Intelligent Opportunity & Trading OS</div>
+      <div class="logo-status"><span></span> Secure workspace · accountable automation</div>
+    </div>
+  </div>
     </section>
     <div class="section-intro">
       <h2>Choose your Solvix plan</h2>
@@ -202,31 +223,48 @@
         </div>
         <div class="info-grid">
           <article class="info-card"><h3>Built for clarity</h3><p>One place to see your plan, AI capacity, opportunities and activity without pretending that a lead is already money.</p><ul><li>Opportunity discovery with source context</li><li>Risk-controlled trading workflows</li><li>Transparent activity and payment verification</li></ul></article>
-          <article class="info-card"><h3>Chat with Solvix AI</h3><p>Ask about your workspace, plans, opportunities or how a workflow works. This is an AI guidance layer, not a promise of profit.</p><div class="ai-chat"><input id="site-ai-input" placeholder="Ask Solvix AI something…"><button id="site-ai-send">Ask</button></div><div id="site-ai-answer" class="ai-answer hidden"></div></article>
-          <article class="info-card"><h3>Contact Solvix</h3><p>Keep customer communication direct and professional. Use your verified official company inbox here; the address is intentionally not invented.</p><div class="contact-row"><div class="contact-chip"><b>Email</b> · official Solvix inbox</div><div class="contact-chip"><b>AI help</b> · available in workspace</div><div class="contact-chip"><b>Response</b> · business inquiries</div></div></article>
+          <article class="info-card"><h3>Solvix AI Help</h3><p>A guided support assistant inspired by the structure of modern exchange help centers: choose a topic or type a question. Answers are designed to be clear, operational and risk-aware.</p>
+    <div class="ai-quick">
+      <button class="ai-q" data-q="How do I get started?">Getting started</button>
+      <button class="ai-q" data-q="What are the Solvix plans?">Plans</button>
+      <button class="ai-q" data-q="How do I fund my Solvix plan?">Funding</button>
+      <button class="ai-q" data-q="Is live forex trading enabled?">Forex</button>
+      <button class="ai-q" data-q="How do freelance jobs work?">Jobs</button>
+      <button class="ai-q" data-q="How does Solvix protect my account?">Security</button>
+      <button class="ai-q" data-q="How do withdrawals work?">Withdrawals</button>
+      <button class="ai-q" data-q="How do I contact Solvix?">Contact</button>
+    </div>
+    <div class="ai-chat"><input id="site-ai-input" placeholder="Ask a Solvix Help question…"><button id="site-ai-send">Ask</button></div>
+    <div id="site-ai-answer" class="ai-answer hidden"></div>
+  </article>
+          <article class="info-card"><h3>Contact & feedback</h3><p>For feedback, product questions and business communication, use the official Solvix feedback inbox.</p><div class="contact-row"><a class="contact-chip" href="mailto:Solvixfeedback@gmail.com"><b>Email</b> · Solvixfeedback@gmail.com</a><div class="contact-chip"><b>AI help</b> · guided answers below</div><div class="contact-chip"><b>Feedback</b> · same official inbox</div></div></article>
           <article class="info-card"><h3>Our standard</h3><p>Premium design should come with honest product language: partner marketplaces remain external services, broker access requires authorization, and verified revenue is tracked separately from projections or paper activity.</p></article>
         </div>
 
         <div class="section-intro" style="margin-top:8px">
           <h2>Meet the Solvix leadership & team</h2>
-          <p>Tap a profile to open its journal. The three illustrated staff profiles below are <b>brand-concept characters</b>, not claims about real employees; replace them with your confirmed names, biographies and photographs when ready.</p>
+          <p>These are <b>AI-generated brand personas</b> created for the Solvix website concept. Their responsibilities and editorial profiles describe the positions they represent; they are not claims about real employees or real-world credentials.</p>
         </div>
         <div class="team-grid">
           <button class="team-card" data-blog="founder">
-            <div class="portrait"><svg viewBox="0 0 300 210"><defs><linearGradient id="p1" x1="0" x2="1"><stop stop-color="#d9a06a"/><stop offset="1" stop-color="#f0c38e"/></linearGradient></defs><circle cx="150" cy="75" r="48" fill="url(#p1)"/><path d="M102 73c3-47 92-55 98 0-17-17-36-25-98 0Z" fill="#182017"/><path d="M72 210c4-62 34-91 78-91s74 29 78 91" fill="#24372a"/><path d="M116 92c10 7 19 10 34 10s24-3 34-10" fill="none" stroke="#8a5b3b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Founder & Owner</div><h3>Solvix Founder</h3><p>Vision, final authority and long-term direction of the Solvix operating system.</p><div class="team-note">Brand profile · click to read</div></div>
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#d9a06a"/><path d="M103 76c2-52 91-59 96-1-16-18-31-28-96 1Z" fill="#172018"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#24372a"/><path d="M120 95c10 6 20 9 30 9s20-3 30-9" fill="none" stroke="#8a5b3b" stroke-width="3" stroke-linecap="round"/></svg></div>
+            <div class="team-copy"><div class="role">Founder & Executive Chairman</div><h3>Alexander Laurent</h3><p>Product vision, governance, systems direction and long-term strategic partnerships.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
           <button class="team-card" data-blog="ceo">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="76" r="47" fill="#e2b07b"/><path d="M103 72c8-51 89-56 96 0-16-12-33-19-96 0Z" fill="#6d4a36"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#1c2e3a"/><circle cx="132" cy="79" r="3" fill="#1b201b"/><circle cx="168" cy="79" r="3" fill="#1b201b"/></svg></div>
-            <div class="team-copy"><div class="role">CEO · AI Executive Layer</div><h3>Brain AI</h3><p>Coordinates agents, tasks, communications and operating workflows under Solvix governance.</p><div class="team-note">AI executive profile · click to read</div></div>
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e2b07b"/><path d="M103 75c5-50 88-57 96 0-16-15-35-24-96 0Z" fill="#6d4a36"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#1c2e3a"/><circle cx="132" cy="79" r="3" fill="#182018"/><circle cx="168" cy="79" r="3" fill="#182018"/></svg></div>
+            <div class="team-copy"><div class="role">Chief Executive Officer</div><h3>Elena Voss</h3><p>Customer strategy, commercial operations, partnerships and international growth.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
-          <button class="team-card" data-blog="manager">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="75" r="47" fill="#edc39d"/><path d="M102 75c2-45 93-54 97 1-18-19-34-24-97-1Z" fill="#6e4730"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#304234"/><path d="M112 100c13 10 24 14 38 14s25-4 38-14" fill="none" stroke="#a26c4b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Operations Manager</div><h3>Solvix Operations</h3><p>Illustrative management profile focused on workflow discipline, customer operations and execution follow-through.</p><div class="team-note">Brand profile · click to read</div></div>
+          <button class="team-card" data-blog="cto">
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#edc39d"/><path d="M102 75c3-49 93-58 97 1-18-18-35-25-97-1Z" fill="#3f322c"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#304234"/><path d="M112 100c13 9 24 13 38 13s25-4 38-13" fill="none" stroke="#a26c4b" stroke-width="3" stroke-linecap="round"/></svg></div>
+            <div class="team-copy"><div class="role">Chief Technology Officer</div><h3>Matteo Reinhardt</h3><p>AI infrastructure, agent orchestration, cloud architecture, security and reliability.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
-          <button class="team-card" data-blog="china">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="75" r="47" fill="#e8b98f"/><path d="M100 79c-3-57 94-63 100 0-12-19-28-31-51-31-23 0-37 12-49 31Z" fill="#171914"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#7b3131"/><path d="M119 95c10 7 20 10 31 10s21-3 31-10" fill="none" stroke="#a36c4e" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">AI & Partnerships · China</div><h3>Lin · Concept Profile</h3><p>Illustrative Chinese team character focused on partner research, AI product coordination and international operations.</p><div class="team-note">Concept character · click to read</div></div>
+          <button class="team-card" data-blog="coo">
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e7b58b"/><path d="M101 77c0-52 96-60 99 1-13-22-31-31-51-31-20 0-37 9-48 30Z" fill="#6f4a32"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#263b2d"/><path d="M116 96c11 8 22 12 34 12s23-4 34-12" fill="none" stroke="#9d6749" stroke-width="3" stroke-linecap="round"/></svg></div>
+            <div class="team-copy"><div class="role">Chief Operating Officer</div><h3>Sofia Laurent</h3><p>Operations, customer workflows, quality controls and execution follow-through.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+          </button>
+          <button class="team-card" data-blog="partnerships">
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e8b98f"/><path d="M99 80c-3-57 96-65 102 0-13-21-28-32-51-32-23 0-39 11-51 32Z" fill="#171914"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#7b3131"/><path d="M119 95c10 7 20 10 31 10s21-3 31-10" fill="none" stroke="#a36c4e" stroke-width="3" stroke-linecap="round"/></svg></div>
+            <div class="team-copy"><div class="role">Director, AI & Global Partnerships</div><h3>Lin Wei</h3><p>International partner research, AI ecosystem coordination and Asia/global market relationships.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
         </div>
       </section>
@@ -283,15 +321,43 @@ async function pollPaymentStatus(provider,ref,planSlug,btn,originalText,msgEl){c
 
 <script>
 const teamBlogs={
- founder:{role:"Founder & Owner",title:"The Solvix founding journal",body:"<p>Solvix began with a simple direction: bring opportunity discovery, business operations and intelligent automation into one accountable workspace.</p><p>The founder profile represents the person with final authority over the product vision, priorities and governance. Real name, portrait and biography should be inserted here once officially confirmed.</p><p><b>Focus:</b> vision, governance, product direction and long-term partnerships.</p>"},
- ceo:{role:"CEO · AI Executive Layer",title:"Inside the Brain AI",body:"<p>Brain AI is the executive coordination layer of Solvix. It helps organize agents, tasks, communications and operational decisions under the platform's governance rules.</p><p>It does not replace human ownership or create authority it has not been granted. High-risk actions remain subject to explicit controls and verified integrations.</p><p><b>Focus:</b> orchestration, accountability, operations and decision routing.</p>"},
- manager:{role:"Operations Manager · Concept Profile",title:"The operations journal",body:"<p>This illustrative management profile represents the human-style face of Solvix operations: keeping customer journeys clear, workflows organized and execution follow-through visible.</p><p>This is a brand concept rather than a real employee biography. Replace it with the confirmed manager's details before publishing it as staff information.</p><p><b>Focus:</b> customer operations, workflow quality and execution discipline.</p>"},
- china:{role:"AI & Partnerships · Concept Profile",title:"Across markets, one operating language",body:"<p>Lin is an illustrative Chinese team character created for the Solvix brand concept. The profile represents international partner research, AI coordination and cross-market operations.</p><p>It is not a claim that Solvix currently employs a person by this name. Use a real staff photograph and biography when the actual team member is confirmed.</p><p><b>Focus:</b> partnerships, international research and AI product coordination.</p>"}
+ founder:{role:"Founder & Executive Chairman · AI-generated brand persona",title:"Alexander Laurent — The founding journal",body:"<p>Alexander represents the Solvix founder position: setting product direction, governance principles and the long-term architecture of the operating system.</p><p>The profile focuses on building a business where opportunity discovery, automation and revenue verification remain connected to accountable controls.</p><p><b>Business focus:</b> product vision, governance, systems direction and strategic partnerships.</p>"},
+ ceo:{role:"Chief Executive Officer · AI-generated brand persona",title:"Elena Voss — Building the customer operating layer",body:"<p>Elena represents the CEO position, connecting customer needs, commercial operations and the wider Solvix partner ecosystem.</p><p>Her editorial focus is on making a complex AI platform understandable, useful and consistent across international customers and business workflows.</p><p><b>Business focus:</b> customer strategy, commercial operations, partnerships and international growth.</p>"},
+ cto:{role:"Chief Technology Officer · AI-generated brand persona",title:"Matteo Reinhardt — Engineering for accountable automation",body:"<p>Matteo represents the technology leadership position responsible for the technical foundations behind Solvix agents, integrations and cloud workflows.</p><p>The journal focuses on a simple principle: automation should be observable, controllable and auditable, especially when money or external systems are involved.</p><p><b>Business focus:</b> AI infrastructure, orchestration, cloud architecture, security and reliability.</p>"},
+ coo:{role:"Chief Operating Officer · AI-generated brand persona",title:"Sofia Laurent — Turning complexity into repeatable operations",body:"<p>Sofia represents the operating layer that turns product capabilities into repeatable customer and internal workflows.</p><p>Her journal focuses on quality controls, service consistency, execution follow-through and keeping operational status visible rather than hidden behind automation.</p><p><b>Business focus:</b> operations, customer workflows, quality and execution discipline.</p>"},
+ partnerships:{role:"Director, AI & Global Partnerships · AI-generated brand persona",title:"Lin Wei — Building a global partner network",body:"<p>Lin represents Solvix's international partnerships position, with a focus on AI ecosystems, technology relationships and cross-market coordination.</p><p>The journal explores how Solvix can work with legitimate external providers while keeping authorization, security and clear ownership at the center of each integration.</p><p><b>Business focus:</b> international partnerships, AI ecosystem research and Asia/global market coordination.</p>"}
 };
 document.querySelectorAll(".team-card").forEach(card=>card.addEventListener("click",()=>{const b=teamBlogs[card.dataset.blog];document.getElementById("blog-role").textContent=b.role;document.getElementById("blog-title").textContent=b.title;document.getElementById("blog-body").innerHTML=b.body;document.getElementById("team-modal").classList.remove("hidden");}));
 document.getElementById("close-team-modal").addEventListener("click",()=>document.getElementById("team-modal").classList.add("hidden"));
 document.getElementById("team-modal").addEventListener("click",e=>{if(e.target.id==="team-modal")e.currentTarget.classList.add("hidden")});
-document.getElementById("site-ai-send").addEventListener("click",()=>{const q=document.getElementById("site-ai-input").value.trim();const out=document.getElementById("site-ai-answer");if(!q)return;out.classList.remove("hidden");out.textContent="Solvix AI: I can explain the platform, plans, opportunity workflows and risk controls. For account-specific answers, open the authenticated Solvix workspace."});
-</script>
+
+const solvixHelp=[
+ {keys:["get started","start","begin","new account"],title:"Getting started",answer:"Create or sign in to your Solvix account, review the Free workspace, then choose a plan if you need expanded capacity. After activation you can choose the Freelancing Jobs or Forex workflow. External partner accounts and broker access must be authorized and verified separately."},
+ {keys:["plan","plans","price","pricing","starter","pro","business","enterprise"],title:"Plans",answer:"Solvix currently presents Free, Starter, Pro, Business and Enterprise workspaces. Your plan controls the workspace capacity and credits shown in the dashboard. Plan pricing and bonuses are displayed before payment; a bonus is not the same thing as earned revenue."},
+ {keys:["fund","funding","pay","payment","mtn","airtel","deposit"],title:"Funding",answer:"For supported Uganda funding flows, choose MTN MoMo or Airtel Money on the plan card and follow the payment prompt. Solvix should activate a plan only after the payment provider reports a confirmed result."},
+ {keys:["forex","trade","trading","exness","live"],title:"Forex",answer:"Solvix can organize authorized forex workflows and risk controls, but live execution stays behind its verification gate. A broker connection must be authorized and verified before live orders are allowed. Demo or paper activity is testing, not proof of profit."},
+ {keys:["job","jobs","freelance","freelancing","opportunity","opportunities","bounty"],title:"Freelancing jobs",answer:"Solvix can discover and organize legitimate freelance or bounty opportunities and track authorized submissions. A discovered opportunity or submitted application is not an earning until an external platform or customer confirms payment."},
+ {keys:["security","secure","password","2fa","account","safe"],title:"Security",answer:"Use a unique password and passkey where available, protect your email account, and never share API keys or payment credentials in chat. High-risk actions should remain behind authorization, verification and explicit execution controls."},
+ {keys:["withdraw","withdrawal","money out","cash out"],title:"Withdrawals",answer:"Withdrawals depend on the Solvix withdrawal policy and a verified available balance. Solvix should distinguish available verified revenue from bonuses, pending payments, paper-trading results and unverified opportunity values."},
+ {keys:["contact","feedback","email","support"],title:"Contact & feedback",answer:"Send feedback and business questions to Solvixfeedback@gmail.com. The same address is used for Solvix feedback communication."},
+ {keys:["ai","agent","agents","assistant"],title:"Solvix AI",answer:"Solvix AI Help is a guided support layer for product questions. It can explain plans, workflows, security and status concepts. It should not invent account data or promise profits; account-specific facts should come from authenticated Solvix records."},
+ {keys:["profit","earn","earnings","guarantee","guaranteed"],title:"Earnings",answer:"Solvix does not guarantee trading profits or freelance income. Opportunities are leads until a real external payment is confirmed. Trading carries loss risk, so risk controls and verified execution records matter."}
+];
+function answerSolvixHelp(question){
+ const q=question.toLowerCase();
+ const hit=solvixHelp.find(item=>item.keys.some(k=>q.includes(k)));
+ return hit||{title:"Solvix AI Help",answer:"I can answer questions about getting started, plans, funding, forex, freelance jobs, security, withdrawals, earnings, AI agents or contact. Try one of those topics or send a more specific question."};
+}
+function askSolvixHelp(q){
+ const question=(q||document.getElementById("site-ai-input").value).trim();
+ if(!question)return;
+ const out=document.getElementById("site-ai-answer");
+ const hit=answerSolvixHelp(question);
+ out.classList.remove("hidden");
+ out.innerHTML='<span class="ai-response-title">'+hit.title+'</span>'+hit.answer;
+}
+document.getElementById("site-ai-send").addEventListener("click",()=>askSolvixHelp());
+document.getElementById("site-ai-input").addEventListener("keydown",e=>{if(e.key==="Enter")askSolvixHelp()});
+document.querySelectorAll(".ai-q").forEach(btn=>btn.addEventListener("click",()=>{document.getElementById("site-ai-input").value=btn.dataset.q;askSolvixHelp(btn.dataset.q)}));</script>
 </body>
 </html>
