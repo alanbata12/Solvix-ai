@@ -179,8 +179,8 @@
   </div>
     </section>
     <div class="section-intro">
-      <h2>Choose your Solvix plan</h2>
-      <p>Your plan unlocks the workspace, credits and tools you select. After activation, choose between <b>Forex Live Trading</b> and <b>Freelancing Jobs</b>. Trading remains subject to broker connection, verification and risk controls; job earnings are never counted as Solvix revenue until externally verified.</p>
+      <h2>First, choose what you want to do</h2>
+      <p>After sign-in, Solvix asks you to choose your primary path. <b>Then</b> the plan section unlocks for that path. You can change the path later. Trading remains subject to broker verification and risk controls; job leads are not counted as earnings until an external payment is confirmed.</p>
       <div class="partners">
         <div class="partner"><b>Forex partners</b> · authorized broker integrations</div>
         <div class="partner"><b>Freelance partners</b> · legitimate job & bounty platforms</div>
@@ -192,9 +192,9 @@
       <div class="card"><div class="label">AI credits</div><div class="value" id="ai-credits">—</div></div>
       <div class="card"><div class="label">Cloud credits</div><div class="value" id="cloud-credits">—</div></div>
     </div>
-    <div id="mode-choice" class="hidden" style="margin-top:34px">
+    <div id="mode-choice" style="margin-top:34px">
       <h2 style="font-size:22px; margin-bottom:8px">Choose your Solvix path</h2>
-      <p style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">After your plan is active, choose what you want to use.</p>
+      <p style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">Select one path to continue to the plan section.</p>
       <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
         <button id="forex-choice" class="card" style="text-align:left;cursor:pointer;color:var(--ink);border:1px solid var(--gold);background:linear-gradient(145deg,#1b2b1f,#16241A)">
           <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.08em">OPTION 1</div>
@@ -211,9 +211,9 @@
       </div>
       <div id="mode-content" style="margin-top:16px"></div>
     </div>
-    <div style="margin-top:40px">
-      <h2 style="font-size:19px; margin-bottom:14px">Choose a plan to access</h2>
-      <p style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">Pay only when you pick what you want to use. You won't be charged again while a plan is still active.</p>
+    <div id="plan-section" class="hidden" style="margin-top:40px">
+      <h2 style="font-size:19px; margin-bottom:14px">Choose your plan for this path</h2>
+      <p id="plan-section-copy" style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">Choose the workspace level that fits your selected path. Payment activates the plan only after provider confirmation.</p>
       <div id="plan-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px"></div>
       <div id="plan-msg" style="margin-top:14px"></div>
       <section class="site-sections" id="solvix-story">
@@ -238,33 +238,44 @@
     <div id="site-ai-answer" class="ai-answer hidden"></div>
   </article>
           <article class="info-card"><h3>Contact & feedback</h3><p>For feedback, product questions and business communication, use the official Solvix feedback inbox.</p><div class="contact-row"><a class="contact-chip" href="mailto:Solvixfeedback@gmail.com"><b>Email</b> · Solvixfeedback@gmail.com</a><div class="contact-chip"><b>AI help</b> · guided answers below</div><div class="contact-chip"><b>Feedback</b> · same official inbox</div></div></article>
-          <article class="info-card"><h3>Our standard</h3><p>Premium design should come with honest product language: partner marketplaces remain external services, broker access requires authorization, and verified revenue is tracked separately from projections or paper activity.</p></article>
+          <article class="info-card"><h3>Partner & affiliate network</h3><p>When an external platform wants to partner with Solvix, its approved referral or affiliate link can be added here. We will display the partner name, destination, disclosure and terms instead of inventing referral links.</p><div class="contact-row"><a class="contact-chip" href="mailto:Solvixfeedback@gmail.com?subject=Solvix%20Partnership%20%26%20Affiliate%20Proposal"><b>Partner with Solvix</b> · email proposal</a><div class="contact-chip"><b>Affiliate disclosure</b> · commissions are disclosed</div></div></article>
         </div>
 
+
         <div class="section-intro" style="margin-top:8px">
-          <h2>Meet the Solvix leadership & team</h2>
-          <p>These are <b>AI-generated brand personas</b> created for the Solvix website concept. Their responsibilities and editorial profiles describe the positions they represent; they are not claims about real employees or real-world credentials.</p>
+          <h2>Customer feedback & platform activity</h2>
+          <p><b>Illustrative demo content:</b> the names and comments below are fictional examples for the website design. They are not presented as real customer testimonials or verified results.</p>
+        </div>
+        <div class="info-grid">
+          <article class="info-card"><h3>“Clearer than most dashboards.”</h3><p>“I could understand the difference between an opportunity, an application and verified payment.”</p><div class="team-note">— Maya Bennett · illustrative demo review</div></article>
+          <article class="info-card"><h3>“The workflow makes sense.”</h3><p>“Choosing a path first and then seeing the relevant plan makes the onboarding feel much more focused.”</p><div class="team-note">— Daniel Moreau · illustrative demo review</div></article>
+          <article class="info-card"><h3>Demo platform metrics</h3><p><b>1,240</b> sample workflows · <b>318</b> sample opportunity records · <b>96</b> sample partner reviews.</p><div class="team-note">Illustrative dataset only · not live customer statistics</div></article>
+          <article class="info-card"><h3>Proof over promises</h3><p>Live metrics will be populated from authenticated Solvix records only: verified submissions, confirmed payments, active partner links and auditable execution events.</p></article>
+        </div>
+        <div class="section-intro" style="margin-top:8px">
+          <h2>Meet the Solvix leadership team</h2>
+          <p>Solvix uses <b>AI-generated executive personas</b> for this concept site. The names, faces and profiles are fictional brand assets, not claims about real employees, credentials or employment history.</p>
         </div>
         <div class="team-grid">
           <button class="team-card" data-blog="founder">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#d9a06a"/><path d="M103 76c2-52 91-59 96-1-16-18-31-28-96 1Z" fill="#172018"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#24372a"/><path d="M120 95c10 6 20 9 30 9s20-3 30-9" fill="none" stroke="#8a5b3b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Founder & Executive Chairman</div><h3>Alexander Laurent</h3><p>Product vision, governance, systems direction and long-term strategic partnerships.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Founder & Executive Chairman</div><h3>Alexander Laurent</h3><p><b>AI strategy · market research · systems architecture.</b> Alexander sets the product thesis, maps emerging AI opportunities, studies market structure and turns research into accountable platform direction.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
           <button class="team-card" data-blog="ceo">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e2b07b"/><path d="M103 75c5-50 88-57 96 0-16-15-35-24-96 0Z" fill="#6d4a36"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#1c2e3a"/><circle cx="132" cy="79" r="3" fill="#182018"/><circle cx="168" cy="79" r="3" fill="#182018"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Executive Officer</div><h3>Elena Voss</h3><p>Customer strategy, commercial operations, partnerships and international growth.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Chief Executive Officer</div><h3>Elena Voss</h3><p><b>AI adoption · market intelligence · commercial strategy.</b> Elena studies customer behavior, international markets and partner economics, then converts research into practical growth and customer workflows.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
           <button class="team-card" data-blog="cto">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#edc39d"/><path d="M102 75c3-49 93-58 97 1-18-18-35-25-97-1Z" fill="#3f322c"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#304234"/><path d="M112 100c13 9 24 13 38 13s25-4 38-13" fill="none" stroke="#a26c4b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Technology Officer</div><h3>Matteo Reinhardt</h3><p>AI infrastructure, agent orchestration, cloud architecture, security and reliability.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Chief Technology Officer</div><h3>Matteo Reinhardt</h3><p><b>AI engineering · agent systems · security.</b> Matteo specializes in orchestration, model-integrated infrastructure, APIs, observability and secure automation designed to remain controllable.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
           <button class="team-card" data-blog="coo">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e7b58b"/><path d="M101 77c0-52 96-60 99 1-13-22-31-31-51-31-20 0-37 9-48 30Z" fill="#6f4a32"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#263b2d"/><path d="M116 96c11 8 22 12 34 12s23-4 34-12" fill="none" stroke="#9d6749" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Operating Officer</div><h3>Sofia Laurent</h3><p>Operations, customer workflows, quality controls and execution follow-through.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Chief Operating Officer</div><h3>Sofia Laurent</h3><p><b>Operations research · customer experience · process design.</b> Sofia turns complex AI capabilities into repeatable workflows, quality checks and measurable service operations.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
           <button class="team-card" data-blog="partnerships">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e8b98f"/><path d="M99 80c-3-57 96-65 102 0-13-21-28-32-51-32-23 0-39 11-51 32Z" fill="#171914"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#7b3131"/><path d="M119 95c10 7 20 10 31 10s21-3 31-10" fill="none" stroke="#a36c4e" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Director, AI & Global Partnerships</div><h3>Lin Wei</h3><p>International partner research, AI ecosystem coordination and Asia/global market relationships.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Director, AI & Global Partnerships</div><h3>Lin Wei</h3><p><b>AI ecosystem research · partnerships · global markets.</b> Lin focuses on technology ecosystems, partner due diligence, cross-market research and international collaboration between AI builders and businesses.</p><div class="team-note">AI-generated brand persona · journal</div></div>
           </button>
         </div>
       </section>
@@ -297,20 +308,28 @@ if(window.location.hash.includes("type=recovery")){authScreen.classList.add("hid
 document.getElementById("signout").addEventListener("click",async()=>{await sb.auth.signOut();dashboard.classList.add("hidden");authScreen.classList.remove("hidden");});
 async function loadDashboard(){const{data:{user}}=await sb.auth.getUser();if(!user)return;authScreen.classList.add("hidden");dashboard.classList.remove("hidden");document.getElementById("dash-email").textContent=user.email;const{data:profile}=await sb.from("profiles").select("plan_slug").eq("id",user.id).single();const planSlug=profile?.plan_slug||"free";const{data:plan}=await sb.from("solvix_plans").select("*").eq("slug",planSlug).single();if(plan){document.getElementById("plan-name").textContent=plan.name;document.getElementById("plan-price").textContent=`$${Number(plan.monthly_usd).toFixed(0)}/mo`;document.getElementById("ai-credits").textContent=Number(plan.ai_credits).toLocaleString();document.getElementById("cloud-credits").textContent=Number(plan.cloud_credits).toLocaleString();}await loadPlanGrid(planSlug);await loadModeChoice(planSlug);}
 async function loadModeChoice(planSlug){
-  const box=document.getElementById("mode-choice");
+  const box=document.getElementById("mode-choice"), planSection=document.getElementById("plan-section");
   const content=document.getElementById("mode-content");
   if(!box||!content)return;
-  if(planSlug==="free"){box.classList.add("hidden");return;}
   box.classList.remove("hidden");
+  planSection.classList.add("hidden");
   const{data:gate}=await sb.from("solvix_live_execution_gate").select("live_enabled,reason").eq("id",1).single();
-  const forexStatus=document.getElementById("forex-status");
-  forexStatus.textContent=gate?.live_enabled?"LIVE ENABLED":"LIVE LOCKED — VERIFICATION REQUIRED";
-  document.getElementById("forex-choice").onclick=()=>{
-    content.innerHTML='<div class="card"><h2 style="font-size:18px">Forex Live Trading</h2><p style="color:var(--ink-dim);font-size:13.5px;margin-top:8px">Exness connector and live execution remain locked until Solvix verifies real Exness trade records against Solvix execution records. Paper trading remains available for testing.</p><div class="plan-name">50 Hybrid Agents — live gate protected</div></div>';
+  document.getElementById("forex-status").textContent=gate?.live_enabled?"LIVE ENABLED":"LIVE LOCKED — VERIFICATION REQUIRED";
+  const choose=mode=>{
+    localStorage.setItem("solvix_selected_mode",mode);
+    planSection.classList.remove("hidden");
+    document.getElementById("plan-section-copy").textContent=mode==="forex"?
+      "Forex path selected. Your plan unlocks the trading workspace; live execution still requires broker verification and the Solvix live gate.":
+      "Freelancing path selected. Your plan unlocks opportunity discovery and authorized submission workflows; leads are not earnings until payment is verified.";
+    content.innerHTML=mode==="forex"?
+      '<div class="card"><h2 style="font-size:18px">Forex path selected</h2><p style="color:var(--ink-dim);font-size:13.5px;margin-top:8px">Choose a plan below. Exness live execution remains locked until Solvix verifies the broker connector and real trade records.</p><div class="plan-name">Risk gate protected</div></div>':
+      '<div class="card"><h2 style="font-size:18px">Freelancing path selected</h2><p style="color:var(--ink-dim);font-size:13.5px;margin-top:8px">Choose a plan below to open legitimate job and bounty discovery tools. Verified customer/platform payments are the only earnings that count.</p><div class="plan-name" style="color:var(--mint);background:rgba(111,207,151,.12)">OPPORTUNITY WORKSPACE</div></div>';
+    planSection.scrollIntoView({behavior:"smooth",block:"start"});
   };
-  document.getElementById("freelance-choice").onclick=()=>{
-    content.innerHTML='<div class="card"><h2 style="font-size:18px">Freelancing Jobs</h2><p style="color:var(--ink-dim);font-size:13.5px;margin-top:8px">Open the opportunities workspace to review legitimate jobs and authorized submissions. Discovered leads are not counted as earnings.</p><div class="plan-name" style="color:var(--mint);background:rgba(111,207,151,.12)">JOB DISCOVERY READY</div></div>';
-  };
+  document.getElementById("forex-choice").onclick=()=>choose("forex");
+  document.getElementById("freelance-choice").onclick=()=>choose("jobs");
+  const saved=localStorage.getItem("solvix_selected_mode");
+  if(saved==="forex"||saved==="jobs") choose(saved);
 }
 
 async function loadPlanGrid(currentPlanSlug){const{data:plans}=await sb.from("solvix_plans").select("*").eq("active",true).order("monthly_usd");const grid=document.getElementById("plan-grid");grid.innerHTML="";(plans||[]).forEach(p=>{const isCurrent=p.slug===currentPlanSlug,card=document.createElement("div");card.className="card plan-card";card.innerHTML=`<div class="label">${p.name}</div><div class="plan-desc">${p.slug==="starter"?"A focused starting workspace for discovering and organizing legitimate opportunities.":p.slug==="pro"?"Expanded AI capacity for users ready to run more advanced workflows.":p.slug==="business"?"A deeper operating layer for higher-volume opportunity and agent workflows.":p.slug==="enterprise"?"The full Solvix operating layer for advanced teams and automation.":"Explore Solvix at no cost before upgrading."}</div><div class="value" style="font-size:20px">${Number(p.monthly_usd)===0?"Free":"UGX "+Number(p.monthly_ugx).toLocaleString()}</div><div class="bonus">${Number(p.first_purchase_bonus_usd||0)>0?"+$"+Number(p.first_purchase_bonus_usd).toFixed(0)+" first-purchase wallet bonus":""}</div>${isCurrent?`<button class="btn" style="margin-top:14px; opacity:.5" disabled>Current plan</button>`:`<button class="btn" style="margin-top:14px; background:#FFCC00; color:#1a1a1a" data-plan="${p.slug}" data-provider="mtn_momo">Pay with MTN MoMo</button><button class="btn" style="margin-top:8px; background:#E4002B; color:#fff" data-plan="${p.slug}" data-provider="airtel_money">Pay with Airtel Money</button>`}`;grid.appendChild(card);});grid.querySelectorAll("button[data-plan]").forEach(btn=>btn.addEventListener("click",()=>startCheckout(btn.dataset.plan,btn.dataset.provider,btn)));}
@@ -321,11 +340,11 @@ async function pollPaymentStatus(provider,ref,planSlug,btn,originalText,msgEl){c
 
 <script>
 const teamBlogs={
- founder:{role:"Founder & Executive Chairman · AI-generated brand persona",title:"Alexander Laurent — The founding journal",body:"<p>Alexander represents the Solvix founder position: setting product direction, governance principles and the long-term architecture of the operating system.</p><p>The profile focuses on building a business where opportunity discovery, automation and revenue verification remain connected to accountable controls.</p><p><b>Business focus:</b> product vision, governance, systems direction and strategic partnerships.</p>"},
- ceo:{role:"Chief Executive Officer · AI-generated brand persona",title:"Elena Voss — Building the customer operating layer",body:"<p>Elena represents the CEO position, connecting customer needs, commercial operations and the wider Solvix partner ecosystem.</p><p>Her editorial focus is on making a complex AI platform understandable, useful and consistent across international customers and business workflows.</p><p><b>Business focus:</b> customer strategy, commercial operations, partnerships and international growth.</p>"},
- cto:{role:"Chief Technology Officer · AI-generated brand persona",title:"Matteo Reinhardt — Engineering for accountable automation",body:"<p>Matteo represents the technology leadership position responsible for the technical foundations behind Solvix agents, integrations and cloud workflows.</p><p>The journal focuses on a simple principle: automation should be observable, controllable and auditable, especially when money or external systems are involved.</p><p><b>Business focus:</b> AI infrastructure, orchestration, cloud architecture, security and reliability.</p>"},
- coo:{role:"Chief Operating Officer · AI-generated brand persona",title:"Sofia Laurent — Turning complexity into repeatable operations",body:"<p>Sofia represents the operating layer that turns product capabilities into repeatable customer and internal workflows.</p><p>Her journal focuses on quality controls, service consistency, execution follow-through and keeping operational status visible rather than hidden behind automation.</p><p><b>Business focus:</b> operations, customer workflows, quality and execution discipline.</p>"},
- partnerships:{role:"Director, AI & Global Partnerships · AI-generated brand persona",title:"Lin Wei — Building a global partner network",body:"<p>Lin represents Solvix's international partnerships position, with a focus on AI ecosystems, technology relationships and cross-market coordination.</p><p>The journal explores how Solvix can work with legitimate external providers while keeping authorization, security and clear ownership at the center of each integration.</p><p><b>Business focus:</b> international partnerships, AI ecosystem research and Asia/global market coordination.</p>"}
+ founder:{role:"Founder & Executive Chairman · fictional AI brand persona",title:"Alexander Laurent — The founding journal",body:"<p>Alexander Laurent leads product vision, governance, systems architecture and long-range market research for the fictional Solvix brand team.</p><p>The profile focuses on building a business where opportunity discovery, automation and revenue verification remain connected to accountable controls.</p><p><b>Business focus:</b> product vision, governance, systems direction and strategic partnerships.</p>"},
+ ceo:{role:"Chief Executive Officer · fictional AI brand persona",title:"Elena Voss — Building the customer operating layer",body:"<p>Elena Voss leads customer strategy, commercial research, international operations and partner development for the fictional Solvix brand team.</p><p>Her editorial focus is on making a complex AI platform understandable, useful and consistent across international customers and business workflows.</p><p><b>Business focus:</b> customer strategy, commercial operations, partnerships and international growth.</p>"},
+ cto:{role:"Chief Technology Officer · fictional AI brand persona",title:"Matteo Reinhardt — Engineering for accountable automation",body:"<p>Matteo Reinhardt leads AI engineering, agent orchestration, cloud architecture, security and reliability for the fictional Solvix brand team.</p><p>The journal focuses on a simple principle: automation should be observable, controllable and auditable, especially when money or external systems are involved.</p><p><b>Business focus:</b> AI infrastructure, orchestration, cloud architecture, security and reliability.</p>"},
+ coo:{role:"Chief Operating Officer · fictional AI brand persona",title:"Sofia Laurent — Turning complexity into repeatable operations",body:"<p>Sofia Laurent leads operations research, customer workflows, quality controls and execution discipline for the fictional Solvix brand team.</p><p>Her journal focuses on quality controls, service consistency, execution follow-through and keeping operational status visible rather than hidden behind automation.</p><p><b>Business focus:</b> operations, customer workflows, quality and execution discipline.</p>"},
+ partnerships:{role:"Director, AI & Global Partnerships · fictional AI brand persona",title:"Lin Wei — Building a global partner network",body:"<p>Lin Wei leads AI ecosystem research, partner due diligence and cross-market technology relationships for the fictional Solvix brand team.</p><p>The journal explores how Solvix can work with legitimate external providers while keeping authorization, security and clear ownership at the center of each integration.</p><p><b>Business focus:</b> international partnerships, AI ecosystem research and Asia/global market coordination.</p>"}
 };
 document.querySelectorAll(".team-card").forEach(card=>card.addEventListener("click",()=>{const b=teamBlogs[card.dataset.blog];document.getElementById("blog-role").textContent=b.role;document.getElementById("blog-title").textContent=b.title;document.getElementById("blog-body").innerHTML=b.body;document.getElementById("team-modal").classList.remove("hidden");}));
 document.getElementById("close-team-modal").addEventListener("click",()=>document.getElementById("team-modal").classList.add("hidden"));
