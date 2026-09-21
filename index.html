@@ -68,10 +68,50 @@
   .trust{border:1px solid var(--line);border-radius:12px;padding:14px;background:rgba(255,255,255,.02)}
   .trust strong{display:block;font-size:13px}.trust span{display:block;color:var(--ink-dim);font-size:11.5px;line-height:1.5;margin-top:4px}
   @media(max-width:780px){.hero{grid-template-columns:1fr;padding-top:34px}.hero-orb{min-height:170px}.trust-strip{grid-template-columns:1fr}.hero h1{font-size:40px}}
+
+  .brand-lockup{display:flex;align-items:center;gap:10px}
+  .brand-mark{width:34px;height:34px;display:block}
+  .site-sections{margin-top:46px;display:grid;gap:16px}
+  .info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .info-card{background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:16px;padding:22px}
+  .info-card h3{font-family:'Space Grotesk';font-size:20px;margin-bottom:8px}
+  .info-card p,.info-card li{color:var(--ink-dim);font-size:13px;line-height:1.7}
+  .info-card ul{padding-left:18px;margin-top:10px}
+  .contact-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+  .contact-chip{border:1px solid var(--line);border-radius:999px;padding:8px 11px;color:var(--ink-dim);font-size:12px;background:rgba(255,255,255,.02)}
+  .contact-chip b{color:var(--ink)}
+  .team-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .team-card{position:relative;overflow:hidden;text-align:left;cursor:pointer;background:linear-gradient(145deg,#17271c,#111a14);border:1px solid var(--line);border-radius:16px;padding:0;color:var(--ink);transition:transform .2s,border-color .2s,box-shadow .2s}
+  .team-card:hover{transform:translateY(-4px);border-color:rgba(232,181,74,.55);box-shadow:0 18px 45px rgba(0,0,0,.24)}
+  .portrait{height:210px;display:flex;align-items:flex-end;justify-content:center;background:radial-gradient(circle at 50% 25%,rgba(232,181,74,.16),transparent 35%),linear-gradient(180deg,#1c3021,#0f1711);overflow:hidden}
+  .portrait svg{width:100%;height:100%}
+  .team-copy{padding:15px}
+  .team-copy .role{font-size:11px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+  .team-copy h3{font-family:'Space Grotesk';font-size:17px;margin:5px 0}
+  .team-copy p{color:var(--ink-dim);font-size:12px;line-height:1.55}
+  .team-note{font-size:11px;color:#87998a;margin-top:10px}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:18px;z-index:20}
+  .modal-card{width:min(680px,100%);max-height:90vh;overflow:auto;background:#142017;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+  .modal-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+  .close-modal{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:9px;padding:8px 11px;cursor:pointer}
+  .blog-meta{color:var(--gold);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .modal-card h2{font-size:30px;margin:7px 0 10px}
+  .modal-card .blog-body{color:var(--ink-dim);font-size:14px;line-height:1.8}
+  .modal-card .blog-body p{margin-top:12px}
+  .ai-chat{display:flex;gap:10px;margin-top:15px}
+  .ai-chat input{margin:0}
+  .ai-chat button{border:0;border-radius:9px;background:var(--gold);color:#20180A;font-weight:700;padding:0 16px;cursor:pointer}
+  .ai-answer{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--ink-dim);font-size:13px;line-height:1.6}
+  .footer{border-top:1px solid var(--line);margin-top:46px;padding:25px 0 35px;color:#87998a;font-size:12px;text-align:center}
+  @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:620px){.info-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}.portrait{height:240px}}
+
 </style>
 </head>
 <body>
-<header><div class="wrap"><nav><div class="brand">Solvix<span>.</span></div></nav></div></header>
+<header><div class="wrap"><nav><div class="brand-lockup">
+<svg class="brand-mark" viewBox="0 0 40 40" aria-label="Solvix logo" role="img"><defs><linearGradient id="sg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#E8B54A"/><stop offset="1" stop-color="#6FCF97"/></linearGradient></defs><rect x="2" y="2" width="36" height="36" rx="11" fill="#132018" stroke="#344639"/><path d="M12 14c4-4 12-4 16 0M12 20c4-4 12-4 16 0M12 26c4-4 12-4 16 0" fill="none" stroke="url(#sg)" stroke-width="2.7" stroke-linecap="round"/><circle cx="28" cy="14" r="2.2" fill="#E8B54A"/></svg>
+<div class="brand">Solvix<span>.</span></div></div></nav></div></header>
 <div id="auth-screen" class="auth-screen">
   <div class="auth-card">
     <h1 id="auth-title">Welcome back</h1>
@@ -155,6 +195,43 @@
       <p style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">Pay only when you pick what you want to use. You won't be charged again while a plan is still active.</p>
       <div id="plan-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px"></div>
       <div id="plan-msg" style="margin-top:14px"></div>
+      <section class="site-sections" id="solvix-story">
+        <div class="section-intro">
+          <h2>Why Solvix</h2>
+          <p>Solvix is designed as one intelligent workspace for opportunity discovery, authorized trading workflows, customer operations and transparent tracking. We separate opportunities from verified earnings and keep high-risk actions behind explicit controls.</p>
+        </div>
+        <div class="info-grid">
+          <article class="info-card"><h3>Built for clarity</h3><p>One place to see your plan, AI capacity, opportunities and activity without pretending that a lead is already money.</p><ul><li>Opportunity discovery with source context</li><li>Risk-controlled trading workflows</li><li>Transparent activity and payment verification</li></ul></article>
+          <article class="info-card"><h3>Chat with Solvix AI</h3><p>Ask about your workspace, plans, opportunities or how a workflow works. This is an AI guidance layer, not a promise of profit.</p><div class="ai-chat"><input id="site-ai-input" placeholder="Ask Solvix AI something…"><button id="site-ai-send">Ask</button></div><div id="site-ai-answer" class="ai-answer hidden"></div></article>
+          <article class="info-card"><h3>Contact Solvix</h3><p>Keep customer communication direct and professional. Replace the email below with your official company inbox before launch if needed.</p><div class="contact-row"><div class="contact-chip"><b>Email</b> · support@solvix.ai</div><div class="contact-chip"><b>AI help</b> · available in workspace</div><div class="contact-chip"><b>Response</b> · business inquiries</div></div></article>
+          <article class="info-card"><h3>Our standard</h3><p>Premium design should come with honest product language: partner marketplaces remain external services, broker access requires authorization, and verified revenue is tracked separately from projections or paper activity.</p></article>
+        </div>
+
+        <div class="section-intro" style="margin-top:8px">
+          <h2>Meet the Solvix leadership & team</h2>
+          <p>Tap a profile to open its journal. The three illustrated staff profiles below are <b>brand-concept characters</b>, not claims about real employees; replace them with your confirmed names, biographies and photographs when ready.</p>
+        </div>
+        <div class="team-grid">
+          <button class="team-card" data-blog="founder">
+            <div class="portrait"><svg viewBox="0 0 300 210"><defs><linearGradient id="p1" x1="0" x2="1"><stop stop-color="#d9a06a"/><stop offset="1" stop-color="#f0c38e"/></linearGradient></defs><circle cx="150" cy="75" r="48" fill="url(#p1)"/><path d="M102 73c3-47 92-55 98 0-17-17-36-25-98 0Z" fill="#182017"/><path d="M72 210c4-62 34-91 78-91s74 29 78 91" fill="#24372a"/><path d="M116 92c10 7 19 10 34 10s24-3 34-10" fill="none" stroke="#8a5b3b" stroke-width="3" stroke-linecap="round"/></svg></div>
+            <div class="team-copy"><div class="role">Founder & Owner</div><h3>Solvix Founder</h3><p>Vision, final authority and long-term direction of the Solvix operating system.</p><div class="team-note">Brand profile · click to read</div></div>
+          </button>
+          <button class="team-card" data-blog="ceo">
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="76" r="47" fill="#e2b07b"/><path d="M103 72c8-51 89-56 96 0-16-12-33-19-96 0Z" fill="#6d4a36"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#1c2e3a"/><circle cx="132" cy="79" r="3" fill="#1b201b"/><circle cx="168" cy="79" r="3" fill="#1b201b"/></svg></div>
+            <div class="team-copy"><div class="role">CEO · AI Executive Layer</div><h3>Brain AI</h3><p>Coordinates agents, tasks, communications and operating workflows under Solvix governance.</p><div class="team-note">AI executive profile · click to read</div></div>
+          </button>
+          <button class="team-card" data-blog="manager">
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="75" r="47" fill="#edc39d"/><path d="M102 75c2-45 93-54 97 1-18-19-34-24-97-1Z" fill="#6e4730"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#304234"/><path d="M112 100c13 10 24 14 38 14s25-4 38-14" fill="none" stroke="#a26c4b" stroke-width="3" stroke-linecap="round"/></svg></div>
+            <div class="team-copy"><div class="role">Operations Manager</div><h3>Solvix Operations</h3><p>Illustrative management profile focused on workflow discipline, customer operations and execution follow-through.</p><div class="team-note">Brand profile · click to read</div></div>
+          </button>
+          <button class="team-card" data-blog="china">
+            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="75" r="47" fill="#e8b98f"/><path d="M100 79c-3-57 94-63 100 0-12-19-28-31-51-31-23 0-37 12-49 31Z" fill="#171914"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#7b3131"/><path d="M119 95c10 7 20 10 31 10s21-3 31-10" fill="none" stroke="#a36c4e" stroke-width="3" stroke-linecap="round"/></svg></div>
+            <div class="team-copy"><div class="role">AI & Partnerships · China</div><h3>Lin · Concept Profile</h3><p>Illustrative Chinese team character focused on partner research, AI product coordination and international operations.</p><div class="team-note">Concept character · click to read</div></div>
+          </button>
+        </div>
+      </section>
+      <div id="team-modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><div id="blog-role" class="blog-meta"></div><h2 id="blog-title"></h2></div><button id="close-team-modal" class="close-modal">Close</button></div><div id="blog-body" class="blog-body"></div></div></div>
+      <div class="footer">Solvix · Intelligent opportunity & trading workspace · Built around transparency, authorization and accountable execution.</div>
     </div>
   </div>
 </div>
@@ -202,6 +279,19 @@ async function loadPlanGrid(currentPlanSlug){const{data:plans}=await sb.from("so
 async function startCheckout(planSlug,provider,btn){const msgEl=document.getElementById("plan-msg");msgEl.innerHTML="";let phone=prompt(provider==="mtn_momo"?"Enter your MTN number (07XXXXXXXX)":"Enter your Airtel number (07XXXXXXXX)");if(!phone)return;phone=phone.trim().replace(/[\s-]/g,"");if(phone.startsWith("+256"))phone="0"+phone.slice(4);else if(phone.startsWith("256"))phone="0"+phone.slice(3);if(!/^07\d{8}$/.test(phone)){msgEl.innerHTML='<div class="msg err">Enter a valid Ugandan mobile number starting with 07, for example 0771234567.</div>';return;}const providerPhone="256"+phone.slice(1);btn.disabled=true;const originalText=btn.textContent;btn.textContent="Sending request…";try{const{data:{session}}=await sb.auth.getSession();const fnName=provider==="mtn_momo"?"mtn-momo-initiate-payment":"airtel-money-initiate-payment";const resp=await fetch(`${SUPABASE_URL}/functions/v1/${fnName}`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${session.access_token}`},body:JSON.stringify({plan_slug:planSlug,phone_number:providerPhone})});const result=await resp.json();if(!resp.ok){msgEl.innerHTML=`<div class="msg ${result.error==="already_active"?"ok":"err"}">${result.message||result.error||"Could not start payment."}</div>`;btn.disabled=false;btn.textContent=originalText;return;}const ref=result.reference_id||result.reference;msgEl.innerHTML='<div class="msg ok">Check your phone and approve the payment prompt. Waiting for confirmation…</div>';btn.textContent="Waiting for approval…";await pollPaymentStatus(provider,ref,planSlug,btn,originalText,msgEl);}catch(err){msgEl.innerHTML=`<div class="msg err">${err.message}</div>`;btn.disabled=false;btn.textContent=originalText;}}
 async function pollPaymentStatus(provider,ref,planSlug,btn,originalText,msgEl){const fnName=provider==="mtn_momo"?"mtn-momo-check-status":"airtel-money-check-status",paramKey=provider==="mtn_momo"?"reference_id":"reference";const{data:{session}}=await sb.auth.getSession();for(let attempt=0;attempt<20;attempt++){await new Promise(r=>setTimeout(r,4000));try{const resp=await fetch(`${SUPABASE_URL}/functions/v1/${fnName}`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${session.access_token}`},body:JSON.stringify({[paramKey]:ref})});const result=await resp.json(),status=result.status;if(status==="SUCCESSFUL"||status==="TS"||status==="Successful"){msgEl.innerHTML='<div class="msg ok">Payment confirmed! Your plan is now active.</div>';await loadDashboard();return;}if(status==="FAILED"||status==="TF"||status==="Failed"){msgEl.innerHTML='<div class="msg err">Payment failed or was declined.</div>';btn.disabled=false;btn.textContent=originalText;return;}}catch{}}msgEl.innerHTML='<div class="msg err">Still waiting — if you approved on your phone, it may take a moment longer. Refresh to check again.</div>';btn.disabled=false;btn.textContent=originalText;}
 (async()=>{const{data:{session}}=await sb.auth.getSession();if(session)await loadDashboard();})();
+</script>
+
+<script>
+const teamBlogs={
+ founder:{role:"Founder & Owner",title:"The Solvix founding journal",body:"<p>Solvix began with a simple direction: bring opportunity discovery, business operations and intelligent automation into one accountable workspace.</p><p>The founder profile represents the person with final authority over the product vision, priorities and governance. Real name, portrait and biography should be inserted here once officially confirmed.</p><p><b>Focus:</b> vision, governance, product direction and long-term partnerships.</p>"},
+ ceo:{role:"CEO · AI Executive Layer",title:"Inside the Brain AI",body:"<p>Brain AI is the executive coordination layer of Solvix. It helps organize agents, tasks, communications and operational decisions under the platform's governance rules.</p><p>It does not replace human ownership or create authority it has not been granted. High-risk actions remain subject to explicit controls and verified integrations.</p><p><b>Focus:</b> orchestration, accountability, operations and decision routing.</p>"},
+ manager:{role:"Operations Manager · Concept Profile",title:"The operations journal",body:"<p>This illustrative management profile represents the human-style face of Solvix operations: keeping customer journeys clear, workflows organized and execution follow-through visible.</p><p>This is a brand concept rather than a real employee biography. Replace it with the confirmed manager's details before publishing it as staff information.</p><p><b>Focus:</b> customer operations, workflow quality and execution discipline.</p>"},
+ china:{role:"AI & Partnerships · Concept Profile",title:"Across markets, one operating language",body:"<p>Lin is an illustrative Chinese team character created for the Solvix brand concept. The profile represents international partner research, AI coordination and cross-market operations.</p><p>It is not a claim that Solvix currently employs a person by this name. Use a real staff photograph and biography when the actual team member is confirmed.</p><p><b>Focus:</b> partnerships, international research and AI product coordination.</p>"}
+};
+document.querySelectorAll(".team-card").forEach(card=>card.addEventListener("click",()=>{const b=teamBlogs[card.dataset.blog];document.getElementById("blog-role").textContent=b.role;document.getElementById("blog-title").textContent=b.title;document.getElementById("blog-body").innerHTML=b.body;document.getElementById("team-modal").classList.remove("hidden");}));
+document.getElementById("close-team-modal").addEventListener("click",()=>document.getElementById("team-modal").classList.add("hidden"));
+document.getElementById("team-modal").addEventListener("click",e=>{if(e.target.id==="team-modal")e.currentTarget.classList.add("hidden")});
+document.getElementById("site-ai-send").addEventListener("click",()=>{const q=document.getElementById("site-ai-input").value.trim();const out=document.getElementById("site-ai-answer");if(!q)return;out.classList.remove("hidden");out.textContent="Solvix AI: I can explain the platform, plans, opportunity workflows and risk controls. For account-specific answers, open the authenticated Solvix workspace."});
 </script>
 </body>
 </html>
