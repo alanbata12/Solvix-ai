@@ -382,7 +382,61 @@ document.getElementById("forgot-form").addEventListener("submit",async e=>{e.pre
 document.getElementById("reset-form").addEventListener("submit",async e=>{e.preventDefault();const password=document.getElementById("new-password").value,btn=document.getElementById("reset-submit"),msg=document.getElementById("reset-msg");btn.disabled=true;msg.innerHTML="";try{const{error}=await sb.auth.updateUser({password});if(error)throw error;msg.innerHTML='<div class="msg ok">Password updated. Redirecting…</div>';setTimeout(()=>{window.location.href=window.location.pathname;},1200);}catch(err){msg.innerHTML=`<div class="msg err">${err.message||"Something went wrong."}</div>`;}finally{btn.disabled=false;}});
 if(window.location.hash.includes("type=recovery")){authScreen.classList.add("hidden");forgotScreen.classList.add("hidden");resetScreen.classList.remove("hidden");}
 document.getElementById("signout").addEventListener("click",async()=>{await sb.auth.signOut();dashboard.classList.add("hidden");authScreen.classList.remove("hidden");});
-async function loadDashboard(){const{data:{user}}=await sb.auth.getUser();if(!user)return;authScreen.classList.add("hidden");dashboard.classList.remove("hidden");document.getElementById("dash-email").textContent=user.email;const{data:profile}=await sb.from("profiles").select("plan_slug").eq("id",user.id).single();const planSlug=profile?.plan_slug||"free";const{data:plan}=await sb.from("solvix_plans").select("*").eq("slug",planSlug).single();if(plan){document.getElementById("plan-name").textContent=plan.name;document.getElementById("plan-price").textContent=`${Number(plan.monthly_usd).toFixed(0)}/mo`;document.getElementById("ai-credits").textContent=Number(plan.ai_credits).toLocaleString();document.getElementById("cloud-credits").textContent=Number(plan.cloud_credits).toLocaleString();}await loadWalletBalance();await loadPlanGrid(planSlug);await loadModeChoice(planSlug);}
+async function loadWalletBalance(){
+  const balanceEl=document.getElementById("wallet-balance");
+  const pendingEl=document.getElementById("wallet-pending");
+  const currencyEl=document.getElementById("wallet-currency");
+  const metaEl=document.getElementById("wallet-meta");
+  if(!balanceEl||!pendingEl||!currencyEl||!metaEl)return;
+  try{
+    const{data,error}=await sb.from("solvix_wallet_balance").select("currency,confirmed_balance,pending_balance").limit(1).maybeSingle();
+    if(error)throw error;
+    if(!data){
+      balanceEl.textContent="—";
+      pendingEl.textContent="—";
+      currencyEl.textContent="USD";
+      metaEl.textContent="No verified wallet ledger entry is available yet.";
+      return;
+    }
+    const currency=data.currency||"USD";
+    balanceEl.textContent=`${currency} ${Number(data.confirmed_balance||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+    pendingEl.textContent=`${currency} ${Number(data.pending_balance||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+    currencyEl.textContent=currency;
+    metaEl.textContent="Verified Solvix ledger balance";
+  }catch(err){
+    balanceEl.textContent="—";
+    pendingEl.textContent="—";
+    currencyEl.textContent="USD";
+    metaEl.textContent="Verified wallet data is temporarily unavailable.";
+    console.warn("Wallet balance load failed:",err);
+  }
+}
+async function loadDashboard(){
+  const{data:{user}}=await sb.auth.getUser();
+  if(!user)return;
+  authScreen.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  document.getElementById("dash-email").textContent=user.email;
+
+  let planSlug="free";
+  try{
+    const{data:profile}=await sb.from("profiles").select("plan_slug").eq("id",user.id).single();
+    planSlug=profile?.plan_slug||"free";
+    const{data:plan}=await sb.from("solvix_plans").select("*").eq("slug",planSlug).single();
+    if(plan){
+      document.getElementById("plan-name").textContent=plan.name;
+      document.getElementById("plan-price").textContent=`${Number(plan.monthly_usd).toFixed(0)}/mo`;
+      document.getElementById("ai-credits").textContent=Number(plan.ai_credits).toLocaleString();
+      document.getElementById("cloud-credits").textContent=Number(plan.cloud_credits).toLocaleString();
+    }
+  }catch(err){
+    console.warn("Profile/plan load failed:",err);
+  }
+
+  await loadWalletBalance();
+  await loadPlanGrid(planSlug);
+  await loadModeChoice(planSlug);
+}
 async function loadModeChoice(planSlug){
   const box=document.getElementById("mode-choice"), planSection=document.getElementById("plan-section"), content=document.getElementById("mode-content");
   if(!box||!planSection||!content)return;
@@ -418,7 +472,12 @@ async function loadModeChoice(planSlug){
   };
 
   const saved=localStorage.getItem("solvix_selected_mode");
-  if(saved==="forex"||saved==="jobs") openPath(saved);
+  if(saved==="forex"||saved==="jobs"){
+    openPath(saved);
+  }else{
+    box.classList.remove("hidden");
+    planSection.classList.add("hidden");
+  }
 }
 
 async function loadPlanGrid(currentPlanSlug){const{data:plans}=await sb.from("solvix_plans").select("*").eq("active",true).order("monthly_usd");const grid=document.getElementById("plan-grid");grid.innerHTML="";(plans||[]).forEach(p=>{const isCurrent=p.slug===currentPlanSlug,card=document.createElement("div");card.className="card plan-card";card.innerHTML=`<div class="label">${p.name}</div><div class="plan-desc">${p.slug==="starter"?"A focused starting workspace for discovering and organizing legitimate opportunities.":p.slug==="pro"?"Expanded AI capacity for users ready to run more advanced workflows.":p.slug==="business"?"A deeper operating layer for higher-volume opportunity and agent workflows.":p.slug==="enterprise"?"The full Solvix operating layer for advanced teams and automation.":"Explore Solvix at no cost before upgrading."}</div><div class="value" style="font-size:20px">${Number(p.monthly_usd)===0?"Free":"UGX "+Number(p.monthly_ugx).toLocaleString()}</div><div class="bonus">${Number(p.first_purchase_bonus_usd||0)>0?"+$"+Number(p.first_purchase_bonus_usd).toFixed(0)+" first-purchase wallet bonus":""}</div>${isCurrent?`<button class="btn" style="margin-top:14px; opacity:.5" disabled>Current plan</button>`:`<button class="btn" style="margin-top:14px; background:#FFCC00; color:#1a1a1a" data-plan="${p.slug}" data-provider="mtn_momo">Pay with MTN MoMo</button><button class="btn" style="margin-top:8px; background:#E4002B; color:#fff" data-plan="${p.slug}" data-provider="airtel_money">Pay with Airtel Money</button>`}`;grid.appendChild(card);});grid.querySelectorAll("button[data-plan]").forEach(btn=>btn.addEventListener("click",()=>startCheckout(btn.dataset.plan,btn.dataset.provider,btn)));}
