@@ -1,1 +1,1 @@
-import {createBrowserClient} from "@supabase/ssr"; export function createClient(){return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,{auth:{experimental:{passkey:true}}});}
+import {createBrowserClient} from "@supabase/ssr";import {SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY} from "./config";export function createClient(){return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL||SUPABASE_URL,process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY||SUPABASE_PUBLISHABLE_KEY,{auth:{experimental:{passkey:true}}});}
