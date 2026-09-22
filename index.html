@@ -414,9 +414,9 @@ async function loadDashboard(){
     console.warn("Profile/plan load failed:",err);
   }
 
-  await loadWalletBalance();
-  await loadPlanGrid(planSlug);
-  await loadModeChoice(planSlug);
+  try{await loadWalletBalance();}catch(err){console.warn("Wallet initialization skipped.",err);}
+  try{await loadPlanGrid(planSlug);}catch(err){console.warn("Plan catalog initialization skipped.",err);}
+  try{await loadModeChoice(planSlug);}catch(err){console.warn("Workspace initialization skipped.",err);}
 }
 async function loadModeChoice(planSlug){
   const box=document.getElementById("mode-choice"), planSection=document.getElementById("plan-section"), content=document.getElementById("mode-content");
@@ -424,9 +424,13 @@ async function loadModeChoice(planSlug){
   box.classList.remove("hidden");
   planSection.classList.add("hidden");
 
-  const{data:gate}=await sb.from("solvix_live_execution_gate").select("live_enabled,reason").eq("id",1).single();
+  let gate={live_enabled:false};
+  try{
+    const res=await sb.from("solvix_live_execution_gate").select("live_enabled,reason").eq("id",1).single();
+    if(res.data) gate=res.data;
+  }catch(err){console.warn("Execution gate unavailable; keeping live trading locked.",err);}
   const status=document.getElementById("forex-status");
-  if(status) status.textContent=gate?.live_enabled?"LIVE ENABLED":"LIVE LOCKED — VERIFICATION REQUIRED";
+  if(status) status.textContent=gate.live_enabled?"LIVE ENABLED":"LIVE LOCKED — VERIFICATION REQUIRED";
 
   const openPath=mode=>{
     localStorage.setItem("solvix_selected_mode",mode);
