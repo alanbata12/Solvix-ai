@@ -48,17 +48,29 @@
   .wallet-stats{display:flex;justify-content:space-between;gap:12px}
   .wallet-stat span{display:block;color:#87998a;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
   .wallet-stat b{display:block;margin-top:4px;font-size:13px}
-  .motion-stage{position:relative;min-height:260px;overflow:hidden;border-radius:20px;border:1px solid var(--line);background:radial-gradient(circle at 50% 50%,rgba(111,207,151,.13),transparent 28%),radial-gradient(circle at 78% 20%,rgba(232,181,74,.15),transparent 24%),#101812;perspective:900px}
-  .motion-stage:before{content:"";position:absolute;inset:18% 15%;border:1px solid rgba(111,207,151,.18);border-radius:50%;transform:rotateX(67deg);box-shadow:0 0 55px rgba(111,207,151,.06)}
-  .motion-core{position:absolute;left:50%;top:50%;width:86px;height:86px;transform:translate(-50%,-50%) rotateX(12deg) rotateY(18deg);transform-style:preserve-3d;animation:coreFloat 5s ease-in-out infinite}
-  .motion-core:before,.motion-core:after{content:"";position:absolute;inset:0;border-radius:24px;background:linear-gradient(145deg,rgba(232,181,74,.95),rgba(111,207,151,.72));box-shadow:0 0 50px rgba(111,207,151,.18);transform:translateZ(22px) rotate(45deg)}
-  .motion-core:after{transform:translateZ(-22px) rotate(45deg);opacity:.18}
-  .motion-node{position:absolute;display:flex;align-items:center;justify-content:center;width:68px;height:68px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(18,31,22,.86);backdrop-filter:blur(10px);font-family:'Space Grotesk';font-size:10px;font-weight:700;letter-spacing:.08em;box-shadow:0 15px 35px rgba(0,0,0,.28);animation:nodeFloat 4.5s ease-in-out infinite}
-  .node-ai{left:10%;top:18%;color:var(--mint)} .node-fx{right:10%;top:15%;color:var(--gold);animation-delay:-1.2s} .node-jobs{left:14%;bottom:13%;color:#8fd0ff;animation-delay:-2s} .node-revenue{right:13%;bottom:12%;color:#d6a8ff;animation-delay:-.6s}
-  .motion-caption{position:absolute;left:20px;bottom:18px;color:var(--ink-dim);font-size:11px;letter-spacing:.04em}
-  @keyframes coreFloat{0%,100%{transform:translate(-50%,-50%) rotateX(12deg) rotateY(18deg) translateY(0)}50%{transform:translate(-50%,-50%) rotateX(12deg) rotateY(198deg) translateY(-10px)}}
-  @keyframes nodeFloat{0%,100%{transform:translateY(0) rotateY(0)}50%{transform:translateY(-9px) rotateY(10deg)}}
-  .account-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:46px;padding:22px 0 6px}
+  .motion-stage{position:relative;min-height:260px;overflow:hidden;border-radius:20px;border:1px solid var(--line);background:radial-gradient(circle at 72% 35%,rgba(232,181,74,.13),transparent 28%),radial-gradient(circle at 28% 70%,rgba(111,207,151,.12),transparent 30%),#101812}
+  .work-scene{position:absolute;inset:0}
+  .work-glow{position:absolute;right:8%;top:10%;width:45%;height:65%;background:radial-gradient(circle,rgba(232,181,74,.16),transparent 66%);filter:blur(2px)}
+  .person{position:absolute;left:13%;bottom:22px;width:145px;height:185px}
+  .person-head{position:absolute;left:51px;top:6px;width:42px;height:48px;border-radius:48% 48% 44% 44%;background:linear-gradient(145deg,#d8a77f,#9c684c);box-shadow:inset -8px -6px 0 rgba(65,35,25,.16)}
+  .person-hair{position:absolute;left:49px;top:1px;width:46px;height:23px;border-radius:50% 50% 20% 20%;background:#171411}
+  .person-body{position:absolute;left:35px;top:52px;width:76px;height:105px;border-radius:24px 24px 12px 12px;background:linear-gradient(145deg,#26372b,#111a14);border:1px solid rgba(255,255,255,.08)}
+  .person-arm{position:absolute;left:91px;top:80px;width:73px;height:17px;border-radius:20px;background:#b77e5d;transform:rotate(-10deg);transform-origin:left center;animation:clickArm 1.7s ease-in-out infinite}
+  .person-hand{position:absolute;right:-7px;top:-2px;width:22px;height:18px;border-radius:50%;background:#c78d68}
+  .desk{position:absolute;left:8%;bottom:16px;width:38%;height:13px;border-radius:9px;background:#314238;border:1px solid rgba(255,255,255,.08)}
+  .monitor{position:absolute;left:34%;top:33px;width:180px;height:108px;border-radius:12px;border:1px solid rgba(232,181,74,.4);background:#07100a;box-shadow:0 0 38px rgba(232,181,74,.12)}
+  .monitor:before{content:"";position:absolute;left:18px;right:18px;top:18px;height:52px;border-radius:7px;background:linear-gradient(180deg,rgba(111,207,151,.06),rgba(232,181,74,.03));border:1px solid rgba(111,207,151,.12)}
+  .chart-line{position:absolute;left:30px;top:55px;width:135px;height:1px;background:var(--gold);transform:rotate(-12deg);box-shadow:0 0 8px rgba(232,181,74,.6)}
+  .chart-line:before,.chart-line:after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--mint);top:-3px}
+  .chart-line:before{left:26px}.chart-line:after{right:4px}
+  .profit-stream{position:absolute;right:8%;top:29px;width:230px;height:160px;overflow:hidden}
+  .profit-pill{position:absolute;right:0;top:0;border:1px solid rgba(111,207,151,.35);background:rgba(10,25,16,.84);color:var(--mint);padding:8px 12px;border-radius:999px;font-family:'Space Grotesk';font-weight:700;font-size:12px;letter-spacing:.08em;box-shadow:0 8px 28px rgba(0,0,0,.22);animation:profitLoop 4.2s linear infinite}
+  .profit-pill:nth-child(2){animation-delay:-1.4s}.profit-pill:nth-child(3){animation-delay:-2.8s}
+  .scene-label{position:absolute;right:20px;bottom:19px;color:var(--ink-dim);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+  .scene-title{position:absolute;right:20px;top:18px;color:var(--gold);font-family:'Space Grotesk';font-weight:700;font-size:13px;letter-spacing:.08em}
+  @keyframes clickArm{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(3deg)}}
+  @keyframes profitLoop{0%{transform:translate(70px,105px) scale(.78);opacity:0}18%{opacity:1}70%{transform:translate(-25px,20px) scale(1);opacity:1}100%{transform:translate(-95px,-8px) scale(.9);opacity:0}}
+.account-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:46px;padding:22px 0 6px}
   .path-screen{margin-top:38px}
   .path-screen-head{max-width:760px;margin-bottom:20px}
   .path-screen-head h2{font-size:30px;letter-spacing:-.03em}
@@ -208,10 +220,16 @@
         <div class="wallet-line"></div>
         <div class="wallet-stats"><div class="wallet-stat"><span>Pending</span><b id="wallet-pending">—</b></div><div class="wallet-stat"><span>Currency</span><b id="wallet-currency">USD</b></div></div>
       </article>
-      <article class="motion-stage" aria-label="Solvix operating model">
-        <div class="motion-core"></div>
-        <div class="motion-node node-ai">AI CORE</div><div class="motion-node node-fx">FOREX</div><div class="motion-node node-jobs">JOB LEADS</div><div class="motion-node node-revenue">REVENUE</div>
-        <div class="motion-caption">Opportunity → intelligence → execution → verified value</div>
+      <article class="motion-stage" aria-label="Illustrative Solvix forex workflow">
+        <div class="work-scene">
+          <div class="work-glow"></div>
+          <div class="person"><div class="person-hair"></div><div class="person-head"></div><div class="person-body"></div><div class="person-arm"><div class="person-hand"></div></div></div>
+          <div class="desk"></div>
+          <div class="monitor"><div class="chart-line"></div></div>
+          <div class="scene-title">FOREX WORKFLOW</div>
+          <div class="profit-stream"><div class="profit-pill">PROFIT • +$</div><div class="profit-pill">PROFIT • +$</div><div class="profit-pill">PROFIT • +$</div></div>
+          <div class="scene-label">Illustrative profit cycle · not a guarantee</div>
+        </div>
       </article>
     </section>
     <section class="hero">
@@ -241,7 +259,7 @@
     </section>
     <div class="section-intro">
       <h2>Earn smart, choose Solvix</h2>
-      <p>Explore our main catalog and choose your best pick. <b>Then</b> the plan section unlocks for that path. You can change the path later. Trading remains subject to broker verification and risk controls; job leads are not counted as earnings until an external payment is confirmed.</p>
+      <p>Explore our main catalog and choose your best pick. You can change the path later. Trading remains subject to broker verification and risk controls; job leads are not counted as earnings until an external payment is confirmed.</p>
       <div class="partners">
         <div class="partner"><b>Forex partners</b> · authorized broker integrations</div>
         <div class="partner"><b>Freelance partners</b> · legitimate job & bounty platforms</div>
