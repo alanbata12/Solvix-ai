@@ -214,11 +214,9 @@
     <div class="dash-head"><div><div class="eyebrow">Solvix workspace</div><h1 style="margin-top:10px">Good to see you.</h1><p id="dash-email"></p></div><div class="plan-name">Secure account · verified workspace</div></div>
     <section class="command-deck">
       <article class="wallet-card">
-        <div class="wallet-top"><div class="wallet-kicker">Verified wallet balance</div><button class="wallet-eye" id="wallet-eye" aria-label="Hide wallet balance">◉</button></div>
-        <div class="wallet-balance" id="wallet-balance">—</div>
-        <div class="wallet-meta" id="wallet-meta">Checking verified Solvix ledger entries…</div>
-        <div class="wallet-line"></div>
-        <div class="wallet-stats"><div class="wallet-stat"><span>Pending</span><b id="wallet-pending">—</b></div><div class="wallet-stat"><span>Currency</span><b id="wallet-currency">USD</b></div></div>
+        <div class="wallet-top"><div class="wallet-kicker">Wallet balance</div><button class="wallet-eye" id="wallet-eye" aria-label="Hide wallet balance" title="Show or hide balance">◉</button></div>
+        <div class="wallet-balance" id="wallet-balance">UGX —</div>
+        <div class="wallet-meta" id="wallet-meta">Checking verified Solvix wallet…</div>
       </article>
       <article class="motion-stage" aria-label="Illustrative Solvix forex workflow">
         <div class="work-scene">
@@ -410,21 +408,16 @@ async function loadWalletBalance(){
     const{data,error}=await sb.from("solvix_wallet_balance").select("currency,confirmed_balance,pending_balance").limit(1).maybeSingle();
     if(error)throw error;
     if(!data){
-      balanceEl.textContent="—";
-      pendingEl.textContent="—";
-      currencyEl.textContent="USD";
+      balanceEl.textContent="UGX —";
       metaEl.textContent="No verified wallet ledger entry is available yet.";
       return;
     }
-    const currency=data.currency||"USD";
-    balanceEl.textContent=`${currency} ${Number(data.confirmed_balance||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;
-    pendingEl.textContent=`${currency} ${Number(data.pending_balance||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;
-    currencyEl.textContent=currency;
-    metaEl.textContent="Verified Solvix ledger balance";
+    const amount=Number(data.confirmed_balance||0);
+    balanceEl.dataset.value=`UGX ${amount.toLocaleString("en-UG",{minimumFractionDigits:0,maximumFractionDigits:0})}`;
+    balanceEl.textContent=balanceEl.dataset.value;
+    metaEl.textContent="Solvix wallet";
   }catch(err){
-    balanceEl.textContent="—";
-    pendingEl.textContent="—";
-    currencyEl.textContent="USD";
+    balanceEl.textContent="UGX —";
     metaEl.textContent="Verified wallet data is temporarily unavailable.";
     console.warn("Wallet balance load failed:",err);
   }
