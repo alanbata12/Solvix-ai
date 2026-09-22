@@ -36,7 +36,30 @@
   .msg.err{background:rgba(232,116,106,.12); color:var(--danger)}
   .msg.ok{background:rgba(111,207,151,.12); color:var(--mint)}
   .dash{padding:40px 0}
-  .dash-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:12px}
+  .dash-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:18px; flex-wrap:wrap; gap:12px}
+  .command-deck{display:grid;grid-template-columns:.9fr 1.6fr;gap:14px;margin-bottom:26px}
+  .wallet-card{position:relative;overflow:hidden;background:linear-gradient(145deg,#17271c,#0f1712);border:1px solid rgba(232,181,74,.28);border-radius:20px;padding:22px;min-height:260px}
+  .wallet-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .wallet-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);font-weight:700}
+  .wallet-eye{border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--ink);border-radius:999px;width:34px;height:34px;cursor:pointer}
+  .wallet-balance{font-family:'Space Grotesk';font-size:38px;font-weight:600;letter-spacing:-.04em;margin-top:30px}
+  .wallet-meta{color:var(--ink-dim);font-size:12px;line-height:1.6;margin-top:8px}
+  .wallet-line{height:1px;background:var(--line);margin:22px 0 14px}
+  .wallet-stats{display:flex;justify-content:space-between;gap:12px}
+  .wallet-stat span{display:block;color:#87998a;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+  .wallet-stat b{display:block;margin-top:4px;font-size:13px}
+  .motion-stage{position:relative;min-height:260px;overflow:hidden;border-radius:20px;border:1px solid var(--line);background:radial-gradient(circle at 50% 50%,rgba(111,207,151,.13),transparent 28%),radial-gradient(circle at 78% 20%,rgba(232,181,74,.15),transparent 24%),#101812;perspective:900px}
+  .motion-stage:before{content:"";position:absolute;inset:18% 15%;border:1px solid rgba(111,207,151,.18);border-radius:50%;transform:rotateX(67deg);box-shadow:0 0 55px rgba(111,207,151,.06)}
+  .motion-core{position:absolute;left:50%;top:50%;width:86px;height:86px;transform:translate(-50%,-50%) rotateX(12deg) rotateY(18deg);transform-style:preserve-3d;animation:coreFloat 5s ease-in-out infinite}
+  .motion-core:before,.motion-core:after{content:"";position:absolute;inset:0;border-radius:24px;background:linear-gradient(145deg,rgba(232,181,74,.95),rgba(111,207,151,.72));box-shadow:0 0 50px rgba(111,207,151,.18);transform:translateZ(22px) rotate(45deg)}
+  .motion-core:after{transform:translateZ(-22px) rotate(45deg);opacity:.18}
+  .motion-node{position:absolute;display:flex;align-items:center;justify-content:center;width:68px;height:68px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(18,31,22,.86);backdrop-filter:blur(10px);font-family:'Space Grotesk';font-size:10px;font-weight:700;letter-spacing:.08em;box-shadow:0 15px 35px rgba(0,0,0,.28);animation:nodeFloat 4.5s ease-in-out infinite}
+  .node-ai{left:10%;top:18%;color:var(--mint)} .node-fx{right:10%;top:15%;color:var(--gold);animation-delay:-1.2s} .node-jobs{left:14%;bottom:13%;color:#8fd0ff;animation-delay:-2s} .node-revenue{right:13%;bottom:12%;color:#d6a8ff;animation-delay:-.6s}
+  .motion-caption{position:absolute;left:20px;bottom:18px;color:var(--ink-dim);font-size:11px;letter-spacing:.04em}
+  @keyframes coreFloat{0%,100%{transform:translate(-50%,-50%) rotateX(12deg) rotateY(18deg) translateY(0)}50%{transform:translate(-50%,-50%) rotateX(12deg) rotateY(198deg) translateY(-10px)}}
+  @keyframes nodeFloat{0%,100%{transform:translateY(0) rotateY(0)}50%{transform:translateY(-9px) rotateY(10deg)}}
+  .account-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:46px;padding:22px 0 6px}
+  @media(max-width:780px){.command-deck{grid-template-columns:1fr}.motion-stage{min-height:230px}.wallet-card{min-height:230px}}
   .dash-head h1{font-size:26px}
   .dash-head p{color:var(--ink-dim); font-size:14px; margin-top:4px}
   .signout{border:1px solid var(--line); color:var(--ink); background:none; padding:9px 16px; border-radius:8px; font-size:13.5px; cursor:pointer}
@@ -152,7 +175,21 @@
 </div>
 <div id="dashboard" class="dash hidden">
   <div class="wrap">
-    <div class="dash-head"><div><h1>Your dashboard</h1><p id="dash-email"></p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="signout" id="add-passkey">Add passkey</button><button class="signout" id="signout">Sign out</button></div></div>
+    <div class="dash-head"><div><div class="eyebrow">Solvix workspace</div><h1 style="margin-top:10px">Good to see you.</h1><p id="dash-email"></p></div><div class="plan-name">Secure account · verified workspace</div></div>
+    <section class="command-deck">
+      <article class="wallet-card">
+        <div class="wallet-top"><div class="wallet-kicker">Verified wallet balance</div><button class="wallet-eye" id="wallet-eye" aria-label="Hide wallet balance">◉</button></div>
+        <div class="wallet-balance" id="wallet-balance">—</div>
+        <div class="wallet-meta" id="wallet-meta">Checking verified Solvix ledger entries…</div>
+        <div class="wallet-line"></div>
+        <div class="wallet-stats"><div class="wallet-stat"><span>Pending</span><b id="wallet-pending">—</b></div><div class="wallet-stat"><span>Currency</span><b id="wallet-currency">USD</b></div></div>
+      </article>
+      <article class="motion-stage" aria-label="Solvix operating model">
+        <div class="motion-core"></div>
+        <div class="motion-node node-ai">AI CORE</div><div class="motion-node node-fx">FOREX</div><div class="motion-node node-jobs">JOB LEADS</div><div class="motion-node node-revenue">REVENUE</div>
+        <div class="motion-caption">Opportunity → intelligence → execution → verified value</div>
+      </article>
+    </section>
     <section class="hero">
       <div>
         <div class="eyebrow">AI-powered opportunity & trading platform</div>
@@ -254,32 +291,33 @@
         </div>
         <div class="section-intro" style="margin-top:8px">
           <h2>Meet the Solvix leadership team</h2>
-          <p>Solvix uses <b>AI-generated executive personas</b> for this concept site. The names, faces and profiles are fictional brand assets, not claims about real employees, credentials or employment history.</p>
+          <p>Solvix leadership profiles are presented in a polished editorial format, with each executive focused on a defined discipline across AI, markets, technology, operations and global partnerships.</p>
         </div>
         <div class="team-grid">
           <button class="team-card" data-blog="founder">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#d9a06a"/><path d="M103 76c2-52 91-59 96-1-16-18-31-28-96 1Z" fill="#172018"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#24372a"/><path d="M120 95c10 6 20 9 30 9s20-3 30-9" fill="none" stroke="#8a5b3b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Founder & Executive Chairman</div><h3>Alexander Laurent</h3><p><b>AI strategy · market research · systems architecture.</b> Alexander sets the product thesis, maps emerging AI opportunities, studies market structure and turns research into accountable platform direction.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Founder & Executive Chairman</div><h3>Alexander Laurent</h3><p><b>AI strategy · market research · systems architecture.</b> Alexander sets the product thesis, maps emerging AI opportunities, studies market structure and turns research into accountable platform direction.</p><div class="team-note">Leadership profile · journal</div></div>
           </button>
           <button class="team-card" data-blog="ceo">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e2b07b"/><path d="M103 75c5-50 88-57 96 0-16-15-35-24-96 0Z" fill="#6d4a36"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#1c2e3a"/><circle cx="132" cy="79" r="3" fill="#182018"/><circle cx="168" cy="79" r="3" fill="#182018"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Executive Officer</div><h3>Elena Voss</h3><p><b>AI adoption · market intelligence · commercial strategy.</b> Elena studies customer behavior, international markets and partner economics, then converts research into practical growth and customer workflows.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Chief Executive Officer</div><h3>Elena Voss</h3><p><b>AI adoption · market intelligence · commercial strategy.</b> Elena studies customer behavior, international markets and partner economics, then converts research into practical growth and customer workflows.</p><div class="team-note">Leadership profile · journal</div></div>
           </button>
           <button class="team-card" data-blog="cto">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#edc39d"/><path d="M102 75c3-49 93-58 97 1-18-18-35-25-97-1Z" fill="#3f322c"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#304234"/><path d="M112 100c13 9 24 13 38 13s25-4 38-13" fill="none" stroke="#a26c4b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Technology Officer</div><h3>Matteo Reinhardt</h3><p><b>AI engineering · agent systems · security.</b> Matteo specializes in orchestration, model-integrated infrastructure, APIs, observability and secure automation designed to remain controllable.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Chief Technology Officer</div><h3>Matteo Reinhardt</h3><p><b>AI engineering · agent systems · security.</b> Matteo specializes in orchestration, model-integrated infrastructure, APIs, observability and secure automation designed to remain controllable.</p><div class="team-note">Leadership profile · journal</div></div>
           </button>
           <button class="team-card" data-blog="coo">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e7b58b"/><path d="M101 77c0-52 96-60 99 1-13-22-31-31-51-31-20 0-37 9-48 30Z" fill="#6f4a32"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#263b2d"/><path d="M116 96c11 8 22 12 34 12s23-4 34-12" fill="none" stroke="#9d6749" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Operating Officer</div><h3>Sofia Laurent</h3><p><b>Operations research · customer experience · process design.</b> Sofia turns complex AI capabilities into repeatable workflows, quality checks and measurable service operations.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Chief Operating Officer</div><h3>Sofia Laurent</h3><p><b>Operations research · customer experience · process design.</b> Sofia turns complex AI capabilities into repeatable workflows, quality checks and measurable service operations.</p><div class="team-note">Leadership profile · journal</div></div>
           </button>
           <button class="team-card" data-blog="partnerships">
             <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e8b98f"/><path d="M99 80c-3-57 96-65 102 0-13-21-28-32-51-32-23 0-39 11-51 32Z" fill="#171914"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#7b3131"/><path d="M119 95c10 7 20 10 31 10s21-3 31-10" fill="none" stroke="#a36c4e" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Director, AI & Global Partnerships</div><h3>Lin Wei</h3><p><b>AI ecosystem research · partnerships · global markets.</b> Lin focuses on technology ecosystems, partner due diligence, cross-market research and international collaboration between AI builders and businesses.</p><div class="team-note">AI-generated brand persona · journal</div></div>
+            <div class="team-copy"><div class="role">Director, AI & Global Partnerships</div><h3>Lin Wei</h3><p><b>AI ecosystem research · partnerships · global markets.</b> Lin focuses on technology ecosystems, partner due diligence, cross-market research and international collaboration between AI builders and businesses.</p><div class="team-note">Leadership profile · journal</div></div>
           </button>
         </div>
       </section>
       <div id="team-modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><div id="blog-role" class="blog-meta"></div><h2 id="blog-title"></h2></div><button id="close-team-modal" class="close-modal">Close</button></div><div id="blog-body" class="blog-body"></div></div></div>
+      <div class="account-actions"><button class="signout" id="add-passkey">Add passkey</button><button class="signout" id="signout">Sign out</button></div>
       <div class="footer">Solvix · Intelligent opportunity & trading workspace · Built around transparency, authorization and accountable execution.</div>
     </div>
   </div>
@@ -306,7 +344,7 @@ document.getElementById("forgot-form").addEventListener("submit",async e=>{e.pre
 document.getElementById("reset-form").addEventListener("submit",async e=>{e.preventDefault();const password=document.getElementById("new-password").value,btn=document.getElementById("reset-submit"),msg=document.getElementById("reset-msg");btn.disabled=true;msg.innerHTML="";try{const{error}=await sb.auth.updateUser({password});if(error)throw error;msg.innerHTML='<div class="msg ok">Password updated. Redirecting…</div>';setTimeout(()=>{window.location.href=window.location.pathname;},1200);}catch(err){msg.innerHTML=`<div class="msg err">${err.message||"Something went wrong."}</div>`;}finally{btn.disabled=false;}});
 if(window.location.hash.includes("type=recovery")){authScreen.classList.add("hidden");forgotScreen.classList.add("hidden");resetScreen.classList.remove("hidden");}
 document.getElementById("signout").addEventListener("click",async()=>{await sb.auth.signOut();dashboard.classList.add("hidden");authScreen.classList.remove("hidden");});
-async function loadDashboard(){const{data:{user}}=await sb.auth.getUser();if(!user)return;authScreen.classList.add("hidden");dashboard.classList.remove("hidden");document.getElementById("dash-email").textContent=user.email;const{data:profile}=await sb.from("profiles").select("plan_slug").eq("id",user.id).single();const planSlug=profile?.plan_slug||"free";const{data:plan}=await sb.from("solvix_plans").select("*").eq("slug",planSlug).single();if(plan){document.getElementById("plan-name").textContent=plan.name;document.getElementById("plan-price").textContent=`$${Number(plan.monthly_usd).toFixed(0)}/mo`;document.getElementById("ai-credits").textContent=Number(plan.ai_credits).toLocaleString();document.getElementById("cloud-credits").textContent=Number(plan.cloud_credits).toLocaleString();}await loadPlanGrid(planSlug);await loadModeChoice(planSlug);}
+async function loadDashboard(){const{data:{user}}=await sb.auth.getUser();if(!user)return;authScreen.classList.add("hidden");dashboard.classList.remove("hidden");document.getElementById("dash-email").textContent=user.email;const{data:profile}=await sb.from("profiles").select("plan_slug").eq("id",user.id).single();const planSlug=profile?.plan_slug||"free";const{data:plan}=await sb.from("solvix_plans").select("*").eq("slug",planSlug).single();if(plan){document.getElementById("plan-name").textContent=plan.name;document.getElementById("plan-price").textContent=`${Number(plan.monthly_usd).toFixed(0)}/mo`;document.getElementById("ai-credits").textContent=Number(plan.ai_credits).toLocaleString();document.getElementById("cloud-credits").textContent=Number(plan.cloud_credits).toLocaleString();}await loadWalletBalance();await loadPlanGrid(planSlug);await loadModeChoice(planSlug);}
 async function loadModeChoice(planSlug){
   const box=document.getElementById("mode-choice"), planSection=document.getElementById("plan-section");
   const content=document.getElementById("mode-content");
@@ -380,3 +418,4 @@ document.getElementById("site-ai-input").addEventListener("keydown",e=>{if(e.key
 document.querySelectorAll(".ai-q").forEach(btn=>btn.addEventListener("click",()=>{document.getElementById("site-ai-input").value=btn.dataset.q;askSolvixHelp(btn.dataset.q)}));</script>
 </body>
 </html>
+<script>let walletVisible=true;document.getElementById("wallet-eye").addEventListener("click",()=>{walletVisible=!walletVisible;document.getElementById("wallet-eye").textContent=walletVisible?"◉":"○";document.getElementById("wallet-eye").setAttribute("aria-label",walletVisible?"Hide wallet balance":"Show wallet balance");document.getElementById("wallet-balance").style.filter=walletVisible?"none":"blur(8px)";document.getElementById("wallet-pending").style.filter=walletVisible?"none":"blur(6px)";});</script>
