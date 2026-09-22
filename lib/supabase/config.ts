@@ -1,0 +1,1 @@
+export const SUPABASE_URL="https://jvmicoqonhuuyedvpmcn.supabase.co";export const SUPABASE_PUBLISHABLE_KEY="sb_publishable_dWUUCW1scH7Wt0VOS7xaTg_cM038MO6";
