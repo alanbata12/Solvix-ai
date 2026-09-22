@@ -416,6 +416,6 @@ function askSolvixHelp(q){
 document.getElementById("site-ai-send").addEventListener("click",()=>askSolvixHelp());
 document.getElementById("site-ai-input").addEventListener("keydown",e=>{if(e.key==="Enter")askSolvixHelp()});
 document.querySelectorAll(".ai-q").forEach(btn=>btn.addEventListener("click",()=>{document.getElementById("site-ai-input").value=btn.dataset.q;askSolvixHelp(btn.dataset.q)}));</script>
+<script>let walletVisible=true;document.getElementById("wallet-eye").addEventListener("click",()=>{walletVisible=!walletVisible;document.getElementById("wallet-eye").textContent=walletVisible?"◉":"○";document.getElementById("wallet-eye").setAttribute("aria-label",walletVisible?"Hide wallet balance":"Show wallet balance");document.getElementById("wallet-balance").style.filter=walletVisible?"none":"blur(8px)";document.getElementById("wallet-pending").style.filter=walletVisible?"none":"blur(6px)";});</script>
 </body>
 </html>
-<script>let walletVisible=true;document.getElementById("wallet-eye").addEventListener("click",()=>{walletVisible=!walletVisible;document.getElementById("wallet-eye").textContent=walletVisible?"◉":"○";document.getElementById("wallet-eye").setAttribute("aria-label",walletVisible?"Hide wallet balance":"Show wallet balance");document.getElementById("wallet-balance").style.filter=walletVisible?"none":"blur(8px)";document.getElementById("wallet-pending").style.filter=walletVisible?"none":"blur(6px)";});</script>
