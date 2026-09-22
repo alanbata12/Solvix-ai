@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle, Mail, Shield, Target, TrendingUp, Users, Wallet } from 'lucide-react';
+import { ArrowRight, CheckCircle, Mail, Globe, Shield, Target, TrendingUp, Users, Wallet } from 'lucide-react';
 import Link from 'next/link';
 import HolographicOrb from '@/components/HolographicOrb';
 
