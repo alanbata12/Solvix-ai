@@ -59,7 +59,31 @@
   @keyframes coreFloat{0%,100%{transform:translate(-50%,-50%) rotateX(12deg) rotateY(18deg) translateY(0)}50%{transform:translate(-50%,-50%) rotateX(12deg) rotateY(198deg) translateY(-10px)}}
   @keyframes nodeFloat{0%,100%{transform:translateY(0) rotateY(0)}50%{transform:translateY(-9px) rotateY(10deg)}}
   .account-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:46px;padding:22px 0 6px}
-  @media(max-width:780px){.command-deck{grid-template-columns:1fr}.motion-stage{min-height:230px}.wallet-card{min-height:230px}}
+  .path-screen{margin-top:38px}
+  .path-screen-head{max-width:760px;margin-bottom:20px}
+  .path-screen-head h2{font-size:30px;letter-spacing:-.03em}
+  .path-screen-head p{color:var(--ink-dim);font-size:14px;line-height:1.7;margin-top:7px}
+  .path-stack{display:grid;grid-template-columns:1fr;gap:16px;max-width:920px}
+  .path-choice{position:relative;display:block;width:100%;text-align:left;color:var(--ink);cursor:pointer;border-radius:22px;padding:26px 28px;border:1px solid var(--line);background:#121b15;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s,background .2s}
+  .path-choice:hover{transform:translateY(-3px);box-shadow:0 22px 55px rgba(0,0,0,.28)}
+  .path-choice:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .path-choice .path-index{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+  .path-choice .path-title{font-family:'Space Grotesk';font-size:clamp(25px,4vw,36px);font-weight:800;letter-spacing:-.035em;line-height:1.05}
+  .path-choice .path-sub{font-size:14px;line-height:1.65;color:var(--ink-dim);max-width:700px;margin-top:10px}
+  .path-choice .path-meta{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:20px;padding-top:15px;border-top:1px solid rgba(255,255,255,.08)}
+  .path-choice .path-status{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .path-choice .path-arrow{font-size:22px;line-height:1}
+  .path-choice.forex{border-color:rgba(232,181,74,.55);background:linear-gradient(145deg,rgba(232,181,74,.12),rgba(18,27,21,.98) 58%)}
+  .path-choice.forex .path-index,.path-choice.forex .path-title,.path-choice.forex .path-status{color:var(--gold)}
+  .path-choice.jobs{border-color:rgba(111,207,151,.5);background:linear-gradient(145deg,rgba(111,207,151,.09),rgba(18,27,21,.98) 58%)}
+  .path-choice.jobs .path-index,.path-choice.jobs .path-title,.path-choice.jobs .path-status{color:var(--mint)}
+  .path-detail{margin-top:28px}
+  .path-detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+  .path-detail-head h2{font-size:28px;letter-spacing:-.03em}
+  .path-detail-head p{color:var(--ink-dim);font-size:13.5px;line-height:1.6;margin-top:5px;max-width:760px}
+  .change-path{flex:0 0 auto;border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--ink);padding:9px 13px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}
+  .change-path:hover{border-color:rgba(232,181,74,.5)}
+  @media(max-width:780px){.command-deck{grid-template-columns:1fr}.motion-stage{min-height:230px}.wallet-card{min-height:230px}.path-choice{padding:22px}.path-detail-head{flex-direction:column}.change-path{width:100%}}
   .dash-head h1{font-size:26px}
   .dash-head p{color:var(--ink-dim); font-size:14px; margin-top:4px}
   .signout{border:1px solid var(--line); color:var(--ink); background:none; padding:9px 16px; border-radius:8px; font-size:13.5px; cursor:pointer}
@@ -224,31 +248,75 @@
         <div class="partner"><b>Payments</b> · supported funding providers</div>
       </div>
     </div>
-    <div class="cards">
-      <div class="card"><div class="label">Current plan</div><div class="value" id="plan-price">—</div><div class="plan-name" id="plan-name">—</div></div>
-      <div class="card"><div class="label">AI credits</div><div class="value" id="ai-credits">—</div></div>
-      <div class="card"><div class="label">Cloud credits</div><div class="value" id="cloud-credits">—</div></div>
-    </div>
-    <div id="mode-choice" style="margin-top:34px">
-      <h2 style="font-size:22px; margin-bottom:8px">Choose your Solvix path</h2>
-      <p style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">Select one path to continue to the plan section.</p>
-      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
-        <button id="forex-choice" class="card" style="text-align:left;cursor:pointer;color:var(--ink);border:1px solid var(--gold);background:linear-gradient(145deg,#1b2b1f,#16241A)">
-          <div style="font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.08em">OPTION 1</div>
-          <div style="font-family:'Space Grotesk';font-size:22px;font-weight:600;margin-top:8px">FOREX LIVE TRADING</div>
-          <div style="color:var(--ink-dim);font-size:13px;margin-top:8px">Exness-connected trading workspace, agent controls and live-execution status.</div>
-          <div id="forex-status" class="plan-name" style="margin-top:14px">LIVE LOCKED — VERIFICATION REQUIRED</div>
+    <section id="mode-choice" class="path-screen">
+      <div class="path-screen-head">
+        <h2>Choose your Solvix path</h2>
+        <p>Select one path to enter its workspace. Your selection opens the full plan and platform view.</p>
+      </div>
+      <div class="path-stack">
+        <button id="forex-choice" class="path-choice forex" type="button">
+          <div class="path-index">01 · Trading workspace</div>
+          <div class="path-title">FOREX LIVE TRADING</div>
+          <div class="path-sub">Exness-connected trading workspace with agent controls, risk controls and live-execution verification.</div>
+          <div class="path-meta">
+            <div id="forex-status" class="path-status">LIVE LOCKED — VERIFICATION REQUIRED</div>
+            <div class="path-arrow" aria-hidden="true">→</div>
+          </div>
         </button>
-        <button id="freelance-choice" class="card" style="text-align:left;cursor:pointer;color:var(--ink);border:1px solid var(--mint);background:linear-gradient(145deg,#182a20,#16241A)">
-          <div style="font-size:12px;color:var(--mint);font-weight:700;letter-spacing:.08em">OPTION 2</div>
-          <div style="font-family:'Space Grotesk';font-size:22px;font-weight:600;margin-top:8px">FREELANCING JOBS</div>
-          <div style="color:var(--ink-dim);font-size:13px;margin-top:8px">Browse legitimate freelance and bounty opportunities and track authorized submissions.</div>
-          <div class="plan-name" style="margin-top:14px;color:var(--mint);background:rgba(111,207,151,.12)">OPPORTUNITIES</div>
+        <button id="freelance-choice" class="path-choice jobs" type="button">
+          <div class="path-index">02 · Opportunity workspace</div>
+          <div class="path-title">FREELANCING JOBS</div>
+          <div class="path-sub">Discover legitimate freelance and bounty opportunities, organize authorized submissions and track verified outcomes.</div>
+          <div class="path-meta">
+            <div class="path-status">OPPORTUNITIES</div>
+            <div class="path-arrow" aria-hidden="true">→</div>
+          </div>
         </button>
       </div>
+    </section>
+
+    <section id="mode-choice" class="path-screen">
+      <div class="path-screen-head">
+        <h2>Choose your Solvix path</h2>
+        <p>Select one path to enter its workspace. Your selection opens the full plan and platform view.</p>
+      </div>
+      <div class="path-stack">
+        <button id="forex-choice" class="path-choice forex" type="button">
+          <div class="path-index">01 · Trading workspace</div>
+          <div class="path-title">FOREX LIVE TRADING</div>
+          <div class="path-sub">Exness-connected trading workspace with agent controls, risk controls and live-execution verification.</div>
+          <div class="path-meta">
+            <div id="forex-status" class="path-status">LIVE LOCKED — VERIFICATION REQUIRED</div>
+            <div class="path-arrow" aria-hidden="true">→</div>
+          </div>
+        </button>
+        <button id="freelance-choice" class="path-choice jobs" type="button">
+          <div class="path-index">02 · Opportunity workspace</div>
+          <div class="path-title">FREELANCING JOBS</div>
+          <div class="path-sub">Discover legitimate freelance and bounty opportunities, organize authorized submissions and track verified outcomes.</div>
+          <div class="path-meta">
+            <div class="path-status">OPPORTUNITIES</div>
+            <div class="path-arrow" aria-hidden="true">→</div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <section id="plan-section" class="hidden path-detail">
+      <div class="path-detail-head">
+        <div>
+          <h2 id="selected-path-title">Choose your plan</h2>
+          <p id="plan-section-copy">Choose the workspace level that fits your selected path. Payment activates the plan only after provider confirmation.</p>
+        </div>
+        <button id="change-path" class="change-path" type="button">Change path</button>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="label">Current plan</div><div class="value" id="plan-price">—</div><div class="plan-name" id="plan-name">—</div></div>
+        <div class="card"><div class="label">AI credits</div><div class="value" id="ai-credits">—</div></div>
+        <div class="card"><div class="label">Cloud credits</div><div class="value" id="cloud-credits">—</div></div>
+      </div>
       <div id="mode-content" style="margin-top:16px"></div>
-    </div>
-    <div id="plan-section" class="hidden" style="margin-top:40px">
+    <div id="plan-section class="hidden" style="margin-top:40px">
       <h2 style="font-size:19px; margin-bottom:14px">Choose your plan for this path</h2>
       <p id="plan-section-copy" style="color:var(--ink-dim); font-size:13.5px; margin-bottom:16px">Choose the workspace level that fits your selected path. Payment activates the plan only after provider confirmation.</p>
       <div id="plan-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px"></div>
@@ -346,28 +414,41 @@ if(window.location.hash.includes("type=recovery")){authScreen.classList.add("hid
 document.getElementById("signout").addEventListener("click",async()=>{await sb.auth.signOut();dashboard.classList.add("hidden");authScreen.classList.remove("hidden");});
 async function loadDashboard(){const{data:{user}}=await sb.auth.getUser();if(!user)return;authScreen.classList.add("hidden");dashboard.classList.remove("hidden");document.getElementById("dash-email").textContent=user.email;const{data:profile}=await sb.from("profiles").select("plan_slug").eq("id",user.id).single();const planSlug=profile?.plan_slug||"free";const{data:plan}=await sb.from("solvix_plans").select("*").eq("slug",planSlug).single();if(plan){document.getElementById("plan-name").textContent=plan.name;document.getElementById("plan-price").textContent=`${Number(plan.monthly_usd).toFixed(0)}/mo`;document.getElementById("ai-credits").textContent=Number(plan.ai_credits).toLocaleString();document.getElementById("cloud-credits").textContent=Number(plan.cloud_credits).toLocaleString();}await loadWalletBalance();await loadPlanGrid(planSlug);await loadModeChoice(planSlug);}
 async function loadModeChoice(planSlug){
-  const box=document.getElementById("mode-choice"), planSection=document.getElementById("plan-section");
-  const content=document.getElementById("mode-content");
-  if(!box||!content)return;
+  const box=document.getElementById("mode-choice"), planSection=document.getElementById("plan-section"), content=document.getElementById("mode-content");
+  if(!box||!planSection||!content)return;
   box.classList.remove("hidden");
   planSection.classList.add("hidden");
+
   const{data:gate}=await sb.from("solvix_live_execution_gate").select("live_enabled,reason").eq("id",1).single();
-  document.getElementById("forex-status").textContent=gate?.live_enabled?"LIVE ENABLED":"LIVE LOCKED — VERIFICATION REQUIRED";
-  const choose=mode=>{
+  const status=document.getElementById("forex-status");
+  if(status) status.textContent=gate?.live_enabled?"LIVE ENABLED":"LIVE LOCKED — VERIFICATION REQUIRED";
+
+  const openPath=mode=>{
     localStorage.setItem("solvix_selected_mode",mode);
+    box.classList.add("hidden");
     planSection.classList.remove("hidden");
-    document.getElementById("plan-section-copy").textContent=mode==="forex"?
-      "Forex path selected. Your plan unlocks the trading workspace; live execution still requires broker verification and the Solvix live gate.":
-      "Freelancing path selected. Your plan unlocks opportunity discovery and authorized submission workflows; leads are not earnings until payment is verified.";
-    content.innerHTML=mode==="forex"?
-      '<div class="card"><h2 style="font-size:18px">Forex path selected</h2><p style="color:var(--ink-dim);font-size:13.5px;margin-top:8px">Choose a plan below. Exness live execution remains locked until Solvix verifies the broker connector and real trade records.</p><div class="plan-name">Risk gate protected</div></div>':
-      '<div class="card"><h2 style="font-size:18px">Freelancing path selected</h2><p style="color:var(--ink-dim);font-size:13.5px;margin-top:8px">Choose a plan below to open legitimate job and bounty discovery tools. Verified customer/platform payments are the only earnings that count.</p><div class="plan-name" style="color:var(--mint);background:rgba(111,207,151,.12)">OPPORTUNITY WORKSPACE</div></div>';
+    const isForex=mode==="forex";
+    document.getElementById("selected-path-title").textContent=isForex?"Forex Live Trading":"Freelancing Jobs";
+    document.getElementById("plan-section-copy").textContent=isForex
+      ?"Forex path selected. Review the plans and workspace details below. Live execution remains subject to broker verification and the Solvix risk gate."
+      :"Freelancing path selected. Review the plans and workspace details below. Opportunities become earnings only after an external payment is verified.";
+    content.innerHTML=isForex
+      ? '<div class="card"><h2 style="font-size:18px">Forex workspace</h2><p style="color:var(--ink-dim);font-size:13.5px;line-height:1.65;margin-top:8px">Authorized broker workflows, agent controls and risk protection are available here. Exness live execution remains locked until Solvix verifies the broker connector and real trade records.</p><div class="plan-name">Risk gate protected</div></div>'
+      : '<div class="card"><h2 style="font-size:18px">Freelance opportunity workspace</h2><p style="color:var(--ink-dim);font-size:13.5px;line-height:1.65;margin-top:8px">Browse legitimate job and bounty opportunities, organize authorized submissions and track verified outcomes. A lead is never counted as earnings until payment is confirmed.</p><div class="plan-name" style="color:var(--mint);background:rgba(111,207,151,.12)">OPPORTUNITY WORKSPACE</div></div>';
     planSection.scrollIntoView({behavior:"smooth",block:"start"});
   };
-  document.getElementById("forex-choice").onclick=()=>choose("forex");
-  document.getElementById("freelance-choice").onclick=()=>choose("jobs");
+
+  document.getElementById("forex-choice").onclick=()=>openPath("forex");
+  document.getElementById("freelance-choice").onclick=()=>openPath("jobs");
+  document.getElementById("change-path").onclick=()=>{
+    localStorage.removeItem("solvix_selected_mode");
+    planSection.classList.add("hidden");
+    box.classList.remove("hidden");
+    box.scrollIntoView({behavior:"smooth",block:"start"});
+  };
+
   const saved=localStorage.getItem("solvix_selected_mode");
-  if(saved==="forex"||saved==="jobs") choose(saved);
+  if(saved==="forex"||saved==="jobs") openPath(saved);
 }
 
 async function loadPlanGrid(currentPlanSlug){const{data:plans}=await sb.from("solvix_plans").select("*").eq("active",true).order("monthly_usd");const grid=document.getElementById("plan-grid");grid.innerHTML="";(plans||[]).forEach(p=>{const isCurrent=p.slug===currentPlanSlug,card=document.createElement("div");card.className="card plan-card";card.innerHTML=`<div class="label">${p.name}</div><div class="plan-desc">${p.slug==="starter"?"A focused starting workspace for discovering and organizing legitimate opportunities.":p.slug==="pro"?"Expanded AI capacity for users ready to run more advanced workflows.":p.slug==="business"?"A deeper operating layer for higher-volume opportunity and agent workflows.":p.slug==="enterprise"?"The full Solvix operating layer for advanced teams and automation.":"Explore Solvix at no cost before upgrading."}</div><div class="value" style="font-size:20px">${Number(p.monthly_usd)===0?"Free":"UGX "+Number(p.monthly_ugx).toLocaleString()}</div><div class="bonus">${Number(p.first_purchase_bonus_usd||0)>0?"+$"+Number(p.first_purchase_bonus_usd).toFixed(0)+" first-purchase wallet bonus":""}</div>${isCurrent?`<button class="btn" style="margin-top:14px; opacity:.5" disabled>Current plan</button>`:`<button class="btn" style="margin-top:14px; background:#FFCC00; color:#1a1a1a" data-plan="${p.slug}" data-provider="mtn_momo">Pay with MTN MoMo</button><button class="btn" style="margin-top:8px; background:#E4002B; color:#fff" data-plan="${p.slug}" data-provider="airtel_money">Pay with Airtel Money</button>`}`;grid.appendChild(card);});grid.querySelectorAll("button[data-plan]").forEach(btn=>btn.addEventListener("click",()=>startCheckout(btn.dataset.plan,btn.dataset.provider,btn)));}
@@ -378,11 +459,11 @@ async function pollPaymentStatus(provider,ref,planSlug,btn,originalText,msgEl){c
 
 <script>
 const teamBlogs={
- founder:{role:"Founder & Executive Chairman · fictional AI brand persona",title:"Alexander Laurent — The founding journal",body:"<p>Alexander Laurent leads product vision, governance, systems architecture and long-range market research for the fictional Solvix brand team.</p><p>The profile focuses on building a business where opportunity discovery, automation and revenue verification remain connected to accountable controls.</p><p><b>Business focus:</b> product vision, governance, systems direction and strategic partnerships.</p>"},
- ceo:{role:"Chief Executive Officer · fictional AI brand persona",title:"Elena Voss — Building the customer operating layer",body:"<p>Elena Voss leads customer strategy, commercial research, international operations and partner development for the fictional Solvix brand team.</p><p>Her editorial focus is on making a complex AI platform understandable, useful and consistent across international customers and business workflows.</p><p><b>Business focus:</b> customer strategy, commercial operations, partnerships and international growth.</p>"},
- cto:{role:"Chief Technology Officer · fictional AI brand persona",title:"Matteo Reinhardt — Engineering for accountable automation",body:"<p>Matteo Reinhardt leads AI engineering, agent orchestration, cloud architecture, security and reliability for the fictional Solvix brand team.</p><p>The journal focuses on a simple principle: automation should be observable, controllable and auditable, especially when money or external systems are involved.</p><p><b>Business focus:</b> AI infrastructure, orchestration, cloud architecture, security and reliability.</p>"},
- coo:{role:"Chief Operating Officer · fictional AI brand persona",title:"Sofia Laurent — Turning complexity into repeatable operations",body:"<p>Sofia Laurent leads operations research, customer workflows, quality controls and execution discipline for the fictional Solvix brand team.</p><p>Her journal focuses on quality controls, service consistency, execution follow-through and keeping operational status visible rather than hidden behind automation.</p><p><b>Business focus:</b> operations, customer workflows, quality and execution discipline.</p>"},
- partnerships:{role:"Director, AI & Global Partnerships · fictional AI brand persona",title:"Lin Wei — Building a global partner network",body:"<p>Lin Wei leads AI ecosystem research, partner due diligence and cross-market technology relationships for the fictional Solvix brand team.</p><p>The journal explores how Solvix can work with legitimate external providers while keeping authorization, security and clear ownership at the center of each integration.</p><p><b>Business focus:</b> international partnerships, AI ecosystem research and Asia/global market coordination.</p>"}
+ founder:{role:"Founder & Executive Chairman",title:"Alexander Laurent — The founding journal",body:"<p>Alexander Laurent leads product vision, governance, systems architecture and long-range market research for the fictional Solvix brand team.</p><p>The profile focuses on building a business where opportunity discovery, automation and revenue verification remain connected to accountable controls.</p><p><b>Business focus:</b> product vision, governance, systems direction and strategic partnerships.</p>"},
+ ceo:{role:"Chief Executive Officer",title:"Elena Voss — Building the customer operating layer",body:"<p>Elena Voss leads customer strategy, commercial research, international operations and partner development for the fictional Solvix brand team.</p><p>Her editorial focus is on making a complex AI platform understandable, useful and consistent across international customers and business workflows.</p><p><b>Business focus:</b> customer strategy, commercial operations, partnerships and international growth.</p>"},
+ cto:{role:"Chief Technology Officer",title:"Matteo Reinhardt — Engineering for accountable automation",body:"<p>Matteo Reinhardt leads AI engineering, agent orchestration, cloud architecture, security and reliability for the fictional Solvix brand team.</p><p>The journal focuses on a simple principle: automation should be observable, controllable and auditable, especially when money or external systems are involved.</p><p><b>Business focus:</b> AI infrastructure, orchestration, cloud architecture, security and reliability.</p>"},
+ coo:{role:"Chief Operating Officer",title:"Sofia Laurent — Turning complexity into repeatable operations",body:"<p>Sofia Laurent leads operations research, customer workflows, quality controls and execution discipline for the fictional Solvix brand team.</p><p>Her journal focuses on quality controls, service consistency, execution follow-through and keeping operational status visible rather than hidden behind automation.</p><p><b>Business focus:</b> operations, customer workflows, quality and execution discipline.</p>"},
+ partnerships:{role:"Director, AI & Global Partnerships",title:"Lin Wei — Building a global partner network",body:"<p>Lin Wei leads AI ecosystem research, partner due diligence and cross-market technology relationships for the fictional Solvix brand team.</p><p>The journal explores how Solvix can work with legitimate external providers while keeping authorization, security and clear ownership at the center of each integration.</p><p><b>Business focus:</b> international partnerships, AI ecosystem research and Asia/global market coordination.</p>"}
 };
 document.querySelectorAll(".team-card").forEach(card=>card.addEventListener("click",()=>{const b=teamBlogs[card.dataset.blog];document.getElementById("blog-role").textContent=b.role;document.getElementById("blog-title").textContent=b.title;document.getElementById("blog-body").innerHTML=b.body;document.getElementById("team-modal").classList.remove("hidden");}));
 document.getElementById("close-team-modal").addEventListener("click",()=>document.getElementById("team-modal").classList.add("hidden"));
