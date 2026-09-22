@@ -210,170 +210,118 @@
   </div>
 </div>
 <div id="dashboard" class="dash hidden">
-  <div class="wrap">
-    <div class="dash-head"><div><div class="eyebrow">Solvix workspace</div><h1 style="margin-top:10px">Good to see you.</h1><p id="dash-email"></p></div><div class="plan-name">Secure account · verified workspace</div></div>
-    <section class="command-deck">
-      <article class="wallet-card">
-        <div class="wallet-top"><div class="wallet-kicker">Wallet balance</div><button class="wallet-eye" id="wallet-eye" aria-label="Hide wallet balance" title="Show or hide balance">◉</button></div>
-        <div class="wallet-balance" id="wallet-balance">UGX —</div>
-        <div class="wallet-meta" id="wallet-meta">Checking verified Solvix wallet…</div>
-      </article>
-      <article class="motion-stage" aria-label="Illustrative Solvix forex workflow">
-        <div class="work-scene">
-          <div class="work-glow"></div>
-          <div class="person"><div class="person-hair"></div><div class="person-head"></div><div class="person-body"></div><div class="person-arm"><div class="person-hand"></div></div></div>
-          <div class="desk"></div>
-          <div class="monitor"><div class="chart-line"></div></div>
-          <div class="scene-title">FOREX WORKFLOW</div>
-          <div class="profit-stream"><div class="profit-pill">PROFIT • +$</div><div class="profit-pill">PROFIT • +$</div><div class="profit-pill">PROFIT • +$</div></div>
-          <div class="scene-label">Illustrative profit cycle · not a guarantee</div>
-        </div>
-      </article>
-    </section>
-    <section class="hero">
-      <div>
-        <div class="eyebrow">AI-powered opportunity & trading platform</div>
-        <h1>One intelligent home for <span>earning, building & trading.</span></h1>
-        <p class="hero-copy">Solvix brings legitimate freelance opportunities and authorized forex workflows into one premium workspace. Our AI agents help discover opportunities, organize execution, apply risk controls and keep activity accountable—while external partners remain the actual marketplaces or financial services where applicable.</p>
-        <div class="hero-actions">
-          <div class="hero-pill">⚡ AI opportunity discovery</div>
-          <div class="hero-pill">🛡️ Risk-controlled workflows</div>
-          <div class="hero-pill">📊 Transparent tracking</div>
-        </div>
+  <div class="solvix-app">
+    <aside class="solvix-sidebar" aria-label="Solvix navigation">
+      <div class="side-brand">
+        <div class="side-brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="sideSg" x1="0" x2="1"><stop stop-color="#E8B54A"/><stop offset="1" stop-color="#6FCF97"/></linearGradient></defs><rect x="2" y="2" width="36" height="36" rx="11" fill="#132018" stroke="#344639"/><path d="M12 14c4-4 12-4 16 0M12 20c4-4 12-4 16 0M12 26c4-4 12-4 16 0" fill="none" stroke="url(#sideSg)" stroke-width="2.7" stroke-linecap="round"/></svg></div>
+        <div><b>SOLVIX</b><span>INTELLIGENT OS</span></div>
       </div>
-      <div class="hero-orb">
-    <div class="logo-showcase">
-      <svg class="hero-brand-mark" viewBox="0 0 80 80" aria-label="Solvix logo" role="img">
-        <defs><linearGradient id="heroSg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#E8B54A"/><stop offset="1" stop-color="#6FCF97"/></linearGradient></defs>
-        <rect x="4" y="4" width="72" height="72" rx="21" fill="#132018" stroke="#344639"/>
-        <path d="M22 28c8-8 24-8 36 0M22 40c8-8 24-8 36 0M22 52c8-8 24-8 36 0" fill="none" stroke="url(#heroSg)" stroke-width="5" stroke-linecap="round"/>
-        <circle cx="58" cy="28" r="4" fill="#E8B54A"/>
-      </svg>
-      <div class="logo-word">SOLVIX</div>
-      <div class="logo-sub">Intelligent Opportunity & Trading OS</div>
-      <div class="logo-status"><span></span> Secure workspace · accountable automation</div>
-    </div>
-  </div>
-    </section>
-    <div class="section-intro">
-      <h2>Earn smart, choose Solvix</h2>
-      <p>Explore our main catalog and choose your best pick. You can change the path later. Trading remains subject to broker verification and risk controls; job leads are not counted as earnings until an external payment is confirmed.</p>
-      <div class="partners">
-        <div class="partner"><b>Forex partners</b> · authorized broker integrations</div>
-        <div class="partner"><b>Freelance partners</b> · legitimate job & bounty platforms</div>
-        <div class="partner"><b>Payments</b> · supported funding providers</div>
+      <div class="side-section-label">Workspace</div>
+      <button class="side-nav active" data-view="home"><span>⌂</span> Home</button>
+      <button class="side-nav" data-view="opportunities"><span>⌁</span> Opportunities</button>
+      <button class="side-nav" data-view="forex"><span>◈</span> Forex</button>
+      <button class="side-nav" data-view="wallet"><span>◉</span> Wallet</button>
+      <div class="side-section-label">System</div>
+      <button class="side-nav" data-view="agents"><span>✦</span> Agents</button>
+      <button class="side-nav" data-view="system"><span>⚙</span> System</button>
+      <div class="side-bottom">
+        <div class="side-user"><div class="user-dot"></div><div><b id="side-email">Account</b><span>Secure workspace</span></div></div>
+        <button id="side-signout" class="side-signout">Sign out</button>
       </div>
-    </div>
-    <section id="mode-choice" class="path-screen">
-      <div class="path-screen-head">
-        <h2>Choose your Solvix path</h2>
-        <p>Select one path to enter its workspace. Your selection opens the full plan and platform view.</p>
-      </div>
-      <div class="path-stack">
-        <button id="forex-choice" class="path-choice forex" type="button">
-          <div class="path-index">01 · Trading workspace</div>
-          <div class="path-title">FOREX LIVE TRADING</div>
-          <div class="path-sub">Exness-connected trading workspace with agent controls, risk controls and live-execution verification.</div>
-          <div class="path-meta">
-            <div id="forex-status" class="path-status">LIVE LOCKED — VERIFICATION REQUIRED</div>
-            <div class="path-arrow" aria-hidden="true">→</div>
-          </div>
-        </button>
-        <button id="freelance-choice" class="path-choice jobs" type="button">
-          <div class="path-index">02 · Opportunity workspace</div>
-          <div class="path-title">FREELANCING JOBS</div>
-          <div class="path-sub">Discover legitimate freelance and bounty opportunities, organize authorized submissions and track verified outcomes.</div>
-          <div class="path-meta">
-            <div class="path-status">OPPORTUNITIES</div>
-            <div class="path-arrow" aria-hidden="true">→</div>
-          </div>
-        </button>
-      </div>
-    </section>
+    </aside>
 
-    <section id="plan-section" class="hidden path-detail">
-      <div class="path-detail-head">
-        <div>
-          <h2 id="selected-path-title">Choose your plan</h2>
-          <p id="plan-section-copy">Choose the workspace level that fits your selected path. Payment activates the plan only after provider confirmation.</p>
-        </div>
-        <button id="change-path" class="change-path" type="button">Change path</button>
+    <main class="solvix-main">
+      <div class="mobile-topbar">
+        <div class="mobile-brand"><b>SOLVIX</b><span>OS</span></div>
+        <button id="mobile-menu" class="icon-btn" aria-label="Open navigation">☰</button>
       </div>
-      <div class="cards">
-        <div class="card"><div class="label">Current plan</div><div class="value" id="plan-price">—</div><div class="plan-name" id="plan-name">—</div></div>
-        <div class="card"><div class="label">AI credits</div><div class="value" id="ai-credits">—</div></div>
-        <div class="card"><div class="label">Cloud credits</div><div class="value" id="cloud-credits">—</div></div>
-      </div>
-      <div id="mode-content" style="margin-top:16px"></div>
-      <div id="plan-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px"></div>
-      <div id="plan-msg" style="margin-top:14px"></div>
-      <section class="site-sections" id="solvix-story">
-        <div class="section-intro">
-          <h2>Why Solvix</h2>
-          <p>Solvix is designed as one intelligent workspace for opportunity discovery, authorized trading workflows, customer operations and transparent tracking. We separate opportunities from verified earnings and keep high-risk actions behind explicit controls.</p>
-        </div>
-        <div class="info-grid">
-          <article class="info-card"><h3>Built for clarity</h3><p>One place to see your plan, AI capacity, opportunities and activity without pretending that a lead is already money.</p><ul><li>Opportunity discovery with source context</li><li>Risk-controlled trading workflows</li><li>Transparent activity and payment verification</li></ul></article>
-          <article class="info-card"><h3>Solvix AI Help</h3><p>A guided support assistant inspired by the structure of modern exchange help centers: choose a topic or type a question. Answers are designed to be clear, operational and risk-aware.</p>
-    <div class="ai-quick">
-      <button class="ai-q" data-q="How do I get started?">Getting started</button>
-      <button class="ai-q" data-q="What are the Solvix plans?">Plans</button>
-      <button class="ai-q" data-q="How do I fund my Solvix plan?">Funding</button>
-      <button class="ai-q" data-q="Is live forex trading enabled?">Forex</button>
-      <button class="ai-q" data-q="How do freelance jobs work?">Jobs</button>
-      <button class="ai-q" data-q="How does Solvix protect my account?">Security</button>
-      <button class="ai-q" data-q="How do withdrawals work?">Withdrawals</button>
-      <button class="ai-q" data-q="How do I contact Solvix?">Contact</button>
-    </div>
-    <div class="ai-chat"><input id="site-ai-input" placeholder="Ask a Solvix Help question…"><button id="site-ai-send">Ask</button></div>
-    <div id="site-ai-answer" class="ai-answer hidden"></div>
-  </article>
-          <article class="info-card"><h3>Contact & feedback</h3><p>For feedback, product questions and business communication, use the official Solvix feedback inbox.</p><div class="contact-row"><a class="contact-chip" href="mailto:Solvixfeedback@gmail.com"><b>Email</b> · Solvixfeedback@gmail.com</a><div class="contact-chip"><b>AI help</b> · guided answers below</div><div class="contact-chip"><b>Feedback</b> · same official inbox</div></div></article>
-          <article class="info-card"><h3>Partner & affiliate network</h3><p>When an external platform wants to partner with Solvix, its approved referral or affiliate link can be added here. We will display the partner name, destination, disclosure and terms instead of inventing referral links.</p><div class="contact-row"><a class="contact-chip" href="mailto:Solvixfeedback@gmail.com?subject=Solvix%20Partnership%20%26%20Affiliate%20Proposal"><b>Partner with Solvix</b> · email proposal</a><div class="contact-chip"><b>Affiliate disclosure</b> · commissions are disclosed</div></div></article>
+
+      <header class="workspace-bar">
+        <div><div class="workspace-kicker">SOLVIX / <span id="view-kicker">COMMAND CENTER</span></div><h1 id="view-title">Command center</h1></div>
+        <div class="workspace-actions"><span class="live-indicator"><i></i> SYSTEM ONLINE</span><button class="icon-btn" id="global-help" title="Solvix Help">?</button></div>
+      </header>
+
+      <section class="view active-view" id="view-home">
+        <div class="home-intro">
+          <div><div class="eyebrow">Intelligent opportunity & trading OS</div><h2>Operate your earning workspace.</h2><p>Discover legitimate opportunities, manage authorized trading workflows and keep verified money separate from projections, leads and activity.</p></div>
+          <div class="home-status"><span class="status-ring"></span><div><b>Account ready</b><small id="dash-email">—</small></div></div>
         </div>
 
+        <div class="home-grid">
+          <article class="balance-panel">
+            <div class="panel-label">VERIFIED WALLET</div>
+            <div class="balance-row"><strong id="wallet-balance">UGX —</strong><button class="wallet-eye" id="wallet-eye" aria-label="Hide wallet balance">◉</button></div>
+            <div id="wallet-meta" class="balance-caption">Verified Solvix wallet</div>
+            <div class="balance-rule"></div>
+            <div class="balance-foot"><span>Available balance</span><span class="verified-tag">VERIFIED</span></div>
+            <span id="wallet-pending" class="hidden">0</span><span id="wallet-currency" class="hidden">UGX</span>
+          </article>
 
-        <div class="section-intro" style="margin-top:8px">
-          <h2>Customer feedback & platform activity</h2>
-          <p><b>Illustrative demo content:</b> the names and comments below are fictional examples for the website design. They are not presented as real customer testimonials or verified results.</p>
+          <article class="command-panel">
+            <div class="panel-top"><div><div class="panel-label">QUICK ACTION</div><h3>Choose your operating path</h3></div><span class="panel-index">01</span></div>
+            <div class="path-mini-grid">
+              <button class="path-mini forex-mini" id="forex-choice" type="button"><span class="mini-icon">◈</span><div><b>Forex</b><small>Trading workspace</small></div><em>→</em></button>
+              <button class="path-mini jobs-mini" id="freelance-choice" type="button"><span class="mini-icon">⌁</span><div><b>Freelance jobs</b><small>Opportunity workspace</small></div><em>→</em></button>
+            </div>
+            <div class="gate-line"><span id="forex-status">LIVE LOCKED — VERIFICATION REQUIRED</span><span>Risk gate protected</span></div>
+          </article>
         </div>
-        <div class="info-grid">
-          <article class="info-card"><h3>“Clearer than most dashboards.”</h3><p>“I could understand the difference between an opportunity, an application and verified payment.”</p><div class="team-note">— Maya Bennett · illustrative demo review</div></article>
-          <article class="info-card"><h3>“The workflow makes sense.”</h3><p>“Choosing a path first and then seeing the relevant plan makes the onboarding feel much more focused.”</p><div class="team-note">— Daniel Moreau · illustrative demo review</div></article>
-          <article class="info-card"><h3>Demo platform metrics</h3><p><b>1,240</b> sample workflows · <b>318</b> sample opportunity records · <b>96</b> sample partner reviews.</p><div class="team-note">Illustrative dataset only · not live customer statistics</div></article>
-          <article class="info-card"><h3>Proof over promises</h3><p>Live metrics will be populated from authenticated Solvix records only: verified submissions, confirmed payments, active partner links and auditable execution events.</p></article>
-        </div>
-        <div class="section-intro" style="margin-top:8px">
-          <h2>Meet the Solvix leadership team</h2>
-          <p>Solvix leadership profiles are presented in a polished editorial format, with each executive focused on a defined discipline across AI, markets, technology, operations and global partnerships.</p>
-        </div>
-        <div class="team-grid">
-          <button class="team-card" data-blog="founder">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#d9a06a"/><path d="M103 76c2-52 91-59 96-1-16-18-31-28-96 1Z" fill="#172018"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#24372a"/><path d="M120 95c10 6 20 9 30 9s20-3 30-9" fill="none" stroke="#8a5b3b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Founder & Executive Chairman</div><h3>Alexander Laurent</h3><p><b>AI strategy · market research · systems architecture.</b> Alexander sets the product thesis, maps emerging AI opportunities, studies market structure and turns research into accountable platform direction.</p><div class="team-note">Leadership profile · journal</div></div>
-          </button>
-          <button class="team-card" data-blog="ceo">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e2b07b"/><path d="M103 75c5-50 88-57 96 0-16-15-35-24-96 0Z" fill="#6d4a36"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#1c2e3a"/><circle cx="132" cy="79" r="3" fill="#182018"/><circle cx="168" cy="79" r="3" fill="#182018"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Executive Officer</div><h3>Elena Voss</h3><p><b>AI adoption · market intelligence · commercial strategy.</b> Elena studies customer behavior, international markets and partner economics, then converts research into practical growth and customer workflows.</p><div class="team-note">Leadership profile · journal</div></div>
-          </button>
-          <button class="team-card" data-blog="cto">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#edc39d"/><path d="M102 75c3-49 93-58 97 1-18-18-35-25-97-1Z" fill="#3f322c"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#304234"/><path d="M112 100c13 9 24 13 38 13s25-4 38-13" fill="none" stroke="#a26c4b" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Technology Officer</div><h3>Matteo Reinhardt</h3><p><b>AI engineering · agent systems · security.</b> Matteo specializes in orchestration, model-integrated infrastructure, APIs, observability and secure automation designed to remain controllable.</p><div class="team-note">Leadership profile · journal</div></div>
-          </button>
-          <button class="team-card" data-blog="coo">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e7b58b"/><path d="M101 77c0-52 96-60 99 1-13-22-31-31-51-31-20 0-37 9-48 30Z" fill="#6f4a32"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#263b2d"/><path d="M116 96c11 8 22 12 34 12s23-4 34-12" fill="none" stroke="#9d6749" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Chief Operating Officer</div><h3>Sofia Laurent</h3><p><b>Operations research · customer experience · process design.</b> Sofia turns complex AI capabilities into repeatable workflows, quality checks and measurable service operations.</p><div class="team-note">Leadership profile · journal</div></div>
-          </button>
-          <button class="team-card" data-blog="partnerships">
-            <div class="portrait"><svg viewBox="0 0 300 210"><circle cx="150" cy="74" r="47" fill="#e8b98f"/><path d="M99 80c-3-57 96-65 102 0-13-21-28-32-51-32-23 0-39 11-51 32Z" fill="#171914"/><path d="M72 210c5-63 35-91 78-91s73 28 78 91" fill="#7b3131"/><path d="M119 95c10 7 20 10 31 10s21-3 31-10" fill="none" stroke="#a36c4e" stroke-width="3" stroke-linecap="round"/></svg></div>
-            <div class="team-copy"><div class="role">Director, AI & Global Partnerships</div><h3>Lin Wei</h3><p><b>AI ecosystem research · partnerships · global markets.</b> Lin focuses on technology ecosystems, partner due diligence, cross-market research and international collaboration between AI builders and businesses.</p><div class="team-note">Leadership profile · journal</div></div>
-          </button>
+
+        <div class="section-heading"><div><span>ACTIVITY</span><h3>Workspace overview</h3></div><button class="text-btn" data-view-link="system">View system →</button></div>
+        <div class="activity-grid">
+          <article class="activity-card"><span class="activity-icon gold">◈</span><div><b>Forex execution</b><p>Live orders remain locked until the broker connector is verified.</p></div><span class="activity-state">LOCKED</span></article>
+          <article class="activity-card"><span class="activity-icon mint">⌁</span><div><b>Opportunity pipeline</b><p>Leads, submissions and confirmed payments stay as separate states.</p></div><span class="activity-state">READY</span></article>
+          <article class="activity-card"><span class="activity-icon">◉</span><div><b>Revenue ledger</b><p>Only verified external payments belong in confirmed revenue.</p></div><span class="activity-state">AUDITABLE</span></article>
         </div>
       </section>
-      <div id="team-modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><div><div id="blog-role" class="blog-meta"></div><h2 id="blog-title"></h2></div><button id="close-team-modal" class="close-modal">Close</button></div><div id="blog-body" class="blog-body"></div></div></div>
-      <div class="account-actions"><button class="signout" id="add-passkey">Add passkey</button><button class="signout" id="signout">Sign out</button></div>
-      <div class="footer">Solvix · Intelligent opportunity & trading workspace · Built around transparency, authorization and accountable execution.</div>
-    </div>
+
+      <section class="view" id="view-opportunities">
+        <div class="view-hero"><div><span class="view-eyebrow">OPPORTUNITY ENGINE</span><h2>Find work worth reviewing.</h2><p>Solvix can organize legitimate freelance and bounty opportunities. A lead becomes earnings only when an external platform or customer confirms payment.</p></div><button class="primary-action">Discover opportunities <span>→</span></button></div>
+        <div class="metric-row"><div><span>DISCOVERED</span><b>—</b><small>Authenticated records</small></div><div><span>IN REVIEW</span><b>—</b><small>Awaiting decision</small></div><div><span>VERIFIED REVENUE</span><b>UGX —</b><small>Confirmed payments only</small></div></div>
+        <div class="empty-workspace"><div class="empty-mark">⌁</div><h3>Opportunity feed ready</h3><p>Connect an authorized opportunity source to populate this workspace with real records. Solvix will not manufacture job counts or earnings.</p><button class="secondary-action" data-view-link="system">Review integrations</button></div>
+      </section>
+
+      <section class="view" id="view-forex">
+        <div class="view-hero forex-hero"><div><span class="view-eyebrow gold-text">FOREX CONTROL ROOM</span><h2>Authorized trading, under control.</h2><p>Broker-connected execution stays behind the Solvix verification gate. Demo activity is separate from live trading and is never presented as profit.</p></div><div class="execution-lock"><i></i><b>LIVE LOCKED</b><small>Broker verification required</small></div></div>
+        <div class="forex-grid">
+          <article class="chart-panel"><div class="panel-top"><div><span class="panel-label">MARKET VIEW</span><h3>EUR / USD</h3></div><span class="market-placeholder">WAITING FOR VERIFIED FEED</span></div><div class="fake-chart"><div class="chart-grid"></div><svg viewBox="0 0 700 260" preserveAspectRatio="none"><path d="M0 195 C55 170 75 205 125 160 S185 125 230 150 S275 90 320 115 S380 75 425 105 S470 155 510 120 S565 55 610 85 S660 45 700 62" fill="none" stroke="#E8B54A" stroke-width="3"/></svg></div></article>
+          <article class="risk-panel"><span class="panel-label">RISK CONTROL</span><h3>Execution gate</h3><div class="risk-state"><i></i><b>LIVE EXECUTION LOCKED</b></div><ul><li>Broker identity verification</li><li>Account authorization</li><li>Risk gate approval</li><li>Auditable order records</li></ul><div class="note-box">No live order is sent while any required verification is incomplete.</div></article>
+        </div>
+        <div class="agent-strip"><div><span class="panel-label">TRADING AGENTS</span><h3>Agent fleet</h3></div><div class="agent-pills"><span>Scout · LOCKED</span><span>Momentum · LOCKED</span><span>Quant · LOCKED</span><span>Adaptive · LOCKED</span></div></div>
+      </section>
+
+      <section class="view" id="view-wallet">
+        <div class="view-hero"><div><span class="view-eyebrow">WALLET</span><h2>Your verified money, clearly separated.</h2><p>The wallet shows confirmed Solvix balance. Projections, bonuses and pending activity should never be confused with confirmed funds.</p></div></div>
+        <article class="wallet-focus"><span class="panel-label">CONFIRMED BALANCE</span><div class="wallet-focus-row"><strong id="wallet-balance-large">UGX —</strong><button class="secondary-action" id="wallet-focus-toggle">Show / hide</button></div><p id="wallet-focus-note">Verified Solvix wallet</p></article>
+        <div class="fund-grid"><article><span>FUND WALLET</span><h3>Supported providers</h3><p>Funding options appear only when the corresponding payment provider is configured and able to confirm the transaction.</p><button class="secondary-action" data-view-link="system">Payment integrations →</button></article><article><span>WITHDRAWALS</span><h3>Verified revenue only</h3><p>Withdrawal eligibility depends on the verified available balance and Solvix withdrawal policy.</p><button class="secondary-action" data-view-link="system">View policy →</button></article></div>
+      </section>
+
+      <section class="view" id="view-agents">
+        <div class="view-hero"><div><span class="view-eyebrow">AGENT FLEET</span><h2>Automation with a visible chain of control.</h2><p>Agents can analyze and organize work, while sensitive external execution remains subject to authorization and system gates.</p></div></div>
+        <div class="agent-console"><div class="agent-row head"><span>AGENT</span><span>ROLE</span><span>STATUS</span></div><div class="agent-row"><b>Scout</b><span>Opportunity discovery</span><strong>READY</strong></div><div class="agent-row"><b>HAD</b><span>Submission workflow</span><strong>AWAITING EXTERNAL SOURCE</strong></div><div class="agent-row"><b>Momentum</b><span>Trading analysis</span><strong>LOCKED</strong></div><div class="agent-row"><b>Quant</b><span>Risk / market analysis</span><strong>LOCKED</strong></div><div class="agent-row"><b>Repair</b><span>System diagnostics</span><strong>READY</strong></div></div>
+      </section>
+
+      <section class="view" id="view-system">
+        <div class="view-hero"><div><span class="view-eyebrow">SYSTEM</span><h2>Plans, integrations and governance.</h2><p>Everything that changes account state or touches external money belongs behind an explicit, auditable control.</p></div></div>
+        <div class="system-cards"><article><span>ACCOUNT</span><h3 id="side-plan-name">—</h3><p id="side-plan-copy">Current Solvix plan</p></article><article><span>AI CAPACITY</span><h3 id="ai-credits">—</h3><p>AI credits available to this plan</p></article><article><span>CLOUD CAPACITY</span><h3 id="cloud-credits">—</h3><p>Cloud credits available to this plan</p></article></div>
+        <section id="plan-section" class="plan-area">
+          <div class="path-detail-head"><div><span class="view-eyebrow">PLAN CATALOG</span><h2 id="selected-path-title">Choose your path</h2><p id="plan-section-copy">Choose a path to see the relevant workspace and plan options.</p></div><button id="change-path" class="change-path" type="button">Change path</button></div>
+          <div id="mode-content"></div>
+          <div id="plan-grid" class="plan-grid"></div><div id="plan-msg"></div>
+        </section>
+        <div class="system-list"><article><b>Security</b><span>Execution gates, authenticated records and auditable events.</span></article><article><b>Partners</b><span>External marketplaces and financial services remain the source of external transactions.</span></article><article><b>Support</b><span>Solvixfeedback@gmail.com</span></article></div>
+      </section>
+
+      <section id="mode-choice" class="legacy-mode hidden"><div id="path-screen-head"><h2>Choose your Solvix path</h2><p>Select a workspace.</p></div><button id="legacy-forex" type="button">Forex</button><button id="legacy-jobs" type="button">Freelancing Jobs</button></section>
+
+      <section id="solvix-story" class="story-panel">
+        <div class="story-head"><span>ABOUT SOLVIX</span><h2>Built around proof, control and useful automation.</h2><p>Solvix is designed to keep opportunity discovery, authorized workflows, customer operations and verified revenue in one accountable system.</p></div>
+        <div class="story-grid"><article><b>Proof over promises</b><p>Production metrics should come from authenticated records, not illustrative counters.</p></article><article><b>Clear separation</b><p>Leads, applications, pending payments and confirmed revenue remain distinct states.</p></article><article><b>Human control</b><p>High-risk actions remain gated by authorization, verification and explicit controls.</p></article></div>
+        <div class="support-row"><a href="mailto:Solvixfeedback@gmail.com">Feedback · Solvixfeedback@gmail.com</a><a href="mailto:Solvixfeedback@gmail.com?subject=Solvix%20Partnership%20%26%20Affiliate%20Proposal">Partner with Solvix</a><button id="open-help-story">Solvix AI Help</button></div>
+      </section>
+
+      <div class="account-actions"><button id="signout" class="signout">Sign out</button></div>
+    </main>
   </div>
 </div>
 <script>
