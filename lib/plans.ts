@@ -1,0 +1,1 @@
+export const PLANS=[{name:"Scout",price:50000,features:["Basic Market Feed","1 Active Agent","Standard Support"]},{name:"Momentum",price:150000,features:["Advanced Analytics","3 Active Agents","Priority Routing","Mobile Money Auto-Pay"]},{name:"Quant",price:350000,features:["Full API Access","Unlimited Agents","Dedicated Node","Institutional SLA"]}] as const;
