@@ -1,6 +1,6 @@
 import { Activity, Globe, Shield, Wallet, Zap } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '../../lib/supabase/server';
 
 export default async function GlobalDashboard() {
   const supabase = await createClient();
