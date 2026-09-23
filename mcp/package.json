@@ -1,0 +1,23 @@
+{
+  "name": "solvix-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx server.ts",
+    "http": "SOLVIX_MCP_TRANSPORT=http tsx server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/node": "2.0.0",
+    "@modelcontextprotocol/server": "2.0.0",
+    "zod": "4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
