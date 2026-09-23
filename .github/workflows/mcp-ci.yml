@@ -1,0 +1,28 @@
+name: Solvix MCP CI
+
+on:
+  pull_request:
+    paths:
+      - "mcp/**"
+      - ".cursor/mcp.json"
+  push:
+    branches: [main]
+    paths:
+      - "mcp/**"
+      - ".cursor/mcp.json"
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mcp/package.json
+      - run: npm install
+      - run: npx tsc -p tsconfig.json
