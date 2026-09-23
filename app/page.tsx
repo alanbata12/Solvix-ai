@@ -1,6 +1,6 @@
 import { ArrowRight, CheckCircle, Mail, Globe, Shield, Target, TrendingUp, Users, Wallet } from 'lucide-react';
 import Link from 'next/link';
-import HolographicOrb from '@/components/HolographicOrb';
+import HolographicOrb from '../components/HolographicOrb';
 
 const marketTargets = [
   ['93%', 'Target strategy win-rate benchmark', 'Not a live or guaranteed performance claim'],

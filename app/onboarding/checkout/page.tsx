@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "../../../lib/supabase/client";
 
 function CheckoutContent() {
   const q = useSearchParams(), r = useRouter(), s = createClient(), plan = q.get("plan") || "Momentum", price = Number(q.get("price") || 150000), path = q.get("path") === "jobs" ? "jobs" : "forex";
