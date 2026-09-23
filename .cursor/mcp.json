@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "solvix": {
+      "command": "npm",
+      "args": ["--prefix", "${workspaceFolder}/mcp", "start"],
+      "env": {
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+      }
+    }
+  }
+}
