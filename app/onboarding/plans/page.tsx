@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { PLANS } from "@/lib/plans";
+import { PLANS } from "../../../lib/plans";
 
 function PlansContent() {
   const q = useSearchParams(), r = useRouter(), path = q.get("path") === "jobs" ? "jobs" : "forex";
