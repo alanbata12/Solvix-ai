@@ -12,8 +12,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "incremental": true,
     "plugins": [{"name": "next"}],
+    "baseUrl": ".",
     "paths": {"@/*": ["./*"]}
   },
   "include": [
@@ -23,5 +23,5 @@
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": ["node_modules", "supabase/functions", "mcp"]
+  "exclude": ["node_modules", "supabase/functions", "mcp/**"]
 }
