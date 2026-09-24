@@ -24,7 +24,7 @@ export default function LandingPage() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3"><div className="w-9 h-9 bg-gradient-to-br from-violet-400 to-purple-500 rounded-lg flex items-center justify-center"><span className="text-black font-black text-sm">S</span></div><span className="font-bold text-lg">SOLVIX <span className="text-violet-400 font-light">OS</span></span></div>
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-400"><a href="#services">Services</a><a href="#targets">Market Targets</a><a href="#trust">Security</a><a href="mailto:Solvixfeedback@gmail.com">Support</a></div>
-        <Link href="/login" className="px-5 py-2 bg-violet-500/10 border border-violet-500/50 text-violet-400 rounded-lg text-sm font-mono font-bold">LAUNCH APP →</Link>
+        <Link href="/login" className="px-5 py-2 bg-white text-black border border-white rounded-lg text-sm font-black shadow-lg">BEGIN SECURE ONBOARDING →</Link>
       </div>
     </nav>
 
@@ -33,7 +33,7 @@ export default function LandingPage() {
         <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/30 rounded-full px-4 py-2 mb-6"><Shield className="w-4 h-4 text-violet-400"/><span className="text-xs text-violet-400 font-mono tracking-wider">GLOBAL · ZERO-TRUST WORKSPACE</span></div>
         <h1 className="text-4xl md:text-7xl font-bold mb-4 leading-tight">Proof Over Promises.<br/><span className="bg-gradient-to-r from-violet-400 to-purple-500 bg-clip-text text-transparent">Control Over Chaos.</span></h1>
         <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-8">A global workspace for multi-currency opportunity management and controlled trading workflows. Verified money stays separate from projections and market targets.</p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center px-4"><Link href="/login" className="px-8 py-4 bg-violet-500 text-black font-bold rounded-xl flex items-center justify-center gap-2">START ONBOARDING <ArrowRight className="w-5 h-5"/></Link><a href="#targets" className="px-8 py-4 bg-gray-900/50 border border-gray-800 rounded-xl font-bold">VIEW MARKET STRATEGY</a></div>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center px-4"><Link href="/login" className="px-8 py-4 bg-white text-black font-black rounded-xl flex items-center justify-center gap-2 shadow-xl">BEGIN SECURE ONBOARDING <ArrowRight className="w-5 h-5"/></Link><a href="#targets" className="px-8 py-4 bg-gray-900/50 border border-gray-800 rounded-xl font-bold">VIEW MARKET STRATEGY</a></div>
         <p className="text-xs text-gray-600 font-mono mt-4">Hover the orb to explore the global workspace.</p>
       </div>
       <HolographicOrb/>
@@ -69,7 +69,7 @@ export default function LandingPage() {
       </div>
     </div></section>
 
-    <section className="py-20 px-4 border-t border-gray-800"><div className="max-w-4xl mx-auto text-center"><Users className="w-8 h-8 text-violet-400 mx-auto mb-4"/><h2 className="text-3xl md:text-5xl font-bold mb-4">Build the <span className="text-violet-400">global terminal.</span></h2><p className="text-gray-400 text-lg mb-8">The market strategy is ambitious. The ledger must remain factual. We will promote each target to a verified metric only when the backend has evidence.</p><Link href="/login" className="inline-flex items-center gap-2 px-8 py-4 bg-violet-500 text-black font-bold rounded-xl">BEGIN SECURE ONBOARDING <ArrowRight className="w-5 h-5"/></Link></div></section>
+    <section className="py-20 px-4 border-t border-gray-800"><div className="max-w-4xl mx-auto text-center"><Users className="w-8 h-8 text-violet-400 mx-auto mb-4"/><h2 className="text-3xl md:text-5xl font-bold mb-4">Build the <span className="text-violet-400">global terminal.</span></h2><p className="text-gray-400 text-lg mb-8">The market strategy is ambitious. The ledger must remain factual. We will promote each target to a verified metric only when the backend has evidence.</p></div></section>
 
     <footer className="border-t border-gray-800 py-12 px-4 bg-black/30"><div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-6"><div><div className="font-bold mb-2">SOLVIX OS</div><p className="text-sm text-gray-500">Global opportunity and trading workspace built around proof, control and useful automation.</p></div><div className="text-sm text-gray-400"><a href="mailto:Solvixfeedback@gmail.com" className="flex items-center gap-2"><Mail className="w-4 h-4"/>Solvixfeedback@gmail.com</a><a href="/support" className="block mt-3">Help Center</a></div><p className="text-sm text-gray-600">© 2026 Solvix OS</p></div></footer>
   </main>;
