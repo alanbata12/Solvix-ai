@@ -60,8 +60,8 @@ export default function LandingPage() {
               </div>
               <div className="rounded-2xl border border-white/10 bg-black/60 p-4">
                 <div className="flex items-center justify-between mb-5">
-                  <div><p className="text-xs text-gray-400">EUR/USD</p><p className="text-2xl font-black text-white">1.1742</p></div>
-                  <div className="text-right"><p className="text-xs text-gray-400">LIVE FEED</p><p className="text-xs font-bold text-white">LOCKED UNTIL VERIFIED</p></div>
+                  <div><p className="text-xs text-gray-400">EUR/USD</p><p className="text-2xl font-black text-white">— — —</p></div>
+                  <div className="text-right"><p className="text-xs text-gray-400">PRICE FEED</p><p className="text-xs font-bold text-white">LOCKED UNTIL VERIFIED</p></div>
                 </div>
                 <div className="h-36 flex items-end gap-1.5 border-b border-white/10">
                   {forexBars.map((height, i) => <div key={i} className="flex-1 rounded-t bg-white/80" style={{height: height + '%'}} />)}
