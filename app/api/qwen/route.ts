@@ -1,7 +1,7 @@
 import { generateText } from "ai";
 import { createClient } from "@/lib/supabase/server";
 
-const MODEL = "alibaba/qwen3.8-flash";
+const MODEL = "alibaba/qwen3.8-max-prime";
 
 export async function POST(request: Request) {
   const started = Date.now();
@@ -27,13 +27,13 @@ export async function POST(request: Request) {
     const result = await generateText({
       model: MODEL,
       system:
-        "You are Qwen, the Solvix AI reasoning assistant. Be factual, concise, security-conscious, and never invent financial, job, trading, payment, or revenue records. Treat verified data and projections as separate.",
+        "You are Qwen, the Solvix AI reasoning assistant. Use strong reasoning and long-context analysis. Be factual, concise, security-conscious, and never invent financial, job, trading, payment, or revenue records. Treat verified data and projections as separate. Do not execute financial or external actions without explicit authorization.",
       prompt,
-      maxOutputTokens: 1200,
+      maxOutputTokens: 4000,
       providerOptions: {
         gateway: {
           user: user.id,
-          tags: ["solvix", "qwen", "brain-ai"],
+          tags: ["solvix", "qwen", "qwen3.8-max-prime", "brain-ai"],
         },
       },
     });
