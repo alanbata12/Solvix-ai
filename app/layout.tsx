@@ -5,15 +5,23 @@ export const metadata: Metadata = {
   title: "SOLVIX",
   description: "Earn and invest like you should.",
   applicationName: "Solvix",
+  manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     title: "Solvix",
     statusBarStyle: "black-translucent",
   },
+  icons: {
+    icon: [
+      { url: "/icon-192.svg", sizes: "192x192", type: "image/svg+xml" },
+      { url: "/icon-512.svg", sizes: "512x512", type: "image/svg+xml" }
+    ],
+    apple: "/icon-192.svg"
+  }
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05070a",
+  themeColor: "#07100d",
   width: "device-width",
   initialScale: 1,
 };
