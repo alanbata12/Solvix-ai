@@ -13,6 +13,7 @@
   "dependencies": {
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "^2.105.0",
+    "ai": "^6.0.0",
     "lucide-react": "latest",
     "next": "16.3.6",
     "react": "19.3.0",
