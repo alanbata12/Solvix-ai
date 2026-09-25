@@ -198,7 +198,6 @@ export async function POST(request: Request) {
           onboarding_complete: true,
           chosen_path: existing.chosen_path,
           subscription_tier: planSlug(existing.plan),
-          updated_at: new Date().toISOString(),
         },
         { onConflict: "id" },
       );
