@@ -1,9 +1,9 @@
-import { ArrowRight, CheckCircle, Mail, Globe, Shield, Target, TrendingUp, Users, Wallet, Smartphone, CandlestickChart, BriefcaseBusiness, Bot, BarChart3, Settings, UserRound } from 'lucide-react';
+import { ArrowRight, CheckCircle, Mail, Globe, Shield, Target, TrendingUp, Users, Wallet, Smartphone, CandlestickChart, BriefcaseBusiness, Bot, BarChart3, Settings, UserRound, Youtube } from 'lucide-react';
 import Link from 'next/link';
 
 const nav = [
   ['Dashboard','/dashboard',BarChart3],['Opportunities','/dashboard#opportunities',Target],['Jobs','/jobs',BriefcaseBusiness],
-  ['Revenue','/billing',Wallet],['Forex','/forex',CandlestickChart],['Agents','/dashboard#agents',Bot],
+  ['Revenue','/billing',Wallet],['YouTube','/yta',Youtube],['Forex','/forex',CandlestickChart],['Agents','/dashboard#agents',Bot],
   ['Customers','/dashboard#customers',Users],['Settings','/dashboard#settings',Settings]
 ] as const;
 
