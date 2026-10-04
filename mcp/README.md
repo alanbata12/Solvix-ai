@@ -1,46 +1,46 @@
 # Solvix MCP Server
 
-Real Model Context Protocol server for Solvix.
+Remote MCP gateway for Grok and local MCP clients.
 
-## Current release
+## Remote Grok connector
 
-Version 0.1.0 is intentionally read-only. It exposes:
+The Vercel project `solvix-grok-mcp` deploys `api/mcp.ts` as a public HTTPS MCP endpoint. It authenticates callers with the server-side `SOLVIX_MCP_API_KEY`.
 
-- solvix_status
-- github_get_file
-- github_search_code
+Capabilities:
+- `solvix_status`
+- `github_get_file`
+- `github_search_code`
+- `github_create_branch`
+- `github_write_file`
+- `github_delete_file`
+- `vercel_deployments`
+- `vercel_deployment_events`
+- `solvix_backend_request`
 
-Write operations, deployments, Supabase mutations, and financial actions are disabled in this initial release.
+Credentials are server-side environment variables and are never returned by the tools.
 
-## Local Cursor setup
+## Grok
 
-From the repository:
+In Grok, open Connectors -> New Connector -> Custom and enter the deployed MCP URL ending in `/api/mcp`. Authenticate with the bearer credential configured for the connector.
 
-    cd mcp
-    npm install
+For Grok CLI, the equivalent remote MCP configuration is:
 
-Set a GitHub token in the environment used by Cursor:
+    grok mcp add --transport http solvix https://YOUR-MCP-DOMAIN/api/mcp --header "Authorization: Bearer YOUR_MCP_KEY"
 
-    export GITHUB_TOKEN="your-github-token"
+## Environment variables
 
-The project-level .cursor/mcp.json starts this server through npm. Cursor supports project-scoped MCP configuration and local stdio servers.
+Required:
+- `SOLVIX_MCP_API_KEY`
 
-## HTTP mode
+Optional capabilities:
+- `GITHUB_TOKEN`
+- `VERCEL_TOKEN`
+- `VERCEL_TEAM_ID`
+- `SOLVIX_BACKEND_URL`
+- `SOLVIX_BACKEND_TOKEN`
 
-For a remote MCP endpoint:
+Never commit these secrets.
 
-    cd mcp
-    npm install
-    export GITHUB_TOKEN="your-github-token"
-    export SOLVIX_MCP_API_KEY="a-long-random-secret"
-    npm run http
+## Local mode
 
-The endpoint is:
-
-    http://localhost:3000/mcp
-
-For production, deploy the HTTP process behind HTTPS and replace API-key authentication with OAuth 2.1 before exposing it to ChatGPT or other users.
-
-## Security
-
-Never commit GITHUB_TOKEN or SOLVIX_MCP_API_KEY. Keep the initial connector read-only. Cursor asks for approval before MCP tool execution by default.
+The existing `server.ts` remains available for local stdio MCP clients.
