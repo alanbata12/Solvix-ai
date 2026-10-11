@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase/client";
 
 function BillingContent() {
-  const q = useSearchParams(), router = useRouter(), job = q.get("job") || "";
+  const q = useSearchParams(), router = useRouter(), job = q.get("job") || "", vertical = q.get("vertical");
   const [provider, setProvider] = useState<"mtn" | "airtel">("mtn");
   const [phone, setPhone] = useState(""), [loading, setLoading] = useState(false), [error, setError] = useState("");
 
@@ -27,6 +27,29 @@ function BillingContent() {
       setLoading(false); return;
     }
     router.push("/jobs/" + encodeURIComponent(job) + "/status?tx=" + encodeURIComponent(data.tx_ref || ""));
+  }
+
+  if (vertical === "FOREX" || vertical === "AIL") {
+    const label = vertical === "FOREX" ? "Forex Agents" : "AIL Hunter";
+    return (
+      <main className="min-h-screen bg-[#050508] text-white p-4 md:p-8">
+        <section className="max-w-xl mx-auto bg-white/5 border border-emerald-400/20 rounded-3xl p-6 md:p-8">
+          <p className="text-xs font-mono tracking-widest text-emerald-300">SOLVIX · VERTICAL ACCESS</p>
+          <h1 className="text-3xl font-bold mt-2">{label} access</h1>
+          <p className="text-gray-300 mt-3">This workspace requires an active access record for your account. Stripe checkout and subscription provisioning are intentionally not connected yet.</p>
+          <div className="mt-6 p-4 rounded-2xl bg-black/40 border border-white/10">
+            <p className="text-xs text-gray-500">REQUESTED VERTICAL</p>
+            <p className="font-mono text-sm mt-1">{vertical}</p>
+            <p className="text-sm text-amber-200 mt-3">Payment is not being requested on this screen. No charge will be made.</p>
+          </div>
+          <div className="flex flex-wrap gap-3 mt-6">
+            <button className="btn primary" onClick={() => router.push("/dashboard")}>Back to dashboard</button>
+            <button className="btn" onClick={() => router.push("/jobs")}>Open opportunities</button>
+          </div>
+          <p className="text-xs text-gray-500 mt-6">When billing is implemented, access will be granted only after the server verifies the payment provider event.</p>
+        </section>
+      </main>
+    );
   }
 
   return <main className="min-h-screen bg-[#050508] text-white p-4 md:p-8">
