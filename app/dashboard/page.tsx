@@ -27,6 +27,9 @@ export default async function GlobalDashboard() {
         <div className="flex items-center gap-3"><Globe className="w-5 h-5 text-cyan-400"/><span className="text-sm font-mono text-gray-400">GLOBAL NETWORK: <span className="text-green-400">ONLINE</span> · MULTI-CURRENCY LEDGER</span></div>
         <div className="flex gap-4 text-xs font-mono text-gray-500"><span>JOB LEADS: <span className="text-green-400">{leads?.length ?? 0} LIVE</span></span><span>TRADING: <span className={gate?.live_enabled ? "text-green-400" : "text-red-400"}>{gate?.live_enabled ? "ENABLED" : "LOCKED"}</span></span></div>
       </div>
+      <div className="mb-5 flex justify-end">
+        <a href="/rain" className="inline-flex items-center gap-2 rounded-xl border border-lime-300/30 bg-lime-300/10 px-4 py-3 text-xs font-black tracking-wider text-lime-200 hover:bg-lime-300/20">✦ MAKE IT RAIN · DEMO MODE</a>
+      </div>
       <div className="grid grid-cols-12 gap-5">
         <section className="col-span-12 md:col-span-4 bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-3xl p-6">
           <div className="flex items-center gap-2 mb-4"><Wallet className="w-5 h-5 text-cyan-400"/><span className="text-xs font-mono text-gray-400 tracking-widest">GLOBAL HOLDINGS</span></div>
