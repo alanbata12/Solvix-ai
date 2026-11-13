@@ -67,6 +67,9 @@ export async function POST(request: Request) {
   const txRef = String(data.tx_ref ?? data.reference ?? "").trim();
   const providerId = data.id != null ? String(data.id) : null;
   if (!txRef) return json({ received: true, ignored: "missing transaction reference" });
+  // A signed webhook is not proof of settlement. Require the provider transaction ID
+  // so this server can independently verify the payment before recording revenue.
+  if (!providerId) return json({ error: "Missing provider transaction ID; payment not credited" }, 400);
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, {
     auth: { autoRefreshToken: false, persistSession: false },
@@ -90,7 +93,7 @@ export async function POST(request: Request) {
   }
 
   // Never credit a wallet/subscription from an unverified webhook alone.
-  if (providerId) {
+  {
     try {
       const verifyResponse = await fetch(
         `https://api.flutterwave.com/v3/transactions/${encodeURIComponent(providerId)}/verify`,
@@ -112,17 +115,19 @@ export async function POST(request: Request) {
         !verifyResponse.ok ||
         verifiedTxRef !== txRef ||
         verifiedData?.currency !== existing.currency ||
-        Number(verifiedData?.amount) !== Number(existing.amount)
+        Number(verifiedData?.amount) !== Number(existing.amount) ||
+        normalizedStatus(verifiedStatus) !== "SUCCESSFUL"
       ) {
         console.error("Flutterwave verification mismatch", {
           txRef,
           verifiedTxRef,
           verifiedStatus,
         });
+        const verificationFailed = !verifyResponse.ok || verifiedTxRef !== txRef || verifiedData?.currency !== existing.currency || Number(verifiedData?.amount) !== Number(existing.amount);
         await supabase
           .from("onboarding_payments")
           .update({
-            status: "failed",
+            status: verificationFailed ? "failed" : "pending",
             provider_transaction_id: providerId,
             updated_at: new Date().toISOString(),
           })
@@ -187,7 +192,10 @@ export async function POST(request: Request) {
       { onConflict: "reference_id" },
     );
 
-  if (ledgerError) console.error("solvix_transactions ledger update failed", ledgerError);
+  if (ledgerError) {
+    console.error("solvix_transactions ledger update failed", ledgerError);
+    return json({ error: "Verified payment could not be recorded; webhook retry required" }, 500);
+  }
 
   if (status === "SUCCESSFUL") {
     const { error: profileError } = await supabase
