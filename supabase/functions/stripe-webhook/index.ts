@@ -14,11 +14,16 @@ Deno.serve(async (req) => {
   try {
     const payload = await req.text();
     const event = await stripe.webhooks.constructEventAsync(payload, signature, secret);
-    if (event.type === "checkout.session.completed") {
+    if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
       const session = event.data.object as Stripe.Checkout.Session;
       const amount = session.amount_total ?? 0;
       const currency = session.currency ?? "usd";
-      await supabase.from("earning_transactions").upsert({
+      // Checkout completion can precede settlement for delayed payment methods.
+      // Only a provider-confirmed paid session with a positive amount is revenue.
+      if (session.payment_status !== "paid" || amount <= 0) {
+        return new Response(JSON.stringify({ received: true, credited: false, reason: "payment not settled" }), { status: 200, headers: { "Content-Type": "application/json" } });
+      }
+      const { error: ledgerError } = await supabase.from("earning_transactions").upsert({
         source: "stripe",
         external_id: session.id,
         amount,
@@ -26,6 +31,10 @@ Deno.serve(async (req) => {
         status: "confirmed",
         metadata: { payment_status: session.payment_status, customer_email: session.customer_details?.email ?? null },
       }, { onConflict: "external_id" });
+      if (ledgerError) {
+        console.error("earning_transactions ledger write failed", ledgerError);
+        return new Response("Ledger write failed; provider retry required", { status: 500 });
+      }
     }
     return new Response(JSON.stringify({ received: true }), { status: 200, headers: { "Content-Type": "application/json" } });
   } catch (error) {
